@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        span{
+            display: inline-block;
+            width: 100px;
+            text-align: right;
+            margin-right: 10px;
+            font-size: 14px;
+            font-family: "宋体";
+
+        }
+        textarea{
+            width: 200px;height: 100px;
+            overflow-y: scroll;
+        }
+
+    </style>
+</head>
+<body>
+    <form action="" method="psst">
+        <span>姓名</span><input type="text" value="" placeholder="请输入"> <br />
+
+        <span>手机号码</span><input type="text"  maxlength="11"><br />
+
+        <span>密码</span><input type="password"><br />
+
+        <span>婚姻情况</span><input type="radio" name="q1"> 未婚<input type="radio" name="q1"> 离婚<input type="radio" name="q1">丧偶<br />
+
+        <span>你喜欢的明星</span><input type="checkbox" name="like" >吴签<input type="checkbox"  checked="checked" name="like">郑爽<input type="checkbox" name="like">罗志祥<input type="checkbox" name="like">王思聪<br />
+
+        <span></span><input type="reset" value="清除"> 
+        <input type="submit" value="同意协议并注册">
+
+        <select >
+            <option > 拍小电影</option>
+            <option > 拍大的小电影</option>
+            <option > 拍美国动作大片</option>
+            <option > 拍日本大电影</option>
+            <option > 好好学习H5</option>
+            <option > 拍哪吒宝贝屁股</option>
+        </select><br />
+
+       <span>请写下你的建议</span> <textarea></textarea>
+
+    </form>
+</body>
+</html>
