@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>无缝滚动</title>
+    <link rel="stylesheet" href="./banner.css" />
+    <script src="./anim_tool.js"></script>
+</head>
+
+<body>
+    <div class="banner">
+
+        <!-- 轮播图 -->
+        <ul class="imgBox clearFix">
+            <li style="background-color: red">1</li>
+            <li style="background-color: orange">2</li>
+            <li style="background-color: green">3</li>
+            <li style="background-color: pink">4</li>
+            <li style="background-color: yellow">5</li>
+        </ul>
+
+        <!-- 指示器存放处 -->
+        <ol class="pointBox"></ol>
+
+        <div class="leftRightTabs">
+            <a class="left"> &lt; </a>
+            <a class="right"> &gt; </a>
+        </div>
+
+    </div>
+
+    <script>
+        const btnPrev = document.querySelector(".left")
+        const btnNext = document.querySelector(".right")
+        const ul = document.querySelector("ul")
+
+        /* 做【移形换影准备】 5-12345-1 */
+        const head = ul.lastElementChild.cloneNode(true)
+        const tail = ul.firstElementChild.cloneNode(true)
+        ul.insertBefore(head, ul.firstElementChild)
+        ul.appendChild(tail)
+        ul.style.width = 600 * ul.children.length + "px"
+
+        // 定义当前页码
+        let currentIndex = 1
+        // turnToPage(currentIndex)
+        ul.style.left = -600 * currentIndex + "px"
+
+        /* 上一张 */
+        function goPrev() {
+            console.log("previous")
+            turnToIndex(--currentIndex)
+        }
+
+        /* 下一张 */
+        function goNext() {
+            console.log("next")
+            turnToIndex(++currentIndex)
+        }
+
+        btnPrev.addEventListener(
+            "click",
+            e => {
+                goPrev()
+            }
+        )
+
+        btnNext.addEventListener(
+            "click",
+            e => {
+                goNext()
+            }
+        )
+
+        function turnToIndex(n) {
+            animate(
+                ul,
+                { left: (-600 * n + "px") },
+                1000,
+                () => {
+                    console.log("动画完成")
+
+                    // 移形换影大法
+
+                    /* 5-12345-【1】 */
+                    if (currentIndex === 6) {
+                        currentIndex = 1
+                        ul.style.left = -600 * currentIndex + "px"
+                    }
+
+                    /* 【5】-12345-1 */
+                    if (currentIndex === 0) {
+                        currentIndex = 5
+                        ul.style.left = -600 * currentIndex + "px"
+                    }
+                }
+            )
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>滚动事件</title>
+    <style>
+        body {
+            height: 2000px;
+        }
+
+        #btnTop {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btnTop">返回顶部</button>
+
+    <script>
+        // ·当页面滚动时动态显示当前滚动的高度
+        window.onscroll = function () {
+            console.log(window.scrollY); //bom
+            console.log(document.documentElement.scrollTop); //dom
+        }
+
+        // ·点击返回顶部按钮，页面逐渐滚动回顶部
+        btnTop.onclick = function () {
+            // 每40毫秒（相当于1秒25帧）滚动100px
+            var timerId = setInterval(function () {
+                if (document.documentElement.scrollTop > 100) {
+                    document.documentElement.scrollTop -= 100
+                }
+
+                // 滚动见顶时将scrollTop置为0 并清除定时器
+                else {
+                    document.documentElement.scrollTop = 0
+                    // 清除定时器
+                    clearInterval(timerId)
+                }
+            }, 40);
+        }
+    </script>
+</body>
+
+</html>

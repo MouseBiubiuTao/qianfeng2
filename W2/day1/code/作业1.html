@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1. 定义一个含有30个整型元素的数组，按顺序分别赋予从2开始的偶数；然后按顺序每五个数求出一个平均值，放在另一个数组中并输出。试编程。
+        var arr = []
+        for (var i = 2; i < 61; i += 2) {
+            arr.push(i)
+        }
+        // console.log(arr);
+
+        function pinjunshu(arr) {
+            var sum = 0;
+            for (var i = 0; i < arr.length; i++) {
+                sum += arr[i]
+            }
+            return sum / arr.length
+        }
+
+        var tempArr = []
+        var retArr = []
+
+        for (var i = 0; i < arr.length; i++) {
+            tempArr.push(arr[i])
+
+            if (tempArr.length === 5) {
+                var ret = pinjunshu(tempArr)
+                retArr.push(ret)
+                tempArr.splice(0, 5)
+            }
+        }
+        console.log(retArr);
+    </script>
+</body>
+
+</html>

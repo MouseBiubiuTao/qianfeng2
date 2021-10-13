@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册</title>
+</head>
+<body>
+    <h1>免费注册</h1>
+    <div>
+        <!-- <form> -->
+            <div class="form-item">
+                <label for="username">用户名</label>
+                <input type="text" id="username">
+            </div>
+            <div class="form-item">
+                <label for="password">密码</label>
+                <input type="password" id="password">
+            </div>
+
+            <button class="btnSubmit">注册</button>
+        <!-- </form> -->
+
+        <script>
+            const username = document.querySelector('#username')
+            const password = document.querySelector('#password')
+            const btnSubmit = document.querySelector('.btnSubmit')
+
+            const xhr_check = new XMLHttpRequest()
+            xhr_check.onload = function(){
+                const data = xhr_check.responseText
+                console.log('data',data)
+                if(data !== '可注册'){
+                    alert('用户名已存在')
+                }
+            }
+
+            username.onchange = function(){
+                xhr_check.open('get','http://localhost:2108/api/reg/check?username='+username.value,true)
+                xhr_check.send()
+            }
+
+            const xhr = new XMLHttpRequest()
+            xhr.onload = function(){
+                const data = xhr.responseText;
+                console.log('dat')
+            }
+            btnSubmit.onclick = function(){
+                xhr.open('post','http://localhost:2108/api/reg',true)
+
+                // 设置Content-Type请求头
+                // xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded')
+                
+                // x-www-form-urlencoed
+                // xhr.send(`username=${username.value}&password=${password.value}`)
+                
+                // json
+                xhr.setRequestHeader('Content-Type','application/json')
+                xhr.send(JSON.stringify({
+                    username:username.value,
+                    password:password.value
+                }))
+            }
+
+        </script>
+    </div>
+</body>
+</html>

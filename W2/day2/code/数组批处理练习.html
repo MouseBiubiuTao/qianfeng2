@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        var arr = ["白切鸡", "柠檬鸡", "手撕鸡", "去嫖鸡"]
+
+        function demoForEach() {
+            arr.forEach(
+                function (value, index, array) {
+                    console.log(value, index, array);
+                    var newValue = "想吃" + value;
+                    document.write(newValue + "<br>")
+                }
+            )
+        }
+        // demoForEach()
+
+        function demoMap() {
+            var newArr = arr.map(
+                function (value) {
+                    var newValue = value.replace("嫖", "玩")
+                    return newValue
+                }
+            )
+            console.log(newArr);
+            console.log(arr);
+        }
+        // demoMap()
+
+        function demoFilter() {
+            var newArr = arr.filter(
+                function (value) {
+                    return value.includes("柠檬") //单独过滤出有柠檬的鸡
+                    // return !value.includes("柠檬")//过滤出没有柠檬的鸡
+                }
+            )
+            console.log(arr);
+            console.log(newArr);
+        }
+        // demoFilter()
+
+
+        function demoSome() {
+            var newArr = arr.some(
+                function (value) {
+                    return value.includes("切") //ture
+                }
+            )
+            console.log(newArr);
+        }
+        // demoSome()
+
+        function demoEvery() {
+            var newArr = arr.every(
+                function (value) {
+                    return value.includes("鸡") //ture
+                    // return value.includes("柠檬")//false
+                }
+            )
+            console.log(newArr);
+        }
+        demoEvery()
+    </script>
+
+</body>
+
+</html>

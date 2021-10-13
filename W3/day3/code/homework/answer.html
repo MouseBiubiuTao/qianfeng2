@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>homework</title>
+    <style>
+        #container {
+            width: 800px;
+            height: 600px;
+            margin: 50px auto;
+            border: 1px solid black;
+            position: relative;
+        }
+
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: cadetblue;
+            position: absolute;
+            left: 0;
+            top: 0;
+            /* transition: all 1s 0s linear; */
+        }
+    </style>
+</head>
+
+<body>
+    <p id="pPosition"></p>
+    <div id="container">
+        <div id="box"></div>
+    </div>
+
+    <script>
+        // 拖拽回放（拖拽盒子 碰到边界时 回到开始拖拽时的起始位置）
+        function fn1() {
+            var shouldDrag = false
+
+            var startLeft, startTop
+            box.addEventListener(
+                "mousedown",
+                function () {
+                    // 记录原始位置（碰到边界时要回这里）
+                    startLeft = window.getComputedStyle(this).left
+                    startTop = window.getComputedStyle(this).top
+
+                    shouldDrag = true
+                }
+            )
+
+            document.addEventListener(
+                "mouseup",
+                function () {
+                    shouldDrag = false
+                }
+            )
+
+            var col = container.offsetLeft
+            var cot = container.offsetTop
+            var cw = container.clientWidth
+            var ch = container.clientHeight
+
+            var bw = box.clientWidth
+            var bh = box.clientHeight
+
+
+            document.addEventListener(
+                "mousemove",
+                function (e) {
+                    // if (!shouldDrag) return
+                    if (!shouldDrag) {
+                        return
+                    }
+
+                    var computedLeft = e.pageX - col - bw / 2
+                    var computedTop = e.pageY - cot - bh / 2
+
+                    box.style.left = computedLeft + "px"
+                    box.style.top = computedTop + "px"
+
+                    /* 边界检测 */
+                    switch (true) {
+
+                        // 左侧越界
+                        case computedLeft <= 0:
+
+                        // 右侧越界
+                        case computedLeft >= cw - bw:
+
+                        // 顶边越界
+                        case computedTop <= 0:
+
+                        // 底部越界（4个case共用一个处理逻辑）
+                        case computedTop >= ch - bh:
+                            console.log("你碰到伦家了！");
+
+                            // 回原始位置
+                            box.style.left = startLeft
+                            box.style.top = startTop
+
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+            )
+        }
+        // fn1()
+
+        /* 动画效果 */
+        function fn1Plus() {
+            var shouldDrag = false
+
+            var startLeft, startTop
+            box.addEventListener(
+                "mousedown",
+                function () {
+                    // 记录原始位置（碰到边界时要回这里）
+                    startLeft = window.getComputedStyle(this).left
+                    startTop = window.getComputedStyle(this).top
+
+                    shouldDrag = true
+                }
+            )
+
+            document.addEventListener(
+                "mouseup",
+                function () {
+                    shouldDrag = false
+                }
+            )
+
+            var col = container.offsetLeft
+            var cot = container.offsetTop
+            var cw = container.clientWidth
+            var ch = container.clientHeight
+
+            var bw = box.clientWidth
+            var bh = box.clientHeight
+
+
+            document.addEventListener(
+                "mousemove",
+                function (e) {
+                    // if (!shouldDrag) return
+                    if (!shouldDrag) {
+                        return
+                    }
+
+                    var computedLeft = e.pageX - col - bw / 2
+                    var computedTop = e.pageY - cot - bh / 2
+
+                    box.style.left = computedLeft + "px"
+                    box.style.top = computedTop + "px"
+
+                    /* 边界检测 */
+                    switch (true) {
+
+                        // 左侧越界
+                        case computedLeft <= 0:
+
+                        // 右侧越界
+                        case computedLeft >= cw - bw:
+
+                        // 顶边越界
+                        case computedTop <= 0:
+
+                        // 底部越界（4个case共用一个处理逻辑）
+                        case computedTop >= ch - bh:
+                            console.log("你碰到伦家了！");
+
+                            // 回原始位置（加动画）
+                            // 临时性给个动画属性
+                            box.style.transition = "all 0.5s 0s linear"
+
+                            // 带动画地回到起始位置
+                            box.style.left = startLeft
+                            box.style.top = startTop
+
+                            // 时辰已到时取消动画样式
+                            setTimeout(
+                                function () {
+                                    box.style.transition = "none"
+                                },
+                                500
+                            );
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+            )
+        }
+        fn1Plus()
+    </script>
+</body>
+
+</html>

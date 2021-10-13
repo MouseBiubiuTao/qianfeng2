@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>16_判断数据类型</title>
+</head>
+<body>
+
+
+
+  <script>
+    // typeof  只能准确的检测基本数据类型
+    // console.group('typeof')
+    // console.log(typeof(123))
+    // console.log(typeof('abc'))
+    // console.log(typeof(true))
+    // console.log(typeof(undefined))//undefined
+    // console.log(typeof(null))//object
+    // console.log(typeof([1, 2]))//object Array
+    // console.log(typeof({ name: 'Jack' }))
+    // console.log(typeof(function () {}))//function
+    // console.log(typeof(/^abc$/))//object RegExp
+    // console.log(typeof(new Date()))//object Date
+    // console.groupEnd()
+
+
+    // 有一个新的方法用来判断数据类型
+    // 适用于所有的数据类型
+    // Object.prototype.toString.call(你要检测是数据类型)
+    console.group('准确检测')
+    console.log(Object.prototype.toString.call(123))
+    console.log(Object.prototype.toString.call('abc'),"abc".toString())
+    console.log(Object.prototype.toString.call(true))
+    console.log(Object.prototype.toString.call(undefined))
+    console.log(Object.prototype.toString.call(null))//[object Null]
+    console.log(Object.prototype.toString.call([]))//[object Array]
+    console.log(Object.prototype.toString.call({}))
+    console.log(Object.prototype.toString.call(function () {}))//[object Function]
+    console.log(Object.prototype.toString.call(/^abc$/))//[object RegExp]
+    console.log(Object.prototype.toString.call(new Date()))//[object Date]
+    console.groupEnd()
+
+  </script>
+</body>
+</html>

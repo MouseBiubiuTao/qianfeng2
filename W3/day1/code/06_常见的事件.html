@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>06_常见的事件</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+
+    <input type="text" />
+
+    <!-- context上下文 menu菜单 -->
+    <script>
+        // 都有哪些常见事件
+
+        /*
+        鼠标事件
+            + click
+            + contextmenu  鼠标右键单机事件
+
+            + mousedown 鼠标按下事件
+            + mouseup 鼠标抬起事件
+            + mousemove 鼠标移动事件
+
+            + mouseover 鼠标进入事件
+            + mouseout  鼠标移除事件
+            
+            + monseenter  鼠标移入事件（功能与mouseover一直 但没有事件冒泡 后面会讲）
+            + mouseleave  鼠标移除事件
+
+        键盘事件
+            + keydown
+            + keyup
+
+        浏览器事件
+            + onload
+            + onscroll
+            + onresize
+
+        表单事件
+            + focus    获取焦点
+            + blur     失去焦点
+            + input    用户输入
+            + change   文本改变（当失去焦点时）
+        */
+        var div = document.querySelector("div");
+
+        // 点击鼠标左键
+        // div.onclick = function () {
+        //     console.log("onclick");
+        //     this.style.transition = "width 2s linear";
+        //     this.style.width = "500px";
+        // };
+
+        // // 点击鼠标右键
+        // div.oncontextmenu = function (e) {
+        //     console.log(`您在(${e.offsetX},${e.offsetY})位置点击了鼠标右键`);
+        // }
+
+        // // // 鼠标移入div
+        // div.onmouseover = function (e) {
+        //     console.log("onmouseover我进入元素");
+        // };
+
+        // // // 鼠标移出
+        // div.onmouseout = function (e) {
+        //     console.log("onmouseout我离开元素了");
+        // };
+
+        // // 鼠标移入div
+        // div.onmouseenter = function () {
+        //     console.log("onmouseenter 鼠标进入enter");
+        // };
+
+        // // 鼠标移出
+        // div.onmouseleave = function () {
+        //     console.log("onmouseleave 鼠标离开leave");
+        // };
+
+        // /* 其它鼠标事件 */
+        // // double 双份的
+        // // 双击鼠标事件 double
+        // div.ondblclick = function (e) {
+        //     console.log("ondblclick", e);
+        // };
+
+        // // // 按下鼠标
+        // div.onmousedown = function (e) {
+        //     console.log("onmousedown", e);
+        // };
+
+        // // 抬起鼠标
+        // div.onmouseup = function (e) {
+        //     console.log("onmouseup", e);
+        // };
+
+        // // 移动鼠标
+        // div.onmousemove = function (e) {
+        //     console.log("onmousemove", e);
+        // };
+
+
+
+        // /* input框的常用事件 */
+        var inp = document.querySelector("input");
+
+        // // 输入框得到焦点（聚焦事件）
+        // // focus 聚焦 对焦
+        inp.onfocus = function () {
+            console.log("onfocus 我得到焦点了");
+        };
+
+        // // blur 模糊的
+        // // 输入框失去焦点
+        inp.onblur = function () {
+            console.log("onblur 我失去焦点了");
+        };
+
+        // // 用户输入事件
+        inp.oninput = function () {
+            console.log("oninput 用户正在输入");
+        };
+
+        // 文本改变事件
+        inp.onchange = function () {
+            console.log("onchange 文本确认发生改变");
+        };
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>获取DOM元素</title>
+    <style>
+        body {
+            width: 100%;
+            height: 2000px;
+        }
+
+        #btnTop {
+            position: fixed;
+            right: 50px;
+            bottom: 50px;
+        }
+
+        #banner {
+            width: 100%;
+            height: 0px;
+            position: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            top: 0;
+            left: 0;
+            background-color: skyblue;
+            color: white;
+            font-size: 30px;
+            overflow: hidden;
+            transition: height 0.5s linear;
+        }
+
+        #adBox {
+            width: 200px;
+            height: 150px;
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            border: 1px solid gray;
+            background-color: lightgray;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #btnFuckoff {
+            width: 100%;
+        }
+
+        .grayItem {
+            background-color: gray;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="newsBox">
+        <ul>
+            <li class="news-item">新闻标题</li>
+            <li class="news-item">新闻标题</li>
+            <li class="news-item">新闻标题</li>
+            <li class="news-item">新闻标题</li>
+            <li class="news-item">新闻标题</li>
+        </ul>
+    </div>
+
+    <script>
+        // ·演示通过id、className、标签、选择器获取页面元素
+        // console.log(newsBox);
+        // var element = document.getElementById("newsBox")
+        // console.log(element);
+
+        // 通过类名获取元素
+        // var lis = document.getElementsByClassName("news-item")
+
+        // 通过标签获取元素
+        // var lis = document.getElementsByTagName("li")
+        // console.log(lis);
+        // for (var i = 0; i < lis.length; i++) {
+        //     lis[i].onclick = function () {
+        //         console.log(window.confirm("人家好看吗？"));
+        //     }
+        // }
+        // lis[0].onclick = function () {
+        //     window.alert("fuck off")
+        // }
+
+        // 通过选择器获取元素
+        // 默认选中文档中的第一个符合条件的元素
+        // var firstElement = document.querySelector("li.news-item")
+        // firstElement.onclick = function(){
+        //     alert("死开")
+        // }
+
+        // 找出符合选择器的全部元素（伪数组）
+        var elements = document.querySelectorAll("li.news-item")
+        // 通过下标遍历伪数组 逐个地加监听器
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].onclick = function () {
+                alert("拿开你的咸猪手")
+            }
+        }
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Mianguang(mianguangID) {
+            this.type = mianguangID;
+
+            this.makeNoodles = function () {
+                console.log("采购");
+                console.log("加工食材");
+                console.log("准备调料");
+                console.log("烹饪食材");
+                console.log("准备汤水");
+                console.log("准备小菜");
+                console.log("开门营业");
+                return `一碗经过了28道工序的${this.type}`
+            }
+        }
+        const ylfw = new Mianguang("玉林风味")
+        // ylfw.makeNoodles()
+
+        const noodles = ylfw.makeNoodles()
+
+        console.log(`吃${noodles}`);
+    </script>
+</body>
+
+</html>

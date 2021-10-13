@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+
+  <script>
+
+    /* 公司的构造方法 */
+    function Company(name) {
+
+      // 每个公司实例都有名字
+      this.name = name
+
+      // 每个公司实例都有员工若干
+      this.workers = []
+
+      // 每家公司都会运作
+      this.run = function () {
+        console.log(`${this.name}开始运作`);
+
+        /* 招人并勒令其工作 */
+        this.zhaoren()
+        this.makeThemWork()
+      }
+
+      /* 招人 */
+      this.zhaoren = function () {
+        console.log(`${this.name}正在招人`);
+
+        /* 往自己的员工列表中添加一个财务人员+一个码农 */
+        this.workers.push(new Caiwu(6000))
+        this.workers.push(new Coder(3000))
+      }
+
+      /* 勒令员工工作 */
+      this.makeThemWork = function () {
+        console.log(`${this.name}勒令员工工作`);
+
+        /* 遍历员工列表 令每个员工都开始工作 */
+        this.workers.forEach(
+          w => w.work()
+        )
+      }
+
+    }
+
+    /* 财务人员构造方法 */
+    function Caiwu(salary) {
+      this.salary = salary
+
+      this.work = function () {
+        setInterval(() => {
+          console.log(`月薪${this.salary}元的财务正在理账`);
+        }, 1000);
+      }
+    }
+
+    /* 码农构造方法 */
+    function Coder(salary) {
+      this.salary = salary
+
+      this.work = function () {
+        setInterval(() => {
+          console.log(`月薪${this.salary}元的码农正在搬砖`);
+        }, 1000);
+      }
+    }
+
+    /* 创建一个公司实例 令其开始运转 */
+    const c = new Company("万锋互联")
+    c.run()
+
+  </script>
+</body>
+
+</html>

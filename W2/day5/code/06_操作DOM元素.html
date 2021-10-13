@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <div>
+    <p>
+      <span>我是一个 span 标签</span>
+    </p>
+  </div>
+
+  <script>
+
+    var div = document.querySelector('div')
+    var span = document.querySelector('span')
+
+    var str = '<p>asdasd</p>'
+
+    // innerHTML 只接受字符串
+    div.innerHTML = str
+
+    // 可以创造一个 元素 来添加事件
+
+    // 1. 创建一个 dom 元素
+    // createELement
+    // 语法： document.createElement('你要创造的标签')
+    // 返回值： 就是一个 DOM 元素(就是一个真实的 DOM 元素)
+    var p = document.createElement('p')
+    // createTextNode 创建一个文本节点
+    // 语法： document.createTextNode('你要创建的文本')
+    // 返回值： 就是一个文本节点
+    var text = document.createTextNode('我是一个被创建出来的文本节点')
+    p.appendChild(text)//<p>我是一个被创建出来的文本节点</p>
+
+    // 2. 怎么把创建好的 DOM 元素丢到页面的标签中
+    // appendChild()
+    // 语法： 父元素.appendChild(你要添加的子元素)
+    // 是追加一个进去，不会影响之前的内容
+    div.appendChild(p)
+
+    // 3. 插入节点还有一个方法，丢到某一个元素的前面
+    // insertBefore
+    // 语法： dom元素.insertBefore(你要插入的元素, 你要插入到哪一个元素前面)
+    // 你要插入哪个元素的里面.insertBefore(插入什么元素，插入哪个元素的前面)
+    div.insertBefore(span,p)
+
+    // // 4. 移除一个元素节点
+    // // removeChild()
+    // // 语法： 父元素.removeChild(你要移除的子元素)
+    div.removeChild(span)
+
+    // // 5. 替换一个元素
+    // // replaceChild
+    // // 语法： 父元素.replaceChild(要替换进入的元素， 把原先的哪一个元素替换掉)
+    div.replaceChild(span,p)
+
+    // // 6. 克隆一个节点
+    // // cloneNode
+    // // 语法： dom元素.cloneNode() 可以填写一个参数，参数可以写可以不写
+    // //        参数不写默认是 false
+    // //       参数是 false，表示只科隆自己，不克隆子元素
+    // //       参数是 true，连带所有后代元素都克隆了
+    // // 返回值： 就是一个被克隆好的 dom 元素
+    var res = div.cloneNode(true)
+    console.log(res)
+
+    document.body.appendChild(res)
+
+  </script>
+</body>
+</html>

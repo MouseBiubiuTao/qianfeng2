@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>08_案例：打字游戏</title>
+    <style>
+        .normal {
+            color: black;
+        }
+
+        .right {
+            color: green;
+        }
+
+        .wrong {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <p id="pChar"></p>
+    <span id="spRet"></span>
+
+    <script>
+        function getRandomItem(arr) {
+            return arr[parseInt(arr.length * Math.random())]
+        }
+    </script>
+
+    <script>
+        // ·屏幕随机出现字母
+        var letters = "abcdefghijklmnopqrstuvwxyz"
+        // console.log( getRandomItem(letters) );
+
+
+        var targetLetter;
+        function createQuestion() {
+            targetLetter = getRandomItem(letters)
+            pChar.innerText = targetLetter
+            spRet.innerText = "请输入答案"
+            spRet.className = "normal"
+        }
+        createQuestion()
+
+        // ·用户按下键盘，屏幕显示回答正确与否
+        document.onkeyup = function (ke) {
+            console.log("用户输入了", ke.key);
+            // pChar.innerText = ke.key
+
+            // ·当用户按下ESC时游戏结束  
+            if (ke.key === "Escape") {
+                spRet.innerText = "GAME OVER!"
+                document.onkeyup = null
+                return
+            }
+
+            // 屏幕显示回答正确与否
+            if (ke.key === targetLetter) {
+                spRet.innerText = "回答正确"
+                spRet.className = "right"
+            } else {
+                spRet.innerText = "回答错误"
+                spRet.className = "wrong"
+            }
+
+            // 500毫秒后 下一题
+            // setTimeout(
+            //     createQuestion,
+            //     500
+            // );
+            setTimeout(
+                function () {
+                    createQuestion()
+                },
+                500
+            );
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        var arr = [{
+                name: 'Jack',
+                age: 18,
+                gender: '男'
+            },
+            {
+                name: 'Rose',
+                age: 20,
+                gender: '女'
+            },
+            {
+                name: 'Top',
+                age: 22,
+                gender: '男'
+            }
+        ]
+
+        function fn23() {
+            var htmlStr = "<table border='1'>";
+            var tr = "<tr>";
+            tr += "<th>序号</th>"
+
+            var obj = arr[0]
+            for (var key in obj) {
+                var td = `<th>${key}</th>`
+                tr += td
+            }
+
+            tr += "</tr>"
+            htmlStr += tr
+
+            arr.forEach(
+
+                function (obj, index) {
+
+                    var tr = "<tr>";
+                    tr += `<td>${index}</td>`
+
+                    for (var key in obj) {
+                        var td = `<td>${obj[key]}</td>`
+                        tr += td;
+                    }
+                    tr += "</tr>"
+                    htmlStr += tr
+
+                }
+            )
+
+            htmlStr += "</table>"
+            // console.log(htmlStr);
+            var body = document.querySelector("body")
+            body.innerHTML = htmlStr
+
+        }
+        // fn23()
+
+        function fn32() {
+            var htmlStr = `<table border = '1'>`
+            var tr = `<tr>`
+
+            tr += `<th>序号</th>`
+
+
+            var obj = arr[0]
+            for (var key in obj) {
+                var th = `<th>${key}</th>`
+                tr += th
+            }
+            tr += `<th>moiv</th>`
+            tr += `</tr>`
+            htmlStr += tr
+
+            arr.forEach(
+                function (obj, index) {
+                    var tr = `<tr>`
+                    tr += `<td>${index+1}</td>`
+
+                    var arr1 = obj;
+                    for (var key in arr1) {
+                        var td = `<td>${arr1[key]}</td>`
+                        tr += td;
+                    }
+
+                    tr += `<td class = "tdDel" index=${index}>删除</td>`
+
+                    tr += `</tr>`
+                    htmlStr += tr
+                }
+            )
+            htmlStr += `</table>`
+            var body = document.querySelector("body")
+            body.innerHTML = htmlStr
+
+            var del = document.querySelectorAll(".tdDel")
+            for (i = 0; i < del.length; i++) {
+                var td = del[i];
+                td.onclick = function () {
+                    var index = this.getAttribute("index");
+                    console.log(`删除第${index}行`);
+
+                    arr.splice(index, 1);
+
+                    if (arr.length > 0) {
+                        fn32()
+                    } else {
+                        body.innerHTML = ""
+                    }
+                }
+            }
+
+        }
+        fn32()
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>05_箭头函数的注意点</title>
+</head>
+
+<body>
+    <div>点我试试</div>
+
+    <script>
+        // 箭头函数里面的 this 是context上下文 即父对象的作用域
+
+        /* 卵都没有.fn() 等价于 window.fn() */
+        // function fn() {
+        //   console.log(this)//window
+        // }
+
+        /* 
+        普通函数：谁调用劳资 this就是谁
+        箭头函数：父级对象声明在哪（上下文） this就是哪
+        */
+        var obj = {
+            name: 'obj',
+            fn5: function () {
+                console.log(this)//
+            },
+
+            fn6: () => {
+                // 箭头函数在作用域中就近找this
+                console.log(this)//window
+            }
+        }
+        // obj.fn5()//obj
+        // obj.fn6()//window
+
+        const zs = { name: "张三" }
+        zs.hello5 = obj.fn5
+        zs.hello6 = obj.fn6
+        zs.hello5()//zs
+        zs.hello6()//window
+
+        /* 
+        普通函数：谁调用劳资 this就是谁
+        箭头函数：父级对象（上下文）声明在哪 this就是哪
+         */
+        const div = document.querySelector("div");
+        /* 
+        div： {
+            onclick: function(){
+                fun: f
+            }
+        }
+        */
+        /* 当点击div时... */
+        div.onclick = function (e) {
+            //    指向事件源
+            console.log(this); //div
+
+            // // fun的父级对象onclick函数的作用域在div内部 fun中的this就是div
+            const fun = () => {
+                console.log(this);//div
+            };
+            fun();
+
+            var fn = function () {
+                console.log(this);//window
+            };
+            fn();
+        };
+
+            // 普通函数可以通过arguments获取全部实参
+            // var fn5 = function () {
+            //     console.log(arguments);
+            // };
+            // fn5(1, 2, 3, 4, 5, 6);
+
+            // 箭头函数里没得argumengts！
+            // const fn6 = () => {
+            //     console.log(arguments); //Uncaught ReferenceError: arguments is not defined
+            // };
+            // fn6(1, 2, 3, 4, 5, 6);
+
+    </script>
+</body>
+
+</html>

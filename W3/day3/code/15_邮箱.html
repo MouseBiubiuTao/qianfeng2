@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15_邮箱</title>
+</head>
+<body>
+    <input type="text" id="ipEmail"><button id="btn">检测邮箱是否合法</button>
+    <script>
+        // 非下划线的单词字符 + 2个以上单词字符 + @ + 2位以上单词字符域名 + .2位以上小写字母做域名后缀 + (.2位以上二重域名后缀)?
+        // var reg = /^(用户名)@(组织名)\.(一级域名后缀)(二级域名后缀)?$/
+        var reg = /^([a-zA-Z\d][\w-]{2,})@(\w{2,})\.([a-z]{2,})(\.[a-z]{2,})?$/
+        
+        btn.onclick = function(e){
+            var ret = reg.test(ipEmail.value)
+            alert(ret)
+        }
+    </script>
+</body>
+</html>

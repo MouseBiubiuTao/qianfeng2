@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>地址栏信息</title>
+</head>
+
+<body>
+    <button id="btnHref">去百度</button>
+    <button id="btnRefresh">刷新页面</button>
+    <script>
+        // 03_获取浏览器地址栏的信息
+        // ·打印地址栏信息
+        console.log(window.location.href);
+
+        // ·点击按钮刷新页面
+        btnRefresh.onclick = function () {
+            window.location.reload()
+        }
+
+        // ·点击按钮跳转百度  
+        btnHref.onclick = function () {
+            // window.location.href = "http://www.baidu.com"
+            window.location.assign("http://www.baidu.com")
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>05_事件委托</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        ul {
+            width: 1000px;
+            height: 1600px;
+            background-color: pink;
+            overflow: hidden;
+        }
+
+        li {
+            width: 200px;
+            height: 200px;
+            background-color: skyblue;
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>0</li>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+
+    <!-- 没有用事件委托 -->
+    <!-- <script>
+            /* 点击哪个Li 就显示它的文本 */
+            var lis = document.querySelectorAll("ul>li")
+            lis.forEach(
+                function(li,index){
+
+                    /* 总共4个事件监听器对象 当li不复存在时 还需要手动removeEventListener */
+                    li.addEventListener(
+                        "click",
+                        function(e){
+                            console.log(this.innerText);
+                        }
+                    )
+                }
+            )
+        </script> -->
+
+    <!-- 使用事件委托 -->
+    <script>
+        var ul = document.querySelector("ul")
+        ul.addEventListener(
+            "click",
+            function (e) {
+                if (e.target.nodeName === "LI") {
+                    console.log(e.target.innerText);
+                }
+
+                // console.log(e.target.nodeType,e.target.nodeName,e.target.nodeValue);
+
+                /* 如果点击的是空白处 则动态增加一个li 文本递增 同样有点击事件 */
+                else {
+                    var li = document.createElement("li")
+                    li.innerText = this.children.length
+                    this.appendChild(li)
+                }
+            }
+        )
+    </script>
+
+</body>
+
+</html>

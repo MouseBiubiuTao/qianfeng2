@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #adBox {
+            width: 200px;
+            height: 150px;
+            position: fixed;
+            right: 10px;
+            bottom: 10px;
+            background-color: skyblue;
+            font-size: 20px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #btnClose {
+            width: 100px;
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="adBox">
+        赏心悦目的广告
+        <button id="btnClose">不再出现</button>
+    </div>
+
+    <script>
+        btnClose.onclick = function () {
+            adBox.style.display = "none";
+
+            setInterval(
+                function () {
+                    adBox.style.display = "flex"
+                }, 2000
+            )
+        }
+    </script>
+
+</body>
+
+</html>

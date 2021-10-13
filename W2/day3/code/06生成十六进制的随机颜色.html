@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body style="background-color: #ccc;">
+    <button id="btn">点击更换颜色</button>
+
+    <script>
+        // ·生成十六进制的随机颜色（#fc05ac）
+        function getRandom(a, b) {
+            return a + Math.round((b - a) * Math.random())
+        }
+
+        function getRandomColor() {
+            var red = getRandom(0, 255)
+            var green = getRandom(0, 255)
+            var blue = getRandom(0, 255)
+
+            red = red.toString(16)
+            green = green.toString(16)
+            blue = blue.toString(16)
+            // console.log(red, green, blue);
+
+            red = red.length === 2 ? red : "0" + red
+            green = green.length === 2 ? green : "0" + green
+            blue = blue.length === 2 ? blue : "0" + blue
+            console.log(red, green, blue);
+
+            var ret = "#" + red + green + blue
+            return ret
+            console.log(ret);
+        }
+        getRandomColor()
+
+        btn.onclick = function () {
+            document.body.style = `background-color:${getRandomColor()}`
+        }
+    </script>
+</body>
+
+</html>

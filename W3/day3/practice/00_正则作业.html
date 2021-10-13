@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>00_正则作业</title>
+</head>
+
+<body>
+    <input type="text" id="ipValue"><span id="spPwdLevel">您的密码等级：</span><br>
+    <button id="btn">测试是否0-666/密码强度测试</button>
+    <script>
+        // 写一个验证 0 ～ 666 数字的正则
+        function fn1() {
+            // var reg = /(0-9)|(10-99)|(100-599)|(600-666)/
+            var reg = /^((\d)|([1-9]\d)|([1-5]\d{2})|((6[0-5]\d)|(66[0-6])))$/
+
+            btn.onclick = function (e) {
+                alert(reg.test(ipValue.value) ? "是0-666" : "不是0-666")
+            }
+        }
+
+        /* 
+        1. 实现密码强度验证【√】
+        前置条件：必须6-20位
+        - 弱：只有数字、字母、特殊符号中的一种
+        - 中：数字+字母
+        - 强：数字+字母+特殊符号[_!@#$%^&*]
+        */
+        function fn2() {
+            btn.onclick = function (e) {
+
+                // 拿到用户的输入
+                var pwd = ipValue.value
+
+                // 长度不合法 则直接fuckoff
+                if (pwd.length > 20 || pwd.length < 6) {
+                    // alert("密码长度必须是6-20位")
+                    spPwdLevel.innerText = "密码长度必须是6-20位"
+
+                    // 没有必要继续判断密码等级 直接返回
+                    return
+                }
+
+                // 包含系列
+                // 包含数字
+                var regContainNum = /\d+/
+                // 包含字母
+                var regContainLetter = /[a-z]+/i
+                // 包含操作符
+                var regContainOper = /[_!@#\$%\^&\*]+/
+
+                // 只包含系列
+                // 只包含数字
+                var regOnlyNum = /^\d+$/
+                // 只包含字母
+                var regOnlyLetter = /^[a-z]+$/i
+                // 只包含操作符
+                var regOnlyOper = /^[_!@#$%^&*]+$/
+
+                // 密码强弱等级的结果
+                var level;
+
+                // 是否强:三种都包含
+                if (regContainNum.test(pwd) && regContainLetter.test(pwd) && regContainOper.test(pwd)) {
+                    level = "强"
+                }
+
+                // 其次判断是否弱：只包含其中一种
+                else if (regOnlyNum.test(pwd) || regOnlyLetter.test(pwd) || regOnlyOper.test(pwd)) {
+                    level = "弱"
+                }
+
+                // 剩余的一定是中
+                else {
+                    level = "中"
+                }
+
+                // 在span中显示密码等级
+                spPwdLevel.innerText = `您的密码等级：${level}`
+            }
+
+        }
+
+        // 主程序入口
+        function main() {
+            // fn1()
+            fn2()
+        }
+
+        // 调用主程序
+        main()
+
+    </script>
+</body>
+
+</html>

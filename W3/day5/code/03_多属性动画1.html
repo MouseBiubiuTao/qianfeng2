@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+
+    <script>
+        const box = document.querySelector("#box")
+
+        /* 点击时让box去到(300,400)位置 */
+        box.addEventListener(
+            "click",
+            e => {
+                /* 拿到box的初始left和top */
+                let currentLeft = parseFloat(getComputedStyle(box).left)
+                let currentTop = parseFloat(getComputedStyle(box).top)
+
+                /* 计算好动画速度（每帧时left的偏移量） */
+                let leftSpeed = 300 / 25
+                let topSpeed = 400 / 25
+
+                let timer = setInterval(() => {
+
+                    /* 当前位置每帧都+=动画速度 */
+                    currentLeft += leftSpeed
+                    currentTop += topSpeed
+
+                    /* 重新设置box的位置 */
+                    box.style.left = currentLeft + "px"
+                    box.style.top = currentTop + "px"
+
+                    /* 判断是否已到达终点 到达则移除动画定时器 */
+                    if (currentLeft >= 300 && currentTop >= 400) {
+                        clearInterval(timer)
+                    }
+                }, 40);
+            }
+        )
+    </script>
+</body>
+
+</html>

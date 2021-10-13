@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Person(name, age) {
+
+            /* 每个Person实例的姓名和年龄都各不相同 */
+            this.name = name;
+            this.age = age;
+
+            /* 每个实例都开辟一块内存 存储值完全相同的方法（函数） */
+            Person.prototype.sayHi = function () {
+                console.log("hello");
+            };
+        }
+
+        // 在这一次执行的时候 开辟了一个 a 函数的空间
+        // 吧这个 a 函数空间的地址给了 p1.sayHi
+        const p1 = new Person("Jack", 18);
+
+        // 在这一次执行的时候，开辟了一个 a 函数的空间
+        // 把这个 a 函数的空间地址给了 p2.sayHi
+        const p2 = new Person("Rose", 21);
+
+        // 两个对象里面有一个同样的函数
+        console.log(p1.sayHi === p2.sayHi); // false
+
+        // 证明了一个 每次 new 的时候new 出来的对象中的函数都是一个单独的空间
+    </script>
+</body>
+
+</html>

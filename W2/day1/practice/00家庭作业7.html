@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1. 编写函数norepeat(arr) 将数组的重复元素去掉，并返回新的数组  
+        // 将arr中的每一个元素都丢到新数组中 条件是新数组中不含有该item newArr.indexOf(item)===-1
+        function noRepeat(arr){
+            var newArr = new Array()
+            for(var i=0;i<arr.length;i++){
+                var item = arr[i]
+                if(newArr.indexOf(item)===-1){
+                    newArr.push(item)
+                }
+            }
+            return newArr
+        }
+        var arr = Math.PI.toString().split("")
+        console.log(arr);
+
+        console.log(noRepeat(arr));
+    </script>
+</body>
+</html>

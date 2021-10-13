@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+
+
+  <script>
+    /*
+      function Banner() {
+        this.属性1 = 大盒子
+        this.属性2 = this.属性1 里面的所有图片
+      }
+
+      Banner.prototype.方法1 = function () {
+        // 操作 实例化对象的 属性1 和属性2
+      }
+    */
+
+    function Person(name) {
+      this.name = name
+    }
+
+    /* 原型方法：通过prototype共享给所有实例的方法 */
+    // 哪个实例调用该方法 该方法的this就指向哪个实例
+    Person.prototype.sayHi = function () {
+      console.log(this.name) // p1.name
+    }
+
+    // p1 是 Person 的实例化对象
+    // new 的时候会把 Person 构造函数内部的 this 指向前面这个变量
+    const p1 = new Person('Jack')
+
+    // 函数内部的 this 只看调用不看定义（箭头函数除外）
+    // 对象.函数名()  this => 对象
+    // 下面这个代码执行的时候，sayHi 函数内部的 this 就是 p1
+    p1.sayHi()
+
+    /*
+    构造函数体内的 this 指向当前实例对象
+    构造函数 prototype 上的每一个方法里面的 this 也是指向实例对象
+    */
+
+  </script>
+</body>
+</html>

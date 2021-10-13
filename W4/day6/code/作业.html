@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script>
+        //   @MyTable组件封装：
+        // ·将隔行变色的表格抽取为MyTable构造函数；
+        // ·由外界传入根元素和数据，自动完成渲染，并具有删除功能；
+        // （注意：每次创建实例，渲染逻辑&删除逻辑都不变）
+
+        function MyTable(domRoot, dataArr) {
+            this.domRoot = domRoot;
+            this.dataArr = dataArr;
+            this.domRoot.innerHTML = `<table border = 1 ></table>`
+            //找到table
+            this.table = this.domRoot.querySelector("table")
+            console.log(this.table);
+
+            //重新渲染
+            this.render()
+
+            //事件监听
+            this.startListen()
+        }
+
+        MyTable.prototype.render = function () {
+
+            if (!this.dataArr.length) {
+                this.table.style.display = "none"
+                return
+            }
+
+            this.table.style.display = "inline-block"
+
+            //先把内容都加到空字符串里，再一次性丢给table
+            let htmlStr = ``
+            this.dataArr.forEach(
+                (item, index) => {
+                    if (index % 2 === 1) {
+                        htmlStr += `<tr style ="background-color:#ccc">`;
+                    } else {
+                        htmlStr += "<tr>";
+                    }
+
+                    htmlStr += `<td>${index+1}</td>`;
+                    for (let attr in item) {
+                        htmlStr += `<td>${item[attr]}</td>`;
+                    }
+                    htmlStr += `<td index=${index} class="tdDel">删除</td>`;
+                    htmlStr += "</tr>";
+                }
+            )
+            //将htmlStr加到table的结构中
+            this.table.innerHTML = htmlStr
+        }
+
+        MyTable.prototype.startListen = function () {
+            this.table.addEventListener(
+                "click",
+                e => {
+                    //如果点击的不是删除，则什么也不做
+                    if (!e.target.classList.contains("tdDel")) {
+                        console.log("无用地带");
+                        return;
+                    }
+                    //获取点击的行的index
+                    const index = e.target.getAttribute("index") * 1;
+                    console.log(index);
+                    //删除点击的行
+                    this.dataArr.splice(index, 1)
+                    //重新渲染
+                    this.render();
+                }
+            )
+        }
+    </script>
+
+    <script>
+        var arr = [{
+                name: 'Jack',
+                age: 18,
+                gender: '男'
+            },
+            {
+                name: 'Rose',
+                age: 20,
+                gender: '女'
+            },
+            {
+                name: 'Top',
+                age: 22,
+                gender: '男'
+            },
+            {
+                name: 'Jack',
+                age: 18,
+                gender: '男'
+            },
+            {
+                name: 'Rose',
+                age: 20,
+                gender: '女'
+            },
+            {
+                name: 'Top',
+                age: 22,
+                gender: '男'
+            },
+        ]
+        const mt = new MyTable(root, arr);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>14_中文姓名</title>
+</head>
+<body>
+    <script>
+        // 汉族姓名 汉字的码点范围[\u4e00-\u9fa5] 2到4位
+        var reg = /[\u4e00-\u9fa5]{2,4}/g
+        var str = "yester day i saw 朱智泽 play with 臭皮，they looked happy"
+
+        // 检测
+        console.log(reg.test(str));//true
+
+        // 匹配
+        console.log(str.match(reg));//[朱智泽 臭皮]
+
+        // 检索
+        console.log(str.search(reg));
+
+        // 替换
+        console.log(str.replace(reg,"***"));
+    </script>
+</body>
+</html>

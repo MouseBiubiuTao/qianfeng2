@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul,
+        ol,
+        li {
+            list-style: none;
+        }
+
+        .wrapper {
+            width: 800px;
+            /* height: 600px; */
+            border: 1px solid black;
+            margin: 30px auto;
+            display: flex;
+            flex-direction: column;
+            /* justify-content: center; */
+            align-items: center;
+            padding: 5px;
+        }
+
+        #box {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 5px;
+        }
+
+        ul {
+            width: 100%;
+            /* height: 100px; */
+            display: flex;
+        }
+
+        ul>li {
+            flex-grow: 1;
+            border: 1px solid black;
+            margin: 1px;
+        }
+
+        li img {
+            width: 100%;
+        }
+
+        #btn,
+        #btn2 {
+            width: 100%;
+            height: 50px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- <div id="box" style="background:url(./imgs/1.webp) 0% 0% / 100% 100% no-repeat;"></div> -->
+        <div id="box"></div>
+        <ul id="ul">
+            <!-- <li><a><img src="./imgs/1.webp" alt=""></a></li>
+            <li><a><img src="./imgs/2.webp" alt=""></a></li>
+            <li><a><img src="./imgs/3.webp" alt=""></a></li>
+            <li><a><img src="./imgs/4.webp" alt=""></a></li> -->
+        </ul>
+        <button id="btn">更换背景</button>
+        <button id="btn2">随机女朋友</button>
+    </div>
+
+    <script>
+        var arr = [
+            "./imgs/1.webp",
+            "./imgs/2.webp",
+            "./imgs/3.webp",
+            "./imgs/4.webp",
+        ]
+
+        var box = document.getElementById("box")
+        var lis = document.querySelectorAll("ul>li")
+        var btn = document.querySelector("#btn")
+        var btn2 = document.querySelector("#btn2")
+
+        function renderUl() {
+            var ul = document.querySelector("#ul")
+            var str = ""
+
+            arr.forEach(function (item) {
+                var liHtml = `<li><a><img src="${item}" alt=""></a></li>`
+                str += liHtml
+            })
+            ul.innerHTML = str
+        }
+        renderUl()
+        randomBoxBg()
+
+
+        // box.style.backgroundSize = "100% 100%"
+
+
+        // for(var i=0;i<lis.length;i++){
+        //     lis[i].onclick = function(){
+
+        //         // this即为所点击的li 在该li中寻找第一个img
+        //         var img = this.getElementsByTagName("img")[0]
+
+        //         // 获得该img的src属性值
+        //         var src = img.getAttribute("src")
+
+        //         // 给box设置背景
+        //         box.style = `background:url(${src}) 0% 0% / 100% 100% no-repeat;` 
+        //     }
+        // }
+        for (var i = 0; i < lis.length; i++) {
+
+            // 给第0个li设置index属性值为0 
+            // 给第1个li设置index属性值为1
+            // 给第2个li设置index属性值为2
+            // 给第3个li设置index属性值为3
+            var li = lis[i]
+            li.setAttribute("index", i)
+
+            li.onclick = function () {
+                // 点击事件的处理代码 只有用户点击了才执行
+                // 用户不点击 就根本不执行
+                console.log(this.getAttribute("index"));
+                var src = arr[this.getAttribute("index")]
+                box.style = `background:url(${src}) 0% 0% / 100% 100% no-repeat;`
+            }
+        }
+        console.log("循环走完了", i);//4
+
+
+        btn.onclick = randomBoxBg
+
+        // 给box设置随机背景
+        function randomBoxBg() {
+            var randomIndex = parseInt(Math.random() * arr.length)
+            var randomImg = arr[randomIndex]
+            box.style.background = `url(${randomImg}) no-repeat`
+            box.style.backgroundSize = "100% 100%"
+        }
+
+        var timerId;
+        btn2.onclick = function () {
+            if (timerId === undefined) {
+                timerId = setInterval(function () {
+                    randomBoxBg()
+                }, 100)
+            }else{
+                clearInterval(timerId)
+                timerId = undefined
+            }
+        }
+
+    </script>
+</body>
+
+</html>

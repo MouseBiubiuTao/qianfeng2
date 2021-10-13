@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>自调用函数的this</title>
+</head>
+
+<body>
+    <script>
+        /*
+        this 指向再函数内部的关键字
+        和函数的定义没有关系（除了箭头函数）
+        只和函数的调用用关系（除了箭头函数）
+
+        普通函数执行 函数名()  this => window
+        对象调用 对象.函数名()  this => 对象
+        事件处理函数  this => 事件源（谁身上的事件）
+        定时器处理函数 this => window
+        自调用函数 this => window
+        */
+
+        // 自调用函数（自执行函数）
+        // 函数声名之后是不调用，我要自己书写函数调用
+        // 自调用函数，声名结束后直接调用了
+        // 写作 (function () {})()
+        // 写作 !functiuon () {}()
+        // 写作 ~function () {}()
+        // javascript 是一个松散的语言解构
+        // 有很多东西是用一个意思，但是是不同过的书写方式
+
+        // function fn() {
+        //   console.log('我是 fn 函数')
+        // }
+        // fn()
+
+        (
+            function (a, b) {
+                console.log('我是 fn 函数', a, b)
+                console.log(this);//window
+            }
+        )(2, 3)
+        // fn(2,3)调用的主语是window
+
+        // !function (a, b) {
+        //     console.log('我是 fn 函数', a, b)
+        // console.log(this);
+        // }(2, 3)
+
+        // ~function (a, b) {
+        //     console.log('我是 fn 函数', a, b)
+        //     console.log(this);
+        // }(2, 3)
+
+    </script>
+</body>
+
+</html>

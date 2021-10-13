@@ -1,0 +1,40 @@
+@第一阶段：上来就是干！{
+- 不问三七二十一 写构造函数 创建实例
+}
+
+@把框架搭好{
+- 构造函数内：接收Dom根节点 接收用户配置 初始化init（接收完参数以后永远都是闭着眼睛调init）
+- 初始化/init到底干啥：绘制控件renderBasic 绘制页码renderPagers 绑定事件bindEvent/startListen也行 总之就是一堆东西要xxx.onclick = xxxx
+}
+
+@完成绘制{
+- Dom操作而已 没有其它 没有难点 多练！常用的API要熟 连document.createElement和parent.appendChild都不会 扯什么逻辑？？？
+}
+
+@处理事件{
+- 第一步当然是要把待点击的标签都找出来 没有难点 还是多练
+- 想清楚 我点击【首页】时 到底要干嘛：改变数据->重绘->重新绑定监听（重绘时已经清空原有的元素了）
+- 处理事件：点击首页/末页/上页/下页/跳转按钮 => 造成数据变化（当前页码发生改变）this.options.pageinfo.pagenum => 驱动视图变化
+- 首页如此，末页、上页、下页、指定页，逻辑都是一样：改变数据->重绘->重新绑定监听（重绘时已经清空原有的元素了）
+}
+
+@用户响应{
+- 最后一步：页码变化了 控件也重新绘制了 只有真正的页面数据还没有随之变化 
+- 页面变化了 如何让用户响应——提前设置好回调！
+- 怎么提前设置回调呢？构造函数里事先传进来 new Paginator(..., 回调函数（功能：将来响应页码变化） )  控件内保存之：this.callback = callback
+- 视图重绘完毕，掏出当初用户传来的回调，调用一下 this.callback()
+- 用户端回调函数怎么写的呢？ 
+- function renderTable(data, page){...} 就是这个破玩意 没有分页器时它就存在 它就是回调函数 页面变化时重新绘制tbody
+- 只不过要拿到页码page 从而先从数据中截取一段 arr.slice(start,end) 再绘制tbody （一条数据拼接一个tr丢入tbody）
+- 唯一的问题：我怎么知道page是多少 直接写this.options.pageinfo.pagenum
+- 上面的this到底是什么鬼？？？renderTable的调用者 究竟是谁呢？paginator对象！ 为什么是它？？？ 你早就把renderTable作为回调函数传给paginator了
+- 所以页码发生变化并重绘以后 Paginator干了一件了不起的事情 thisPaginator.callback 这个callback是就是renderTable！！！！只不过接收它的形参叫callback而已
+- 所以事实上，就是thisPaginator.renderTable() 所以this就是Paginator 它很清楚的知道当前的页码是多少 this.options.pageinfo.pagenum
+}
+
+@英语问题{
+- this.options.pageinfo.pagenum 为啥写那么长？！！！ 是不是找练 故意欺负我们英语不好？！！！！
+- 它的逻辑层次理应如此：这个分页器实例.用户配置.页面配置.当前页码 写成中文立即感到有理有据 好好背单词！
+- 过去的代码 即使逻辑还没有完全通顺 也不应再有生词
+- 背单词和写代码的思维方式是完全不一样的 搭配着来 脑子快爆炸时就背单词 清醒时就撸代码 劳逸结合 少打王者
+}

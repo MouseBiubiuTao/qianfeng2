@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>九宫格拖拽排序</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        ul {
+            width: 640px;
+            height: 640px;
+            border: 10px solid pink;
+            border-radius: 10px;
+            margin: 50px auto;
+            position: relative;
+        }
+
+        li {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 100px;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="box">
+        <li style="background-color:black;top: 10px; left: 10px">1</li>
+        <li style="background-color:black;top: 10px; left: 220px">2</li>
+        <li style="background-color:black;top: 10px; left: 430px">3</li>
+        <li style="background-color:black;top: 220px; left: 10px">4</li>
+        <li style="background-color:black;top: 220px; left: 220px">5</li>
+        <li style="background-color:black;top: 220px; left: 430px">6</li>
+        <li style="background-color:black;top: 430px; left: 10px">7</li>
+        <li style="background-color:black;top: 430px; left: 220px">8</li>
+        <li style="background-color:black;top: 430px; left: 430px">9</li>
+    </ul>
+
+    <!-- 
+    position 位置
+     -->
+    <script src="../../../tools/arr_obj_tool.js"></script>
+    <script src="../../../tools/animtool.js"></script>
+
+    <script>
+        // 定义9大li的预设背景色
+        var colorArr = [
+            "red",
+            "orange",
+            "yellow",
+            "green",
+            "blue",
+            "cyan",
+            "purple",
+            "pink",
+            "gray",
+        ];
+
+        /* 定义9大坑位 */
+        const positions = [
+            [10, 10], [220, 10], [430, 10],
+            [10, 220], [220, 220], [430, 220],
+            [10, 430], [220, 430], [430, 430],
+        ]
+
+        var ulBox = document.querySelector("#box")
+        var lis = document.querySelectorAll("#box>li")
+        /* 将lis转化为真数组 */
+        lis = toArray(lis)
+
+        /* 给每块砖内置一个position属性 */
+        lis.forEach(
+            (item, index) => item.setAttribute("position", index)
+        )
+
+        /* 正在拖动的Li（砖头） */
+        var draggingLi = null;
+
+        // 正在拖动的砖头的zindex不断加加，保持在最上层
+        var maxZindex = 9
+
+        /* 在身上按下 谁就是【正在拖动的砖头】 */
+        lis.forEach(
+            function (li, index) {
+                li.style.backgroundColor = colorArr[index]
+
+                /* li中的文字不可选(禁止selectstart事件的默认行为) */
+                li.addEventListener(
+                    "selectstart",
+                    function (e) {
+                        // 阻止掉拖选文本的默认行为
+                        e.preventDefault()
+                    }
+                )
+
+                /* 在任意li身上按下鼠标=我想拖动它 */
+                li.addEventListener(
+                    "mousedown",
+                    function (e) {
+                        draggingLi = this
+                        draggingLi.style.zIndex = maxZindex++
+                    }
+                )
+            }
+        )
+
+        /* 在页面的任意位置松开鼠标=不再拖拽任何对象 */
+        document.addEventListener(
+            "mouseup",
+            function (e) {
+                // 当前砖头自己进入位置躺好
+                const p = draggingLi.getAttribute("position") * 1
+                // draggingLi.style.left = positions[p][0] + "px"
+                // draggingLi.style.top = positions[p][1] + "px"
+                move(
+                    draggingLi,
+                    {
+                        left: positions[p][0] + "px",
+                        top: positions[p][1] + "px"
+                    },
+                    200
+                    // callback
+                )
+
+                // 正在拖拽的砖头置空
+                draggingLi = null;
+            }
+        )
+
+        /* 在ul内移动鼠标 draggingLi跟随鼠标 */
+        ulBox.addEventListener(
+            "mousemove",
+            function (e) {
+                /* 如果draggingLi为空 什么也不做 直接返回 */
+                if (draggingLi === null) {
+                    return
+                }
+
+                // 拿到事件相对于ulBox的位置   
+                var offsetX = e.pageX - ulBox.offsetLeft - 100
+                var offsetY = e.pageY - ulBox.offsetTop - 100
+
+                /* 校正砖头的偏移量 */
+                offsetX = offsetX < 10 ? 10 : offsetX
+                offsetY = offsetY < 10 ? 10 : offsetY
+                offsetX = offsetX > 430 ? 430 : offsetX
+                offsetY = offsetY > 430 ? 430 : offsetY
+
+                // 将该位置设置给draggingLi
+                draggingLi.style.left = offsetX + "px"
+                draggingLi.style.top = offsetY + "px"
+
+                /* 实时检测实时【坑位】 */
+                const newPosition = checkPosition([offsetX, offsetY]);
+
+                // 如果当前砖头的position发生变化 则数据重排
+                const oldPosition = draggingLi.getAttribute("position") * 1
+                if (newPosition != -1 && newPosition != oldPosition) {
+                    console.log(oldPosition, newPosition);
+
+                    /* 数据重排 */
+                    // 先将当前砖头拽出数组（剩余的砖头位置自动重排）
+                    lis.splice(oldPosition, 1)
+                    // 再将当前砖头插回newPosition
+                    lis.splice(newPosition, 0, draggingLi)
+
+                    // 打印新数据
+                    // logArr(lis,"innerText")
+
+                    // 砖头洗牌
+                    shuffle()
+                }
+
+            }
+        )
+
+        /* 实时检测坑位：检测ep与9大坑位的距离是否小于100 */
+        const checkPosition = (ep) => {
+            for (let i = 0; i < positions.length; i++) {
+                const [x, y] = positions[i]//[10,10]
+                const [ex, ey] = ep//[offsetX,offsetY]
+
+                const distance = Math.sqrt(Math.pow(x - ex, 2) + Math.pow(y - ey, 2))
+                if (distance < 100) {
+                    return i
+                }
+            }
+
+            // 没有进入任何坑位
+            return -1
+        }
+
+        /* 砖头洗牌:lis中的每块砖去到对应的位置 */
+        const shuffle = () => {
+            for (var i = 0; i < lis.length; i++) {
+                lis[i].style.left = positions[i][0] + "px"
+                lis[i].style.top = positions[i][1] + "px"
+
+                // 更新自己的位置
+                lis[i].setAttribute("position", i)
+            }
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        div.outer {
+            width: 800px;
+            height: 600px;
+            border: 1px solid black;
+            margin: 50px auto;
+            position: relative;
+        }
+
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+
+            position: absolute;
+            top: 100px;
+            left: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="outer">
+        <div id="box"></div>
+    </div>
+
+    <script>
+        var box = document.querySelector("#box");
+        var outer = document.querySelector(".outer")
+
+        var mover = false;
+
+        box.onmousedown = function () {
+            mover = true
+        }
+
+        document.onmouseup = function () {
+            mover = false
+        }
+
+        var marginLeft = outer.offsetLeft;
+
+        var marginTop = getComputedStyle(outer).marginTop.slice(0, -2) * 1
+        console.log(marginLeft, marginTop);
+
+
+
+        document.onmousemove = function (e) {
+            
+            if (!mover) {
+                return
+            }
+
+            var left = e.pageX - marginLeft;
+            var top = e.pageY - marginTop;
+
+            left = left < box.clientWidth / 2 ? box.clientWidth / 2 : left;
+
+            left = left < outer.clientWidth - box.clientWidth / 2 ? left : outer.clientWidth - box.clientWidth / 2;
+
+            top = top < box.clientHeight / 2 ? box.clientHeight / 2 : top;
+
+            top = top < outer.clientHeight - box.clientHeight / 2 ? top : outer.clientHeight - box.clientHeight / 2;
+
+
+            box.style.left = left - box.clientWidth / 2 + "px";
+            box.style.top = top - box.clientHeight / 2 + "px";
+
+
+        }
+    </script>
+
+
+
+</body>
+
+</html>

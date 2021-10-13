@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>06_练习2</title>
+</head>
+
+<body>
+    姓名： <input type="text" id="ipName" />
+    年龄： <input type="text" id="ipAge" />
+    性别： <input type="text" id="ipGender" />
+    <button id="btnAdd">添加到数组中</button>
+
+    <table cellspacing="0">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>性别</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        var arr = [{
+                name: "Jack",
+                age: 18,
+                gender: "男",
+            },
+            {
+                name: "Rose",
+                age: 20,
+                gender: "女",
+            },
+            {
+                name: "Tom",
+                age: 22,
+                gender: "男",
+            },
+        ];
+
+        var tbody = document.querySelector("tbody")
+
+        /* 序号从1开始 */
+        function appendTrToTbody(obj, index) {
+            var tr = document.createElement("tr")
+
+            /* 添加5个td */
+            // 添加序号td
+            var tdIndex = document.createElement("td")
+            tdIndex.innerText = index
+            tr.appendChild(tdIndex)
+
+            // 属性td
+            for (var attr in obj) {
+                var td = document.createElement("td")
+                td.innerText = obj[attr]
+                tr.appendChild(td)
+            }
+
+            // delBtn
+            var tdDel = document.createElement("td")
+            tdDel.setAttribute("index", index)
+            tdDel.innerText = "删除"
+            tr.appendChild(tdDel)
+
+            tbody.appendChild(tr)
+        }
+
+        arr.forEach(
+            function (obj, index) {
+                appendTrToTbody(obj, index)
+            }
+        )
+
+        // 将删除事件委托给tbody（因为tbody中的tr是动态的 总是重新渲染-重新找元素-重新绑监听 太麻烦）
+        tbody.addEventListener(
+            "click",
+            function (e) {
+                if (e.target.innerText === "删除") {
+                    var index = e.target.getAttribute("index") * 1
+                    console.log("index=", index);
+
+
+                    // 先删除数据
+                    arr.splice(index, 1)
+
+                    // （重新渲染）删除第index个tr（剩余的tr序号会重新排序）
+                    tbody.children[index].remove()
+
+                    /* 对剩余的tr中的【删除td】暗藏新的tr序号 */
+                    /* 修改各个td中的index */
+                    for (var i = 0; i < tbody.children.length; i++) {
+                        tbody.children[i].children[4].setAttribute("index", i)
+                        tbody.children[i].children[0].innerText = i
+                    }
+                }
+            }
+        )
+
+        
+        // 新增数据
+        btnAdd.addEventListener(
+            "click",
+            function (e) {
+
+                // 从输入中拿到数据组装成一个obj
+                var obj = {
+                    name: ipName.value,
+                    age: ipAge.value * 1,
+                    gender: ipGender.value,
+                }
+
+                // 将数据添加到arr的末尾
+                arr.push(obj)
+
+                // tbody中新增一个tr(数据是obj，序号是arr的长度-1)
+                appendTrToTbody(obj, arr.length - 1)
+            }
+        )
+
+    </script>
+
+</body>
+
+</html>

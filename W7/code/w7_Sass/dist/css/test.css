@@ -1,0 +1,43 @@
+a {
+  font-size: 16px;
+  color: #333;
+}
+a:hover {
+  color: #fc0;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+.list {
+  padding: 5px;
+}
+.list li {
+  float: left;
+  border-left: 5px solid #900;
+}
+
+h1 {
+  font-size: 36 px;
+}
+
+h2 {
+  font-size: 18 px;
+}
+
+h3 {
+  font-size: 12 px;
+}
+
+h4 {
+  font-size: 9 px;
+}
+
+h5 {
+  font-size: 7.2 px;
+}
+
+h6 {
+  font-size: 6 px;
+}

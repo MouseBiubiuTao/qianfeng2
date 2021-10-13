@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分页器案例1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 800px;
+            height: 40px;
+            border: 1px solid #333;
+            margin: 30px auto;
+        }
+
+        table {
+            width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        tbody>tr:nth-child(odd) {
+            background-color: pink;
+        }
+
+        tbody>tr:nth-child(even) {
+            background-color: skyblue;
+        }
+
+        tbody>tr:hover {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container"></div>
+
+    <table border="1" cellspacing="0">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>学生ID</th>
+                <th>学生姓名</th>
+                <th>学生年龄</th>
+                <th>学生性别</th>
+                <th>学生班级</th>
+                <th>学生薪水</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script src="./MyPaginator.js"></script>
+    <script src="./MyTable.js"></script>
+
+    <script>
+        // 学生ID	学生姓名	学生年龄	学生性别	学生班级	学生薪水
+        function Student(id, name, age, gender, clazz, salary) {
+            this.id = id
+            this.name = name
+            this.age = age
+            this.gender = gender
+            this.clazz = clazz
+            this.salary = salary
+        }
+    </script>
+
+    <script>
+        const firstName =
+            "赵钱孙李周吴郑王冯陈楚魏蒋沈韩杨朱秦尤许何吕施章";
+        const middleaName = "氢氦锂铍硼碳氮氧氟氖钠镁铝硅磷硫氯氩钾钙";
+        const lastName = "一二三四五六七八九十";
+        const gender = "男女";
+        let pageSize = 10
+
+        const getRandom = (a, b) =>
+            a + parseInt(Math.random() * (b - a + 1));
+
+        function createLengthedNumber(num, len) {
+            let str = "";
+            for (let i = 0; i < len - num.toString().length; i++) {
+                str += "0";
+            }
+            str += num.toString();
+            return str;
+        }
+
+        /* 生成随机姓名 */
+        function createRandomName() {
+            return `${firstName[getRandom(0, firstName.length - 1)]}${middleaName[getRandom(0, middleaName.length - 1)]}${lastName[getRandom(0, lastName.length - 1)]}`
+        }
+
+        /* 创建虚拟数据 */
+        const arr = []
+        function createData() {
+            for (let i = 1; i < 1235; i++) {
+                const stu = new Student(
+                    createLengthedNumber(i, 4),
+                    createRandomName(),
+                    getRandom(20, 40),
+                    gender[getRandom(0, gender.length - 1)],
+                    getRandom(2101, 2199),
+                    getRandom(5000, 30000),
+                )
+                arr.push(stu)
+            }
+            console.log(arr);
+        }
+        createData()
+
+        /* 
+        arr 数据
+        pageSize 每页显示多少条
+        pageNum 显示第几页
+        */
+        function getPageData(arr, pageSize, pageNum) {
+            return arr.slice(pageSize * (pageNum - 1), pageSize * pageNum)
+        }
+
+        const tbody = document.querySelector("tbody")
+        const mt = new MyTable(tbody, getPageData(arr, pageSize, 5))
+
+        function onPageChangeCallback(n) {
+            // console.log(`收到分页器消息：用户想看第${n}页`);
+            // 拿到第n页的数据
+            const tempArr = getPageData(arr, pageSize, n)
+            // 让MyTable渲染
+            mt.setData(tempArr)
+        }
+
+        const container = document.querySelector(".container")
+        new Paginator(
+            container,
+            { pagesize: pageSize, total: Math.ceil(arr.length / pageSize), current: 20 },
+            onPageChangeCallback
+        )
+
+    </script>
+</body>
+
+</html>

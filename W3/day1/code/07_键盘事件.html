@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <input type="text" name="username">
+
+  <script>
+    // document
+    // document.documentElement //html
+    // document.body
+
+    // 事件信息
+    // 你按下的是那个按键
+
+    /*
+      你要有一个输入的过程
+      而且你要确定你输入在那个元素身上
+      页面中可以选中的元素才能绑定键盘事件
+        + 表单元素
+        + document
+      一般来说我的键盘事件都是绑定在表单元素或者document 上的
+    */
+
+    // ke keyboard event 键盘事件
+    document.onkeydown = function (ke) {
+      console.log("onkeydown", ke);
+    }
+
+    document.onkeyup = function (ke) {
+      console.log("onkeyup", ke);
+      // ke = ke || window.event
+
+      console.log(ke.code,ke.key);
+      console.log(ke.altKey,ke.ctrlKey,ke.shiftKey);
+    }
+
+    document.getElementsByName("username")[0].onkeyup = function (ke) {
+      console.log("username onkeyup", ke);
+      ke = ke || window.event
+      
+      console.log(ke.code || ke.key)
+    }
+
+  </script>
+</body>
+
+</html>

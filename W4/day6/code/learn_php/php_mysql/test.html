@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    </head>
+    <body>
+        <div id="div1"><h2>使用 jQuery AJAX 修改文本内容</h2></div>
+        <button>获取其他内容</button>
+
+        <script>
+            $("button").click(function () {
+                $.ajax({
+                    url: "07_sql-select.php",
+                    success: function (result) {
+                        var jsonObject= JSON.parse(result);
+                        // console.log(jsonObject);
+
+                        var result = JSON.stringify(jsonObject)
+                        
+                        $("#div1").html(result);
+                    },
+                });
+            });
+        </script>
+    </body>
+</html>

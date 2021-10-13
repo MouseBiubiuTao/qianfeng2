@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+
+
+  <script>
+    // **每一个对象，天生自带一个属性，__proto__ 是一个对象，指向所属构造函数的 prototype**
+
+    // 使用自定义构造函数 new 出来的东西也是对象
+    // 那 new 出来的这个对象，我们给他起一个名字叫做 实例化对象
+    // 实例化对象也会有 __proto__， 指向所属的构造函数的 prototype
+    function Person() {}
+
+    // 向构造函数的 prototype 里面放了一个成员 fn
+    Person.prototype.fn = function () {}
+
+    // 每一个对象都有一个 __proto__ 的属性
+    // p1 是一个对象，那么 p1 就有 __proto__ 的成员
+    // p1 是 Person new 出来的对象
+    // p1 的所属构造函数就是 Person
+    // p1.__proto__ 指向所属的构造函数的 prototype
+    // p1.__proto__ === Person.prototype
+
+    // 创建一个Person的实例（孩儿）
+    const p1 = new Person()
+
+    // 查看Person构造函数的结构（持有prototype（媳妇/原型对象）的地址）
+    console.dir(Person);
+
+    // 查看Person实例p1的结构（持有[[prototype]]（妈/原型属性））
+    console.dir(p1);
+
+    // 爹（构造函数）的老婆（原型对象）即孩儿（实例）的妈（原型属性）
+    console.log(Person.prototype === p1.__proto__)
+    console.log(Person.prototype.fn === p1.__proto__.fn) // true
+
+    // // 证明了一个 对象的__proto__ 就是所属构造函数的 prototype
+    // // 我们管对象的 __proto__ 叫做 原型属性
+    console.log(p1.hasOwnProperty);
+
+    // 原型链的尽头没有妈 __proto__为null
+    console.log(p1.__proto__.__proto__.__proto__);
+
+  </script>
+</body>
+</html>

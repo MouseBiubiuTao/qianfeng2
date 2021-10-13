@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+
+
+  <script>
+
+    /* 形参默认值的正确打开方式 */
+    // function fn(a = 10) {
+    //   console.log(a * 2)
+    // }
+    // fn()//20
+
+    /* 形参默认值的正确打开方式 */
+    // function fn(a = 10, b = 20) {
+    //   console.log(a + b)
+    // }
+    // fn(100, 200)
+
+    /* 箭头函数里给形参设置默认值 */
+    let fun = (a = 20, b = 30) => {
+      console.log(a + b)
+    }
+    fun()//50
+    fun(100, 300)//400
+
+  </script>
+</body>
+</html>

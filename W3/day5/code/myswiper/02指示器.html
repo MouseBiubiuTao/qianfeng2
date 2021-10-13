@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>02指示器</title>
+    <link rel="stylesheet" href="./banner.css" />
+    <script src="./myanim.js"></script>
+</head>
+
+<body>
+    <div class="banner">
+
+        <!-- 轮播图 -->
+        <ul class="imgBox clearFix">
+            <li style="background-color: red">1</li>
+            <li style="background-color: orange">2</li>
+            <li style="background-color: green">3</li>
+            <li style="background-color: pink">4</li>
+            <li style="background-color: yellow">5</li>
+        </ul>
+
+        <!-- 指示器存放处 -->
+        <ol class="pointBox"></ol>
+
+        <div class="leftRightTabs">
+            <a class="left"> &lt;</a>
+            <a class="right">&gt;</a>
+        </div>
+    </div>
+
+    <script>
+        let index = 0
+        const left = document.querySelector(".left")
+        const right = document.querySelector(".right")
+        const ul = document.querySelector(".imgBox")
+        const ol = document.querySelector(".pointBox")
+
+        /* 渲染指示器 */
+        function renderPointers() {
+            console.log(ul.children.length);
+            for (var i = 0; i < ul.children.length; i++) {
+                const li = document.createElement("li")
+                ol.appendChild(li)
+            }
+            updatePointer()
+        }
+
+        /* 更新指示器状态 */
+        function updatePointer() {
+            // 全灭
+            for(var i = 0; i < ol.children.length; i++){
+                ol.children[i].classList.remove("active")
+            }
+
+            // 当前序号亮
+            ol.children[index].classList.add("active")
+        }
+
+        /* 下一章 */
+        function next() {
+            index++
+            index = index > 4 ? 0 : index
+            // ul.style.left = -600*index +"px"
+            move0(ul, { left: -600 * index + "px" }, 500, updatePointer)
+        }
+
+        /* 上一张 */
+        function prev() {
+            index--
+            index = index < 0 ? 4 : index
+            move0(ul, { left: -600 * index + "px" }, 500, updatePointer)
+        }
+
+        function initLeftRightBtn() {
+            right.onclick = function (e) {
+                next()
+            }
+
+            left.onclick = function (e) {
+                prev()
+            }
+        }
+
+        function main() {
+            renderPointers()
+            initLeftRightBtn()
+        }
+        main()
+
+    </script>
+</body>
+
+</html>

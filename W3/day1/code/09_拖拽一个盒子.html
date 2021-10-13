@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>09_拖拽一个盒子</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            position: absolute;
+            left: 100px;
+            top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+
+    <script>
+        var box = document.querySelector("#box")
+
+        // 标记盒子是否应该跟着鼠标跑
+        var shouleDragBox = false
+
+        /* 鼠标在盒子内按下，标记盒子应该跟着鼠标跑 */
+        box.onmousedown = function () {
+            shouleDragBox = true
+        }
+
+        /* 在页面任何位置抬起鼠标 盒子不应继续跟着鼠标跑 */
+        document.onmouseup = function () {
+            shouleDragBox = false
+        }
+
+        document.onmousemove = function (e) {
+            /* 如果不该拖拽盒子 则什么也不做 */
+            if (!shouleDragBox) {
+                return
+            }
+
+            /* 满屏移动鼠标 盒子跟随 */
+            console.log(e.pageX, e.pageY);
+
+            // 设置盒子的位置跟随鼠标的位置
+            // box.style.left = e.pageX - box.clientWidth / 2 + "px"
+            // box.style.top = e.pageY - box.clientHeight / 2 + "px"
+            box.style.left = e.pageX - 100 + "px"
+            box.style.top = e.pageY - 100 + "px"
+        }
+    </script>
+</body>
+
+</html>

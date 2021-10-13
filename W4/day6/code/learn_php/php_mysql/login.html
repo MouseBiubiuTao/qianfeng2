@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <!--
+    用户名和密码给到服务端
+
+    html form 有自动提交的功能
+      会把 form 标签里面的 input select 标签中有 name 属性的给你提交
+      username=admin&password=123456
+      相当于你给了后端两个信息
+        一个是 username = admin
+        一个是 password = 123456
+
+    form 给我提交到哪里
+      action 属性就是提交到哪一个 php 文件
+   -->
+  <form action="./login.php">
+    用户名： <input type="text" name="username"><br>
+    密码： <input type="text" name="password"><br>
+    <button>登录</button>
+  </form>
+  
+</body>
+</html>

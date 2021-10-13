@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <script>
+        const box = document.querySelector("div");
+        box.addEventListener(
+            "click",
+            () => {
+                let topval = parseFloat(getComputedStyle(box).top);
+                let leftval = parseFloat(getComputedStyle(box).left);
+
+                const topSpeed = 300 / 25;
+                const leftSpeed = 400 / 25;
+
+                let timerId = setInterval(
+                    () => {
+                        topval += topSpeed;
+                        leftval += leftSpeed;
+
+                        box.style.top = topval + "px";
+                        box.style.left = leftval + "px";
+
+                        if (topval >= 300 && leftval >= 400) {
+                            clearInterval(timerId)
+                        }
+                    },
+                    40
+                )
+            }
+        )
+    </script>
+
+</body>
+
+</html>

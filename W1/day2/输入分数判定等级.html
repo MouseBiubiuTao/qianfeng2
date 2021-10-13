@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input {
+            margin-bottom: 20px;
+            width: 200px;
+            height: 50px;
+            outline: none;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            font-size: 30px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" placeholder="请输入分数" id="ip">
+    <button id="btn">查询成绩</button>
+
+    <script>
+        function fn1() {
+            btn.onclick = function () {
+                var fenshu;
+                fenshu =parseInt(ip.value /10);
+
+                /*      if ((fenshu >= 90) && (fenshu <= 100)) {
+                           alert("优秀")
+                       } else if ((fenshu >= 80) && (fenshu < 90)) {
+                           alert("良好")
+                       } else if ((fenshu >= 60) && (fenshu < 80)) {
+                           alert("及格")
+                       } else if ((fenshu >= 0) && (fenshu < 60)) {
+                           alert("还是回家种田吧！")
+                       } */
+
+                switch (fenshu) {
+                    case 10:
+                    alert("完美")
+                        break;
+                    case 9:
+                        alert("优秀")
+                        break;
+
+                    case 8:
+                    case 7:
+                        alert("良好")
+                        break;
+
+                    case 6:
+                        alert("及格")
+                        break;
+
+                    default:
+                        alert("不及格")
+                        break;
+                }
+
+
+            }
+        }
+        fn1()
+    </script>
+
+
+
+
+</body>
+
+</html>

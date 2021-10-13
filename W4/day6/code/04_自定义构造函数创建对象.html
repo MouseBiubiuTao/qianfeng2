@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* Person构造函数：专门用于创建Person对象 */
+        function Person(name, age, gender) {
+            // 构造函数内的this 即为 被造出的Person对象
+            console.log(this);
+
+            // 按照传入的参数 一一给属性赋值
+            this.name = name
+            this.age = age
+            this.gender = gender
+
+            // 创建work方法
+            this.work = function(){
+                console.log(`年方${this.age}的${this.gender}人${this.name}正在工作`);
+            }
+
+            // 无需返回 new Person(...)自动得到该对象
+            // return this
+        }
+
+        // 使用new关键字创建Person对象
+        const p = new Person("张全蛋", 18, "男")
+        p.work()
+
+    </script>
+</body>
+
+</html>

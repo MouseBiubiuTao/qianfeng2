@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <table cellspacing="0">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>性别</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- <tr>
+                <td>1</td><td>tom</td><td>20</td><td>male</td><td>删除</td>
+            </tr> -->
+        </tbody>
+    </table>
+
+    <script>
+        var arr = [
+            {
+                name: "Jack",
+                age: 18,
+                gender: "男",
+            },
+            {
+                name: "Rose",
+                age: 20,
+                gender: "女",
+            },
+            {
+                name: "Tom",
+                age: 22,
+                gender: "男",
+            },
+            {
+                name: "Jack",
+                age: 18,
+                gender: "男",
+            },
+            {
+                name: "Rose",
+                age: 20,
+                gender: "女",
+            },
+            {
+                name: "Tom",
+                age: 22,
+                gender: "男",
+            },
+        ];
+
+        // 找出tbody
+        var tobody = document.querySelector("tbody")
+
+        // 预定义tobody的HTML结构字符串
+        var htmlStr = ""
+
+        // 遍历数据
+        arr.forEach(function (studentObj,index) {
+            // 每个学生 动态造一个tr
+            // 如果数据的序号为奇数 则当前行加入行内样式 定义其背景色为灰色
+            // var tr = `<tr ${index%2===1?"style='background-color:#ccc'":""}>`
+
+            // 如果数据的序号为奇数 则当前行加入行内样式 定义其背景色为灰色
+            var tr
+            if(index % 2 === 1){
+                tr = "<tr style='background-color:#ccc'>"
+            }else{
+                tr = "<tr>"
+            }
+
+            // 加入序号td
+            tr += `<td>${index+1}</td>`
+                
+            // 遍历学生属性 每个属性造一个td
+            for(var attr in studentObj){
+                var td = `<td>${studentObj[attr]}</td>`
+                tr += td
+            }
+
+            // 加入删除操作td
+            tr += `<td>删除</td>`
+
+            // 将造出来的tr/td拼接到htmlStr
+            tr += "</tr>"
+            htmlStr += tr
+        })
+
+
+        // 给tbody设置innerHTML
+        tobody.innerHTML = htmlStr
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            /* 解构赋值 快速地从复杂结构中提取我要的内容 */
+
+            /* 简单对象的解构 数据准备 */
+            // var obj = {
+            //     name: "Jack",
+            //     age: 18,
+            //     gender: "男",
+            // };
+
+            /* 普通的逐级提取 */
+            // let name = obj.name
+            // console.log(name)
+
+            // let age = obj.age
+            // console.log(age)
+
+            // let gender = obj.gender
+            // console.log(gender)
+
+            /* 解构赋值 */
+            // let name = obj.name
+            // let { name } = obj;
+            // // let age = obj.age
+            // let { age } = obj;
+            // // let gender = obj.gender
+            // let { gender } = obj;
+            // console.log(name,age,gender);
+
+            /* 解构赋值 */
+            // let {gender,name,age} = obj
+            // console.log(name,age,gender);
+
+            /* 多级结构的对象 */
+            let obj = {
+                name: "Jack",
+                age: "18",
+                info: {
+                    id: 110108,
+                    clazz: 2105,
+                },
+                info2: {
+                    id: 110109,
+                    clazz: 2106,
+                },
+            };
+            // let {info,age,name,info:{id,clazz}} = obj
+            // console.log(name,age,info,id,clazz);
+
+            /* 解构的同时取别名 */
+            // let {name:n,info:{clazz:c}} = obj
+            // console.log(n,c);//jack 2105
+
+        </script>
+    </body>
+</html>

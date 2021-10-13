@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>05_事件委托2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        ul {
+            width: 1000px;
+            height: 16000px;
+            background-color: pink;
+            overflow: hidden;
+        }
+
+        li {
+            width: 200px;
+            height: 200px;
+            background-color: skyblue;
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>0</li>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+
+    <script>
+        /* 不管点击哪个Li 都正确输出其在ul中的序号 */
+        var ul = document.getElementsByTagName("ul")[0]
+        // findLisAndBindListeners()
+
+        /* 找出所有的Li元素并且绑定监听器 */
+        // function findLisAndBindListeners() {
+        //     var lis = document.querySelectorAll("ul>li")
+        //     lis.forEach(
+        //         function (li, index) {
+        //             li.addEventListener(
+        //                 "click",
+        //                 function (e) {
+        //                     console.log(index);
+        //                 }
+        //             )
+        //         }
+        //     )
+        // }
+
+
+        /* 点击ul中的空白处 动态添加一个Li 点击该Li时输出与其他li同样的内容 */
+
+        // 为ul添加点击监听器
+        ul.addEventListener(
+
+            //事件类型
+            "click",
+
+            // 处理函数
+            function (e) {
+
+                // 输出点击的末梢的节点名称
+                // console.log("ul clicked", e.target.nodeName);//LI UL
+
+                // 点击的不是LI而是空白处
+                if (e.target.nodeName !== "LI") {
+
+                    // 动态地创建一个LI元素
+                    var li = document.createElement("li")
+                    // 文本设置为当前UL下LI的个数
+                    li.innerText = ul.children.length
+                    // 添加该LI到UL
+                    ul.appendChild(li)
+                    // findLisAndBindListeners()
+                }
+                
+                /* 点击的末梢就是Li */
+                else{
+                    // 点击LI时输出该LI的innerText
+                    console.log(e.target.innerText);
+                }
+            }
+        )
+    </script>
+</body>
+
+</html>

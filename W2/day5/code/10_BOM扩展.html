@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <button>我要跳转页面</button>
+  <button>我要关闭页面</button>
+
+
+  <script>
+    // 跳转页面的方式
+    var btn = document.querySelector('button')
+    var btn2 = document.querySelectorAll('button')[1]
+    console.log(btn2)
+
+    // 1. 再跳转链接的时候打开一个新的浏览器窗口
+    // window.open()
+    btn.onclick = function () {
+      // window.location.href = 'https://www.baidu.com'
+      window.open('https://www.baidu.com')
+    }
+
+    // 2. 关闭浏览器当前窗口
+    // window.close()
+    btn2.onclick = function () {
+      window.close()
+    }
+
+  </script>
+</body>
+</html>

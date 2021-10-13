@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>插件集成练习</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #daContainer {
+            width: 600px;
+            border: 1px solid black;
+            margin: 20px auto;
+            padding: 5px;
+            padding-left: 50px;
+            border-radius: 5px;
+        }
+
+        #daContainer input {
+            width: 500px;
+            margin: 2px;
+            /* flex-grow: 1; */
+            height: 25px;
+        }
+
+        #daContainer button {
+            width: 505px;
+            height: 30px;
+            margin: 2px;
+        }
+
+        #daContainer span {
+            margin: 5px;
+            color: red;
+        }
+
+        #tableContainer {
+            width: 800px;
+            margin: 5px auto;
+        }
+
+        #tableContainer tr {
+            width: 800px;
+            display: flex;
+        }
+
+        #tableContainer tr>td,
+        #tableContainer tr>th {
+            /* flex-grow: 1; */
+            width: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+    <script src="./random_data.js"></script>
+    <script src="./YourTable.js"></script>
+    <script src="./MyPaginator.js"></script>
+    <!-- <script src="./DataAdder.js"></script> -->
+    <script src="./DataAdder_class.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <!-- 学生ID	学生姓名	学生年龄	学生性别	学生班级	学生薪水 -->
+        <div id="daContainer"></div>
+        <div id="tableContainer"></div>
+        <div id="pgContainer"></div>
+    </div>
+
+    <script>
+        /*  */
+        const pageSize = 10
+
+        /* 获取随机数据 */
+        const arr = getStudents(1234)
+        // console.log(temp);
+
+        // 定义数据变化回调函数
+        const onDataChangeCallback = () => {
+            // 重新看数据的长度
+            console.log("新的数据长度为", arr.length);
+
+            // 计算新的总页码
+            const total = Math.ceil(arr.length / pageSize)
+
+            // 给分页器设置新的页码数量
+            // pg.options = { ...pg.options, total: total }
+            // pg.renderPagers()
+            pg.setTotal(total)
+        }
+
+        /* 集成YourTable 实现数据渲染 */
+        // let pageArr = arr.slice(0, pageSize)
+        const heads = ["ID", "学号", "姓名", "年龄", "性别", "班级", "薪水", "操作"]
+        const dataObj = {
+            data: arr,
+            heads: heads,
+            position: [0, pageSize],
+
+            // 数据变化回调函数
+            onDataChangeCallback,
+
+            // 当前页数据已被删干净时的回调函数
+            onPageDataClearCallback: function () {
+                pg.setCurrentPage(pg.options.total)
+            }
+        }
+        const yt = new YourTable(tableContainer, dataObj)
+
+        /* 分页器翻页回调 */
+        const onPageChangeCallback = n => {
+            // pageArr = arr.slice(pageSize * (n - 1), pageSize * n)
+            // yt.setData(pageArr)
+
+            // 页码变化时（分页器通知的） 调度YourTable 改变其渲染的数据的起止游标
+            yt.setPosition([pageSize * (n - 1), pageSize * n])
+        }
+
+        /* 集成分页器 */
+        const pg = new Paginator(
+            pgContainer,
+            { pageSize: pageSize, total: 124, current: 1 },
+
+            // 页面变化回调函数
+            onPageChangeCallback
+        )
+
+
+        const da = new DataAdder(daContainer, arr, () => {
+            onDataChangeCallback()
+            pg.setCurrentPage(pg.options.total)
+        })
+        console.log(da);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+        和函数相关的内容比较重要的就是  参数（形参、实参）   返回值
+        箭头函数如果你只接受一个参数，小括号可以不写
+        无参 多参时 小括号必须写
+         */
+        // let fun = (a) => {console.log(a);}
+        // fun(10)
+
+        /* 一个参数的时候可以不写括号 */
+        // let fun =  a => {console.log(a);}
+        // fun(200)
+
+        /* 方法体只有一行时 大括号可以不要 */
+        // let fun = a => console.log(a);
+        // fun(300)
+
+        /* 来 我们复习一下函数的返回值 */
+        // let fn = function (a) {
+        //     return a + 100
+        // }
+        // let res = fn(100)
+        // console.log(res)
+
+        /* 如果代码只有一句话，那么可以不写 {}，并且会自动把这一句话的结果 return */
+        // let fun = a => a + 100
+        // let res2 = fun(200)
+        // console.log(res2)
+
+        /* 练习：生成[a,b]之间的随机数 箭头函数实现 */
+        const getRandom = (a, b) => a + Math.round((b - a) * Math.random())
+        for(let i=0;i<20;i++){
+            console.log(  getRandom(0,10) );
+        }
+
+    </script>
+</body>
+
+</html>

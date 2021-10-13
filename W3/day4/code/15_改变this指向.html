@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 改变 this 指向
+        // 是强行改变，不管你本身指向谁，我说你指向谁你就指向谁
+
+        /* 
+        call 
+        函数名.call( thisArg, ...otherArgs )
+        理论上接受无限参数
+        第一个参数就是函数内部的 this 指向
+        你的第一个参数传递谁，那么函数内部的 this 就指向谁
+        从第二个参数开始，依次是向函数内部传递参数
+        */
+
+        // 将来把this绑定为这个货
+        // var obj = {
+        //     name: "Jack",
+        // };
+
+        // 函数定义
+        // function fn() {
+        //     // 本身这里的 this 应该是指向 window
+        //     // this.name => window.name
+
+        //     // 如果我能让这个函数内部的 this 指向 obj
+        //     // this.name => obj.name
+        //     console.log(this);
+        // }
+
+        // 普通调用
+        // fn()//空字符串 window.name有定义且为空字符串（但不是undefined）
+
+        // 调用fn 并将this绑定为obj
+        // fn.call(obj)//Jack this绑定为obj
+
+        // this绑定为obj并调用
+        // function fn(a, b) {
+        //     console.log(a, b);
+        //     this.name = this.name + a; //引用传递 原始数据发生改变
+        // }
+        // // 调用fn obj给this 大傻子给a 100给b
+        // fn.call(obj, '大傻子', 100)
+        // console.log(obj)//{name: "Jack大傻子"} this绑定为obj 形参a传'是个大傻子' 形参b传100
+
+        /* 
+        2. apply 应用
+        函数名.apply( thisArg, argArr )
+        改变this指向的
+        第一个参数： 就是你要改变的 this 指向
+        第二个参数： 接受一个数组，数组中的每一项依次是给函数传递参数
+        */
+        // var obj = {
+        //     name: "Jack",
+        // };
+        // function fn(a, b) {
+        //     console.log(a,b);//200 100
+        //     console.log(this.name); //即obj.name Jack
+        // }
+        // fn.apply(obj, [200, 100]);
+
+        /* 
+        // 3. bind
+        // 新函数 = 函数名.bind( thisArg )
+        // call 和 apply 都会把函数立即执行了
+        // bind 不会立即执行函数，而是返回一个新的函数给你，这个新的函数是一个被改变了 this 指向过的函数
+         */
+        var obj = {
+            name: "Jack",
+        };
+        function fn(a, b) {
+            console.log(a, b)//你 妹
+            console.log(this)//obj
+        }
+
+        // fn.bind(obj)会返回一个新的函数 该函数中的this为obj
+        // 调用返回的新函数
+        // fn.bind(obj)("你","妹")
+
+        // fn.bind(obj)会返回一个新的函数 该函数中的this为obj
+        let newFn = fn.bind(obj)
+
+        // 调用返回的新函数
+        newFn("你", "妹")
+
+    </script>
+</body>
+
+</html>

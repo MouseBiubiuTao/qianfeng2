@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+
+
+  <script>
+    // constructor 构造器
+
+
+    // **函数天生自带的哪个 prototype 中，有一个成员，叫做 constructor，告诉你当前这个 prototype 是哪个构造函数的 prototype**
+    // 谁的 prototype 里面的 constructor 就指向谁
+
+    function Person() {}
+    // console.log(Person.prototype.constructor === Person)//true
+
+    const p1 = new Person()
+
+    // p1 自己没有 constructor 属性就要去 __proto__ 上找
+    // console.log(p1.constructor) // ƒ Person() {}
+    // 对象的 constructor 指向所属的构造函数
+
+    const arr = []
+    // arr = new Array()
+    // arr 所属的构造函数是 Array
+    // arr.constructor === arr.__proto__.constructor === Array.prototype.constructor
+    // console.log(arr.constructor) // ƒ Array() { [native code] }
+    // console.log(arr,arr.constructor);
+
+    const fn = function () {}
+    // // fn 所属的构造函数就是 Function
+    // console.dir(fn);
+    // console.log(fn.constructor === Function) // true
+
+    // console.log(  Object.prototype.toString.call(fn)  )//[object Function]
+    // console.log(  fn.toString()  )//[object Function]
+  </script>
+
+</body>
+</html>

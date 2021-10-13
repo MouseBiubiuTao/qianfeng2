@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 这个就是一个对象
+    // 是一个无序的数据集合
+    // 以键值对的形式出现
+    // const obj = {
+    //   name: 'Jack',
+    //   fn:function(){}
+    // }
+
+    // 对象里面可以存储什么东西
+    // 可以存储任意的数据类型
+    // const obj2 = {
+    //   name: 'Jack',
+    //   arr: [],
+    //   fn: function () {}
+    // }
+
+
+    // 有多少个东西式对象
+    // const obj = {}
+
+    // 这个 arr 式一个数组
+    // 数组也是一个对象
+    // 数组也可以当作对象来存储键值对
+    const arr = [1, 2, 3]
+    arr.name = 'Jack'
+    console.log(arr);
+
+    // 函数也是一个对象
+    // 也可以当作对象来存储键值对
+    const fn = function () {}
+    fn.age = 20
+    console.dir(fn)//directory 目录 罗列
+
+    // . 的
+    // . 是对象专用的语法
+    // 不管你写的是什么，只要出现了 xxx.yyy， 那么 xxx 必须是一个对象，不然就报错
+    document.getElementById()
+    div.style.color = '#fff'
+
+
+    /*
+      面向对象
+      1. 既不是语法也不是方法，编程思想（书写代码的方式）
+      2. OOP - object oriented programming
+
+      这个思想到底是个什么东西
+
+      面向过程
+        面向 => 脸朝着 => 关注
+        关注着整个过程的开发方式
+      面向对象
+        关注着对象的方式开发
+
+      例子 我要吃面条
+        面向过程
+          + 和面
+          + 切面条
+          + 做水
+          + 煮面
+          + 吃
+        面向对象
+          + 找一个面馆
+          + 点一碗面
+          + 等着吃
+
+      从面向对象开始
+        + 当我向完成一个功能的时候
+          1. 看看 js 给我们提供整个对象没有
+          2. 如果没有提供，我们自己做一个面馆
+          3. 用整个面馆给我造一碗面
+
+      需要关注的是几个东西
+        1. 对象
+        2. 创造这个对象的东西
+        3. 一个能够创造对象的东西
+
+      面向对象的核心思想就是
+        + 高内聚低耦合(解耦)
+
+      面向对象开发方式
+        + 封装
+        + 抽象
+    */
+
+
+  </script>
+</body>
+</html>

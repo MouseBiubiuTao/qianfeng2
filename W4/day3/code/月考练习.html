@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul>li {
+            width: 200px;
+            height: 50px;
+            background-color: slateblue;
+            border: 1px solid black;
+            border-radius: 5px;
+            text-align: center;
+            list-style: none;
+            margin-bottom: 10px;
+            float: left;
+        }
+
+        input {
+            width: 300px;
+            height: 30px;
+            outline: none;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font: 20px "宋体";
+            margin-bottom: 20px;
+            margin-left: 500px;
+        }
+
+        span {
+            font: 20px "宋体";
+            color: red;
+            display: none;
+        }
+
+        #btn {
+            width: 100px;
+            height: 30px;
+            margin-left: 580px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">时间</div>
+
+    <!-- <span class="fire"></span>
+    <div class="nightsky"></div> -->
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <input type="text" id="ipName" placeholder="请输入姓名"><span id="spName">姓名格式错误</span><br>
+    <input type="text" id="ipPhone" placeholder="请输入手机号码"><span id="spPhone">手机号码格式错误</span><br>
+    <input type="text" id="ipEmail" placeholder="请输入邮箱"><span id="spEmail">邮箱格式错误</span><br>
+    <button id="btn">查询</button>
+
+    <script src="./封装.js"></script>
+    <script>
+        //         @流程控制
+        // ·输出100以内全部5的倍数
+        // ·现有任意对象（如{name:"jack",age:20,gender:"男",clazz:"2103"}），遍历输出其全部键值
+        // ·不断产生并打印100以内的随机数，直到得到一个9的倍数为止
+        // ·有一个长度为5的学生数组["jack","rose","john","kitty","doggy"]，有10000道题，
+        // 为每个学生随机抽取5道，生成抽题结果并输出（题号可以重）
+        // {jack:[3,1,4,5,9],rose:[2,6,5,3,8]...}
+
+        function fn1() {
+            // ·输出100以内全部5的倍数
+            for (let i = 0; i < 101; i++) {
+                if (i % 5 === 0) {
+                    console.log(i);
+                }
+            }
+        }
+        // fn1()
+
+        function fn2() {
+            // ·现有任意对象（如{name:"jack",age:20,gender:"男",clazz:"2103"}），遍历输出其全部键值
+            const obj = {
+                name: "jack",
+                age: 20,
+                gender: "男",
+                clazz: "2103"
+            }
+
+            for (const attr in obj) {
+                console.log(obj[attr]);
+            }
+        }
+        // fn2()
+
+        //随机数轮子
+        function random(a, b) {
+
+            return number = Math.ceil(a + (b - a) * Math.random())
+
+        }
+        let number
+
+        function fn3() {
+            // ·不断产生并打印100以内的随机数，直到得到一个9的倍数为止
+
+            for (let i = 0; i < 9999; i++) {
+                number = random(0, 100)
+                if (number % 9 === 0) {
+                    console.log(number);
+                    break
+                }
+            }
+
+        }
+        // fn3()
+
+        function fn4() {
+            // ·有一个长度为5的学生数组["jack","rose","john","kitty","doggy"]，有10000道题，为每个学生随机抽取5道，生成抽题结果并输出（题号可以重）
+            // {jack:[3,1,4,5,9],rose:[2,6,5,3,8]...}
+            let arr = ["jack", "rose", "john", "kitty", "doggy"]
+            let obj = {}
+            let arr2 = []
+
+
+
+            function getItem() {
+                for (let i = 0; i < 5; i++) {
+                    number = random(0, 10000)
+                    arr2.push(number)
+                }
+                return arr2
+            }
+
+
+            arr.forEach(
+                (attr) => {
+                    obj[attr] = getItem()
+                    arr2 = []
+                }
+            )
+
+            console.log(obj);
+        }
+        // fn4()
+
+
+        //@函数封装
+        // ·获取并返回[a,b]之间的随机数，要求使用箭头函数
+        // ·获取并返回随机颜色，如rgb(123,45,67)
+        // ·判断一个数是否为素数（除了1和自身外，不能被任何数整除）
+        // ·判断某一年是否为闰年（整四不整百为闰年 整四百亦为闰年）
+        // ·输出一个10*10的*矩阵
+        // ·输出九九乘法表
+
+
+        function fn5() {
+            // ·获取并返回[a,b]之间的随机数，要求使用箭头函数
+            let random = (a, b) => {
+                return Math.ceil(a + (b - a) * Math.random())
+            }
+            console.log(random(0, 10000));
+        }
+        // fn5()
+
+        function fn6() {
+            // ·获取并返回随机颜色，如rgb(123,45,67)
+            function random(a, b) {
+                return number = Math.ceil(a + (b - a) * Math.random())
+            }
+            return console.log(`rgb(${random(0,255)},${random(0,255)},${random(0,255)})`);
+        }
+        // fn6()
+
+        function fn7() {
+            // ·判断一个数是否为素数（除了1和自身外，不能被任何数整除）
+            function isSuShu(number) {
+                for (let i = 2; i < number - 1; i++) {
+                    if (number % i === 0) {
+                        return false
+                    } else {
+                        return true
+                    }
+                }
+            }
+            console.log(isSuShu(20));
+        }
+        // fn7()
+
+        function fn8() {
+            // ·判断某一年是否为闰年（整四不整百为闰年 整四百亦为闰年）
+            function isRunYear(year) {
+                if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            console.log(isRunYear(20210));
+        }
+        // fn8()
+
+        function fn9() {
+            // ·输出一个10*10的*矩阵
+            for (let i = 0; i < 10; i++) {
+                for (let i = 0; i < 10; i++) {
+                    document.write("00" + "&nbsp;")
+                }
+                document.write("<br>")
+            }
+        }
+        // fn9()
+
+        function fn10() {
+            // ·输出九九乘法表
+            for (let i = 0; i < 10; i++) {
+                for (let j = 1; j < i + 1; j++) {
+                    document.write(`${j}*${i}=${i*j}&nbsp;&nbsp;`)
+                }
+                document.write("<br>")
+            }
+        }
+        // fn10()
+
+        //         @定时器
+        // ·3秒后在控制台输出“boom!”
+        // ·每秒产生并打印一个255以内随机数，直到得到一个9的倍数为止
+        function fn11() {
+            // ·3秒后在控制台输出“boom!”
+            setTimeout(() => {
+                    console.log("BOOM");
+                },
+                3000);
+        }
+        // fn11()
+
+        function fn12() {
+            // ·每秒产生并打印一个255以内随机数，直到得到一个9的倍数为止
+            let time = setInterval(() => {
+                number = random(0, 255)
+                console.log(number);
+                if (number % 9 === 0) {
+                    time && clearInterval(time)
+                    // console.log("这是一个能被9整除的数");
+                }
+            }, 1000);
+        }
+        // fn12()
+
+        //         @DOM与事件
+        // ·从页面中找出id为btn的标签，点击输出当前的时间信息
+        // ·找出ul下的所有li，同时绑定两个点击事件监听器，一个输出事件相对于当前元素的位置，一个输出相对于页面的位置
+        // ·创建一个class为fire的span元素，并添加到类名为nightsky的div元素中
+        function fn13() {
+            // ·从页面中找出id为btn的标签，点击输出当前的时间信息
+            const btn = document.getElementById("btn")
+            const box = document.querySelector("#box")
+            btn.addEventListener(
+                "click",
+                e => {
+                    box.innerText = new Date()
+                }
+            )
+        }
+        // fn13()
+
+        function fn14() {
+            // ·找出ul下的所有li，同时绑定两个点击事件监听器，一个输出事件相对于当前元素的位置，一个输出相对于页面的位置
+            const ul = document.querySelector("ul")
+            const ulli = document.querySelectorAll("ul>li")
+
+            ul.addEventListener(
+                "click",
+                e => {
+                    console.log(`相对页面：` + e.pageX, e.pageY);
+                }
+            )
+            ul.addEventListener(
+                "click",
+                e => {
+                    console.log(`相对元素：` + e.offsetX, e.offsetY);
+                }
+            )
+        }
+        // fn14()
+
+        function fn15() {
+            // ·创建一个class为fire的span元素，并添加到类名为nightsky的div元素中
+            const body = document.querySelector("body")
+            let span = document.createElement("span")
+            let div = document.createElement("div")
+            // span = span.setAttribute("class", "fire")
+            // div = div.setAttribute("class", "nightsky")
+            body.appendChild(div)
+            div.appendChild(span)
+            span = span.setAttribute("class", "fire")
+            div = div.setAttribute("class", "nightsky")
+            console.log(body);
+        }
+        // fn15()
+
+        //         @字符串/正则/JSON
+        // ·从一段文本中找出所有涉案金额、身份证号；
+        // ·点击按钮，将搜索结果使用json字符串输出在页面上
+        // ·点击按钮，将搜索结果使用<ul>输出在页面上
+        // ·点击按钮，将所有身份证号后四位替换为****
+
+        let str = `
+        123456195012210020为切实保护债权人的合法权益，促进社会信用机制的建立，根据《中华人民共和国民事诉讼法》、最高人民法院《关于人民法院执行工作若干问题的规定（试行）》，现通过法院公告形式，对以下拒不履行债务的被执行人予以公布。
+        123456195012210020
+
+        身份证号：12345619691022041X
+        家庭住址：建德市洋溪街道洋溪社区上章塘坞新村
+        未履行金额：1316500元
+        案号：（2017）浙0182执928号
+        案由：民间借贷纠纷
+
+        身份证号：123456196802263412
+        家庭住址：建德市寿昌镇卜家蓬村上马
+        未履行金额：51163元
+        案号：（2016）浙0182执3789号
+        案由：金融借款合同纠纷
+
+        身份证号：123456195012210020
+        家庭住址：建德市新安江街道环城北路
+        未履行金额：735588元
+        案号：（2017）浙0182执1100号
+        案由：民间借贷纠纷
+
+        被公布名录的被执行人在全部履行生效法律文书确定的义务前，不得出国出境、投资开业、购车置房、参与招投标及参与娱乐宴请等高消费活动。
+        如有上述行为，一经查实，将依法处以罚款、司法拘留，直至依法追究刑事责任。欢迎社会各界举报。`
+
+        function fn16() {
+            // ·从一段文本中找出所有涉案金额、身份证号；12345619691022041X
+            const reg = /未履行金额：(\d+元)/gm
+
+            const idReg =
+                /身份证号：([1-6](\d{5}))(19[\d]{2})((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[01]))((\d{4})|(\d{3}X))/gm
+
+            let moneyArr = []
+            let idArr = []
+            let temp = []
+
+            while ((temp = idReg.exec(str)) != null) {
+                idArr.push(temp[0])
+            }
+
+            console.log(idArr);
+
+            while ((temp = reg.exec(str)) != null) {
+                moneryArr.push(temp[0])
+            }
+
+            console.log(moneyArr);
+        }
+        // fn16()
+
+        function fn17() {
+            // ·点击按钮，将搜索结果使用json字符串输出在页面上
+            const reg = /未履行金额：(\d+元)/gm
+
+            const idReg =
+                /身份证号：([1-6](\d{5}))(19[\d]{2})((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[01]))((\d{4})|(\d{3}X))/gm
+
+            let moneyArr = []
+            let idArr = []
+            let temp = []
+            let jsonIdArr
+            let jsonMoneyArr
+
+
+            while ((temp = idReg.exec(str)) != null) {
+                idArr.push(temp[0])
+            }
+            jsonIdArr = JSON.stringify(idArr)
+
+            console.log(jsonIdArr);
+
+            while ((temp = reg.exec(str)) != null) {
+                moneyArr.push(temp[0])
+            }
+            jsonMoneyArr = JSON.stringify(moneyArr)
+
+            console.log(jsonMoneyArr);
+        }
+        // fn17()
+
+        function fn18() {
+            // ·点击按钮，将搜索结果使用<ul>输出在页面上
+            const reg = /未履行金额：(\d+元)/gm
+
+            const idReg =
+                /身份证号：([1-6](\d{5}))(19[\d]{2})((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[01]))((\d{4})|(\d{3}X))/gm
+
+            let moneyArr = []
+            let idArr = []
+            let temp = []
+            let jsonIdArr
+            let jsonMoneyArr
+            const ul = document.querySelector("ul")
+            btn.addEventListener(
+                "click",
+                e => {
+                    for (let i = 0; i < idArr.length; i++) {
+                        ul.children[i].innerText = idArr[i]
+                    }
+                    for (let i = 0; i < moneyArr.length; i++) {
+                        ul.children[idArr.length + i].innerText = moneyArr[i]
+                    }
+                }
+            )
+
+
+            while ((temp = idReg.exec(str)) != null) {
+                idArr.push(temp[0])
+            }
+            jsonIdArr = JSON.stringify(idArr)
+
+            console.log(jsonIdArr);
+
+            while ((temp = reg.exec(str)) != null) {
+                moneyArr.push(temp[0])
+            }
+            jsonMoneyArr = JSON.stringify(moneyArr)
+
+            console.log(jsonMoneyArr);
+        }
+        // fn18()
+
+
+        function fn19() {
+            // ·点击按钮，将所有身份证号后四位替换为****
+            const reg = /未履行金额：(\d+元)/gm
+
+            const idReg =
+                /身份证号：([1-6](\d{5}))(19[\d]{2})((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[01]))((\d{4})|(\d{3}X))/gm
+
+            let moneyArr = []
+            let idArr = []
+            let temp = []
+            let jsonIdArr
+            let jsonMoneyArr
+            let hou4Arr
+            const ul = document.querySelector("ul")
+            btn.addEventListener(
+                "click",
+                e => {
+
+                    while ((temp = idReg.exec(str)) != null) {
+                        temp[0] = temp[0].replace(/(\d{3}[X\d])$/, "****")
+                        idArr.push(temp[0])
+                    }
+                    jsonIdArr = JSON.stringify(idArr)
+
+                    console.log(jsonIdArr);
+
+                    while ((temp = reg.exec(str)) != null) {
+                        moneyArr.push(temp[0])
+                    }
+                    jsonMoneyArr = JSON.stringify(moneyArr)
+
+                    console.log(jsonMoneyArr);
+
+
+
+                    for (let i = 0; i < idArr.length; i++) {
+                        ul.children[i].innerText = idArr[i]
+                    }
+                    for (let i = 0; i < moneyArr.length; i++) {
+                        ul.children[idArr.length + i].innerText = moneyArr[i]
+                    }
+                }
+            )
+
+        }
+        // fn19()
+
+
+
+        function fn20() {
+
+            //         @插件封装
+            // ·封装一个注册表单插件，包含姓名、手机号、邮箱
+            // ·点击提交时自动进行合法性校验，对于不合法的字段以红字提示
+            // ·全部合法时，回调主程序函数进行页面跳转
+            // ·以外部JS文件形式使用该插件
+
+            function callBack() {
+
+                alert("注册成功");
+
+                setTimeout(() => {
+                    window.location.assign("https://www.baidu.com/")
+                }, 1000);
+            }
+            jiaoyan(callBack)
+
+        }
+        // fn20()
+    </script>
+
+
+</body>
+
+</html>

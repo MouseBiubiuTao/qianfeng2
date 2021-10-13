@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 模拟校园生活
+        // 疫情汇报的时候：打印全体师生的姓名
+        // 中午的时候：全体师生吃饭+睡觉
+        // 晚自习开始：所有的学生（包括H5学生与Java学生）都开始学习（共性）
+        // 但具体的学习方式不一样，H5学生学习HTML+CSS+JS,Java学生学习数据库+SSM（个性）
+        function Person(name, age) {
+            this.name = name
+            this.age = age
+        }
+
+        Person.prototype.eat = function () {
+            console.log(`${this.name}正在吃饭`);
+        }
+
+        Person.prototype.sleep = function () {
+            console.log(`${this.name}正在酣睡`);
+        }
+
+        Person.prototype.selfTell = function () {
+            console.log(`我是${this.name}年龄${this.age},健康状况良好`);
+        }
+
+        const p1 = new Person("张三疯", 80)
+    </script>
+</body>
+
+</html>

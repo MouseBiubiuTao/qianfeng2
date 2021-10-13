@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input {
+            width: 300px;
+            height: 30px;
+            outline: none;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font: 20px "宋体";
+            margin-bottom: 20px;
+        }
+
+        span {
+            font: 20px "宋体";
+            color: red;
+            display: none;
+        }
+
+        #btn {
+            width: 100px;
+            height: 30px;
+        }
+
+        i {
+            display: none;
+            font: 20px "宋体";
+
+        }
+
+        #p1 {
+            color: red;
+        }
+
+        #p2 {
+            color: orange;
+        }
+
+        #p3 {
+            color: greenyellow;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="ip" placeholder="请输入注册的邮箱"><span id="spEmail">邮箱格式错误</span><br>
+    <input type="text" id="psd" placeholder="请输入密码"><span id="spPsd">密码格式错误</span><i id="p1">低</i><i id="p2">中</i><i
+        id="p3">高</i><br>
+    <button id="btn">查询</button>
+    <script>
+        // 手机校验
+        // btn.addEventListener(
+        //     "click",
+        //     function () {
+
+        //         let reg = /^\w{11}$/
+        //         let phoneCode = ip.value
+        //         alert(reg.test(phoneCode))
+        //     }
+        // )
+
+
+        // 中文姓名校验 \u4e00-\u9fa5
+        // btn.addEventListener(
+        //     "click",
+        //     function () {
+        //         let name = ip.value;
+        //         let reg = /[^\u4e00-\u9fa5]{2,8}$/
+        //         alert(reg.test(name))
+        //     }
+        // )
+
+
+        // 邮箱校验
+        // btn.addEventListener(
+        //     "click",
+        //     function (e) {
+        //         let email = ip.value;
+        //         let reg = /^([a-zA-Z\d][\w-]{2,}@[\w]{2,})\.([a-z]{2,})(\.[a-z]{2,})?$/
+        //         alert(reg.test(email))
+        //     }
+        // )
+
+        // 身份证号校验 首字母为1-6
+        // btn.addEventListener(
+        //     "click",
+        //     function (e) {
+        //         let idCare = ip.value;
+        //         let reg =
+        //             /^([1-6])(\d{5})((1[8-9]\d{2})|(20[0-1]\d)|(202[01]))((0[1-9])|(1[0-2]))(([0-2][0-9])|(3[01]))(\d{3})([\dX])$/
+        //         alert(reg.test(idCare))
+        //     }
+        // )
+
+
+        //         # 强化练习1
+        // 1. 可以使用两种方式创建正则表达式
+        // 2. 写一个验证 0 ～ 666 数字的正则【√】
+
+        // let reg = new RegExp('^\d{11}$')
+        // let reg2 = /^\d{11}$/
+
+
+
+
+
+        // 2. 写一个验证 0 ～ 666 数字的正则【√】
+        // btn.addEventListener(
+        //     "click",
+        //     function(e){
+        //         let number = ip.value;
+        //         let reg = /^([0-9])|([0-9]\d)|([0-5]\d{2})|(6[0-5]\d)|(66[0-6])$/
+        //         alert(reg.test(number))
+        //     }
+        // )
+
+
+        //  # 强化练习2
+        //  1. 实现一个注册页面的效果
+        //  表单输入正确，注册按钮可以点击
+        //  否则的话，哪个表单错误在对应表单处进行提示
+
+
+        let emailreg = /^([a-zA-Z\d][\w-]{2,}@[\w]{2,})\.([a-z]{2,})(\.[a-z]{2,})?$/
+        let psdreg = /^\w{6,18}$/
+
+        btn.addEventListener(
+            "click",
+            function (e) {
+                let email = ip.value;
+                let password = psd.value;
+                let retemail = emailreg.test(email);
+                let retpsd = psdreg.test(password)
+                console.log(retemail, retpsd);
+
+                if (!retemail) {
+                    spEmail.style.display = "inline-block"
+                } else {
+                    spEmail.style.display = "none"
+                }
+
+
+                if (!retpsd) {
+                    spPsd.style.display = "inline-block"
+                } else {
+                    spPsd.style.display = "none"
+                }
+
+                if (retemail === true && retpsd === true) {
+                    alert("注册成功");
+
+                    setTimeout(
+                        function () {
+                            window.location.href = "https://www.baidu.com/"
+                            // window.location.assign("https://www.baidu.com/")
+                        }, 500
+                    )
+                }else{
+                    alert("格式错误，请从新输入!")
+                }
+            }
+        )
+
+
+        //         # 强化练习3
+        // 1. 实现密码强度验证【√】
+        // - 弱：只有数字或字母中的一种
+        // - 中：数字+字母
+        // - 强：数字+字母+特殊符号[_!@#$%^&*]
+
+        let psdreg1 = /^([0-9]{6,18}|[a-zA-Z]{6,18})$/
+        let psdreg2 = /^([0-9a-zA-Z]{6,18})$/
+        let psdreg3 = /^([\w!@#$%^&*]{6,18})$/
+
+        btn.addEventListener(
+            "click",
+            e => {
+                let password = psd.value;
+
+                let psd1 = psdreg1.test(password);
+                let psd2 = psdreg2.test(password);
+                let psd3 = psdreg3.test(password);
+
+                console.log(psd1,psd2,psd3);
+
+                if (psd1 === true) {
+                    p1.style.display = "inline-block"
+                    p2.style.display = "none"
+                    p3.style.display = "none"
+                    return
+                }
+                if (psd2 === true) {
+                    p2.style.display = "inline-block"
+                    p1.style.display = "none"
+                    p3.style.display = "none"
+                    return
+                }
+                if (psd3 === true) {
+                    p3.style.display = "inline-block"
+                    p2.style.display = "none"
+                    p1.style.display = "none"
+                    return
+                }
+
+
+            }
+        )
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>homework</title>
+    <style>
+        .container {
+            width: 800px;
+            height: 600px;
+            margin: 50px auto;
+            border: 1px solid black;
+            position: relative;
+        }
+
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: cadetblue;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <p id="pPosition"></p>
+    <div class="container">
+        <div id="box"></div>
+    </div>
+    <script>
+        // 1. 实现页面实时显示光标坐标位置
+        // document.body
+        // document.documentElement html
+        // document DOM顶级对象
+        // window BOM顶级对象
+
+        /* 家庭作业1 */
+        function fn1() {
+            // 使用文档对象监听鼠标移动事件 e为系统传递过来的事件对象
+            document.onmousemove = function (e) {
+
+                // 打印mousemove发生的位置（相对于页面）
+                console.log(e.pageX, e.pageY);
+
+                // 将该位置显示在pPosition上
+                document.querySelector("#pPosition").innerText = `(${e.pageX},${e.pageY})`
+            }
+        }
+
+        /* 改进拖拽盒子案例，实现盒子在父元素的边界内拖拽盒子； */
+        function fn2() {
+            // 找出大盒子
+            var container = document.getElementsByClassName("container")[0]
+
+            // 当鼠标在小盒子上按下时...
+            box.onmousedown = function () {
+
+                // 开始拖动监听
+                // 整个页面内移动鼠标 小盒子跟随（但不能越界）
+                document.onmousemove = function (e) {
+
+                    // 计算盒子应在的left和top
+                    var tempX = e.pageX - container.offsetLeft - box.clientWidth / 2
+                    var tempY = e.pageY - container.offsetTop - box.clientHeight / 2
+
+                    // 计算右侧和底部的边界位置：大盒子宽度 - 小盒子宽度
+                    var maxLeft = container.clientWidth - box.clientWidth
+                    var maxTop = container.clientHeight - box.clientHeight
+
+                    // 边界检测
+                    // 左边界检测
+                    tempX = tempX < 0 ? 0 : tempX
+                    // 顶边界检测
+                    tempY = tempY < 0 ? 0 : tempY
+                    // 右边界检测
+                    tempX = tempX > maxLeft ? maxLeft : tempX
+                    // 底部边界检测
+                    tempY = tempY > maxTop ? maxTop : tempY
+
+                    // 锁定小盒子的位置
+                    box.style.left = tempX + "px"
+                    box.style.top = tempY + "px"
+                }
+            }
+
+            // 任意位置松开鼠标 小盒子不再跟随
+            document.onmouseup = function () {
+                document.onmousemove = null;
+            }
+        }
+
+        /* 
+        靠近边界的自动吸附 
+        box 需要被自动吸附的元素
+        minLeft,maxLeft,minTop,maxTop 需要被吸附的边界位置
+        threshold 自动吸附的临界值
+        */
+        function autoAttract(box, minLeft, maxLeft, minTop, maxTop, threshold) {
+            // 一旦进入左边界100px的范围 被左边界吸附
+            if (parseInt(box.style.left) <= minLeft + threshold) {
+                box.style.left = minLeft + "px"
+            }
+
+            // 一旦进入右边界100px的范围 被右边界吸附
+            if (parseInt(box.style.left) >= maxLeft - threshold) {
+                box.style.left = maxLeft + "px"
+            }
+
+            // 一旦进入顶部边界100px的范围 被顶部边界吸附
+            if (parseInt(box.style.top) <= minTop + threshold) {
+                box.style.top = minTop + "px"
+            }
+
+            // 一旦进入底部边界100px的范围 被底部边界吸附
+            if (parseInt(box.style.top) >= maxTop - threshold) {
+                box.style.top = maxTop + "px"
+            }
+        }
+        function fn3(useAutoAttract = true) {
+            // 找出大盒子
+            var container = document.getElementsByClassName("container")[0]
+
+            // 边界吸附的阈值/threshold
+            var threshold = 100
+
+            // 当鼠标在小盒子上按下时...
+            box.onmousedown = function () {
+
+                // 开始拖动监听
+                // 整个页面内移动鼠标 小盒子跟随（但不能越界）
+                document.onmousemove = function (e) {
+
+                    // 计算盒子应在的left和top
+                    var tempX = e.pageX - container.offsetLeft - box.clientWidth / 2
+                    var tempY = e.pageY - container.offsetTop - box.clientHeight / 2
+
+                    // 计算右侧和底部的边界位置：大盒子宽度 - 小盒子宽度
+                    var minLeft = 0, minTop = 0;
+                    var maxLeft = container.clientWidth - box.clientWidth
+                    var maxTop = container.clientHeight - box.clientHeight
+
+                    // 边界检测
+                    // 左边界检测
+                    tempX = tempX < minLeft ? minLeft : tempX
+                    // 顶边界检测
+                    tempY = tempY < minTop ? minTop : tempY
+                    // 右边界检测
+                    tempX = tempX > maxLeft ? maxLeft : tempX
+                    // 底部边界检测
+                    tempY = tempY > maxTop ? maxTop : tempY
+
+                    // 锁定小盒子的位置
+                    box.style.left = tempX + "px"
+                    box.style.top = tempY + "px"
+
+                    // 判断是否需要被边界吸附
+                    if (useAutoAttract) {
+                        autoAttract(box, minLeft, maxLeft, minTop, maxTop, threshold)
+                    }
+
+                }
+            }
+
+            // 任意位置松开鼠标 小盒子不再跟随
+            document.onmouseup = function () {
+                document.onmousemove = null;
+            }
+        }
+        // fn3()
+        fn3(false)//不使用自动吸附功能
+
+        // 自动吸附的算法B
+        function fn4() {
+            // 找出大盒子
+            var container = document.getElementsByClassName("container")[0]
+
+            // 边界吸附的阈值/threshold
+            var threshold = 100
+
+            // 当鼠标在小盒子上按下时...
+            box.onmousedown = function () {
+
+                // 开始拖动监听
+                // 整个页面内移动鼠标 小盒子跟随（但不能越界）
+                document.onmousemove = function (e) {
+
+                    // 计算盒子应在的left和top
+                    var tempX = e.pageX - container.offsetLeft - box.clientWidth / 2
+                    var tempY = e.pageY - container.offsetTop - box.clientHeight / 2
+
+                    // 计算右侧和底部的边界位置：大盒子宽度 - 小盒子宽度
+                    var minLeft = 0, minTop = 0;
+                    var maxLeft = container.clientWidth - box.clientWidth
+                    var maxTop = container.clientHeight - box.clientHeight
+
+                    // 边界检测
+                    // 左边界检测
+                    tempX = tempX < minLeft + threshold ? minLeft : tempX
+                    // 顶边界检测
+                    tempY = tempY < minTop + threshold ? minTop : tempY
+                    // 右边界检测
+                    tempX = tempX > maxLeft - threshold ? maxLeft : tempX
+                    // 底部边界检测
+                    tempY = tempY > maxTop - threshold ? maxTop : tempY
+
+                    // 锁定小盒子的位置
+                    box.style.left = tempX + "px"
+                    box.style.top = tempY + "px"
+                }
+            }
+
+            // 任意位置松开鼠标 小盒子不再跟随
+            document.onmouseup = function () {
+                document.onmousemove = null;
+            }
+        }
+        // fn4()
+
+    </script>
+</body>
+
+</html>

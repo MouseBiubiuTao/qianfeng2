@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+
+  <script>
+    // 就是用来书写正则的特殊内容
+    // 1. \d 
+    // 表示是数字的意思
+
+    // 我要检测的字符串里面必须有一个数字
+    // digit数字
+    // var reg = /\d/
+    // var str1 = 'abcd'
+    // var str2 = 'ab123cd'
+    // console.log(reg.test(str1))//false
+    // console.log(reg.test(str2))//true
+
+    // 2. \D
+    // 表示非数字
+    // 表示检测的字符串里面要有一个非数字
+    // var reg = /\D/
+    // var str1 = 'abcd'
+    // var str2 = '123'
+    // console.log(reg.test(str1))//true
+    // console.log(reg.test(str2))//false
+
+    // space 空白
+    // 3. \s 
+    // 表示空格字符 " " \t制表符    
+    // 表示你的字符串中要有一个 空格
+    // var reg = /\s/
+    // var str1 = '1     23'
+    // var str2 = 'deg\tgfh'
+    // var str3 = 'SDfghjkz'
+    // console.log(reg.test(str1))//true
+    // console.log(reg.test(str2))//true
+    // console.log(reg.test(str3))//false
+
+    // 4. \S
+    // 表示非空格
+    // var reg = /\S/
+    // var str1 = '1     23'
+    // var str2 = '  \t \n \r'//全是空白字符
+    // // console.log(str2);
+    // console.log(reg.test(str1))//true
+    // console.log(reg.test(str2))//false
+
+    // 5. \w word 单词字符
+    // 数字字母下划线 0 - 9 a - z A -Z _
+    // var reg = /\w/
+    // var str1 = '@_@'
+    // var str2 = '@你妹@'
+    // console.log(reg.test(str1))//true
+    // console.log(reg.test(str2))//false
+
+    // 6. \W
+    // 非数字字母下划线
+    // var reg = /\W/
+    // var str1 = '@_@'
+    // var str2 = '123456sdfghjASFDFGHJ_'
+    // console.log(reg.test(str1))//true
+    // console.log(reg.test(str2))//false
+
+    // 7. 点.
+    // 表示非换行以外的任意字符 \n换行符
+    // var reg = /./
+    // var str1 = '你妹\n'
+    // var str2 = '\n \n \n'
+    // var str3 = '\n\n\n'
+    // console.log(reg.test(str1));//true
+    // console.log(reg.test(str2));//true
+    // console.log(reg.test(str3));//false
+
+  </script>
+</body>
+
+</html>

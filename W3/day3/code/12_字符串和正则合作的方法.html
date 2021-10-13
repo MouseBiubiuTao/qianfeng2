@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+  <script>
+    // 是属于字符串的方法
+
+    // 1. match()
+    // 语法： 字符串.match()
+    // var str = 'abcdabcd123abcd456abcd789abcd'
+    // // 没有全局模式g 结果与reg.exec(str)一样 以数组的形式的返回匹配到的第一个子串的详细信息
+    // console.log(str.match(/\d{3}/));//["123", index: 8, input: "abcdabcd123abcd456abcd789abcd", groups: undefined]   
+    // // 有全局模式g 返回所有匹配到的子串的数组
+    // console.log(str.match(/\d{3}/g));//["123", "456", "789"]
+
+
+    // 2. search() 功能与str.indexOf(sub)类似
+    // 语法： 字符串.search()
+    // 返回值： 如果找到对应内容，返回对应索引，如果没有找到对应的内容。返回 -1
+    // var str = 'asdasd123'
+    // var str2 = 'asdas'
+    // console.log(str.search(/\d/));//6
+    // console.log(str2.search(/\d/));//-1
+  
+
+    // 3. replace()
+    var str = 'asdasdasdHHasdasdasdHHasdadasdHHasdad'
+    // 将第一个HH替换为**
+    console.log(str.replace(/HH/, '**'))//asdasdasd**asdasdasdHHasdadasdHHasdad
+    // 加了全局模式之后 等同于str.replaceAll()
+    console.log(str.replace(/HH/g, '**'))//asdasdasd**asdasdasd**asdadasd**asdad
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>九宫格拖拽1</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        ul {
+            width: 640px;
+            height: 640px;
+            border: 10px solid pink;
+            border-radius: 10px;
+            margin: 50px auto;
+            position: relative;
+        }
+
+        li {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 100px;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="ul">
+        <li style="top: 10px; left: 10px">1</li>
+        <li style="top: 10px; left: 220px">2</li>
+        <li style="top: 10px; left: 430px">3</li>
+
+        <li style="top: 220px; left: 10px">4</li>
+        <li style="top: 220px; left: 220px">5</li>
+        <li style="top: 220px; left: 430px">6</li>
+
+        <li style="top: 430px; left: 10px">7</li>
+        <li style="top: 430px; left: 220px">8</li>
+        <li style="top: 430px; left: 430px">9</li>
+    </ul>
+
+    <script>
+        // 定义9大li的预设背景色
+        var colorArr = [
+            "red",
+            "orange",
+            "yellow",
+            "green",
+            "blue",
+            "cyan",
+            "purple",
+            "pink",
+            "gray",
+        ];
+        // 找出所有li 分别给与背景色
+        var lis = document.querySelectorAll("ul>li")
+
+        // 获取每个li的宽高
+        var liWidth = lis[0].clientWidth
+        var liHeight = lis[0].clientHeight
+
+        /* 计算鼠标可拖动盒子的边界 */
+        // var minMouseLeft = ul.offsetLeft + liWidth / 2
+        // var maxMouseLeft = ul.offsetLeft + ul.clientWidth - liWidth / 2
+        // var minMouseTop = ul.offsetTop + liHeight / 2
+        // var maxMouseTop = ul.offsetTop + ul.clientHeight - liHeight / 2
+        var minMouseLeft = ul.offsetLeft
+        var maxMouseLeft = ul.offsetLeft + ul.clientWidth
+        var minMouseTop = ul.offsetTop
+        var maxMouseTop = ul.offsetTop + ul.clientHeight
+
+
+        // 
+        var currentZindex = 0
+
+        // 记录当前拖拽盒子的拖动前的位置（拖动越界的时候好回到原位）
+        var startLeft, startTop;
+        function backToStartPosition(li) {
+                // 定义样式动画 准备平滑地回弹
+                li.style.transition = "all 0.5s linear"
+                li.style.left = startLeft
+                li.style.top = startTop
+                document.onmousemove = null;
+
+                // 半秒以后 动画结束 移出CSS动画效果
+                setTimeout(function(){
+                    li.style.transition = "none"
+                },500)
+        }
+
+        lis.forEach(function (li, index) {
+            li.style.backgroundColor = colorArr[index]
+
+            // 开始拖当前的盒子
+            li.onmousedown = function () {
+
+                // 当前li显示在最上层
+                li.style.zIndex = ++currentZindex
+
+                // 记录当前盒子的位置（拖动越界的时候好回到原位）
+                startLeft = li.style.left
+                startTop = li.style.top
+
+                // 让当前盒子跟着鼠标乱窜
+                document.onmousemove = function (e) {
+                    console.log(e.pageX, e.pageY);
+
+                    // 让当前盒子跟着事件位置跑
+                    var left = e.pageX - ul.offsetLeft - li.clientWidth / 2
+                    var top = e.pageY - ul.offsetTop - li.clientHeight / 2
+
+                    // 校正li运动的边界 
+                    left = left < 10 ? 10 : left
+                    left = left > 430 ? 430 : left
+                    top = top < 10 ? 10 : top
+                    top = top > 430 ? 430 : top
+                    // 校正完毕以后再从新设置Li的位置
+                    li.style.left = left + "px"
+                    li.style.top = top + "px"
+
+
+                    // 回弹条件：鼠标move越界 110~530
+                    if (e.pageX < minMouseLeft || e.pageX > maxMouseLeft || e.pageY < minMouseTop || e.pageY > maxMouseTop) {
+                        // 当前盒子回到原位
+                        backToStartPosition(li)
+                        // console.log("document.onmousemove = null; 越界后触发");
+                    }
+
+                }
+
+                // 在任何地方松开鼠标 小盒子停止跟随
+                document.onmouseup = function () {
+                    document.onmousemove = null;
+                    console.log("document.onmousemove = null; 鼠标松手");
+                }
+            }
+        })
+
+        // 组织页面对文本的默认选中行为
+        document.onselectstart = function (e) {
+            // 组织选中文本的默认事件
+            e.preventDefault()
+        }
+
+    </script>
+</body>
+
+</html>

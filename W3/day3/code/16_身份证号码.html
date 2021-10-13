@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16_身份证号码</title>
+</head>
+
+<body>
+    <script>
+        // [1-6]-5位数字-年份-月份-日子-3个数字-数字或X
+        // 3-12345-1996-05-10-432-X
+        // var reg = /^(大区)(地区)-(年份)-(月份)-(日期)-(三位数)-(数字或X)$/
+        var reg = /^([1-6])-(\d{5})-((19\d{2})|(20[01]\d)|(202[01]))-((0[1-9])|(1[012]))-((0[1-9])|([12]\d)|(3[01]))-(\d{3})-([\dX])$/
+        console.log(reg.test("3-12345-1996-05-10-432-X"));//true
+        console.log(reg.test("3-12345-2022-05-10-432-X"));//false
+        console.log(reg.test("3-12345-2021-13-10-432-X"));//false
+        console.log(reg.test("8-12345-2021-10-40-432-X"));//false
+        console.log(reg.test("8-12345-2021-13-10-432-X"));//false
+    </script>
+</body>
+
+</html>

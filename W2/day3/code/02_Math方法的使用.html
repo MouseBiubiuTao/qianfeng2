@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // PI
+        console.log(Math.PI);
+
+        // random [0,1)
+        console.log(Math.random()); //[0,1)随机数
+
+        // ceil 在数轴上往右走去到一个整数位
+        console.log(Math.ceil(3.3)); //4
+
+        // floor 在数轴上往左走去到一个整数位
+        console.log(Math.floor(5.8)); //5
+
+        // round 四舍五入（越过中线就往数轴右边走 否则往左边走）离谁进就投入谁的怀抱
+        console.log(Math.round(4.5)); //5
+
+        // abs 求绝对值 absoluteValue
+        console.log(Math.abs(-3)); //3
+
+        // max 一堆数的最大值
+        console.log(Math.max(2, 5, 7, 3, 0)); //7
+
+        // min 一堆数的最小值
+        console.log(Math.min(2, 1, 7, 4, 8)); //1
+
+        /* 三角函数 角度必须使用弧度制 */
+        // sin 180°换算为弧度为Math.PI 角度换算为弧度 x->x/180*Math.PI
+        console.log(Math.sin(30 / 180 * Math.PI));//0.49999999999999994
+
+        // cos
+        console.log(Math.cos(30 / 180 * Math.PI));//0.8660254037844387
+
+        // tan
+        console.log(Math.tan(30 / 180 * Math.PI));//0.5773502691896257
+
+        /* 乘方与开方 */
+        // pow 求2的3次方
+        console.log(Math.pow(2,3));//8
+
+        // 求8的开3方 即8的（1/3）次方
+        console.log(Math.pow(8,1/3));//2
+
+        // sqrt 求平方根 square root
+        console.log(Math.sqrt(9));//3
+        
+        // cbrt 求立方根 cubic root
+        console.log(Math.cbrt(27));//3
+        
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // ·获得某个date的年月日时分秒星期以及时间毫秒
+        var date = new Date()
+
+        /* 获取年月日星期时分秒 */
+        console.log(date.getFullYear()); //2021
+        console.log(date.getMonth()); //8！！！8 九月的index为8
+        console.log(date.getDate()); //1
+        console.log(date.getDay()); //3
+        console.log(date.getHours()); //19
+        console.log(date.getMinutes()); //45
+        console.log(date.getSeconds()); //**
+
+        /* 获取时间戳（距离1970年0时逝去的时间毫秒/格林威治时间戳） */
+        console.log(date.getTime()); //1630496882521
+
+        /* 打印本地时间 */
+        console.log(date.toLocaleString());//2021/9/1 下午7:51:42
+        console.log(date.toLocaleDateString());//2021/9/1
+        console.log(date.toLocaleTimeString());//下午7:51:42
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <script>
+        // 1. 随机生成一个五位以内的数，
+        var randomNumber = parseInt(Math.random()*100000)
+        console.log(randomNumber);
+
+        // 然后输出该数共有多少位，每位分别是什么
+        var arr = randomNumber.toString().split("")
+        console.log(arr);
+
+        console.log(arr.length);
+        for (var i = 0; i < arr.length; i++) {
+            const element = arr[i];
+            console.log(element);
+        }
+    </script> -->
+
+    <script>
+        // 1. 随机生成一个五位以内的数，
+        var randomNumber = parseInt(Math.random() * 100000)
+        console.log(randomNumber);
+
+        
+        // 然后输出该数共有多少位，每位分别是什么
+
+        var arr = []
+
+        // 98765.
+        // 循环 拿个位数 除10取整覆盖 循环到当前数小于1为止
+        while(randomNumber > 1){
+
+            // 拿个位数
+            var element = randomNumber%10
+            // 一直往尾部丢 结果数组需要reverse颠倒
+            // arr.push(element)
+
+            // 一直往头部丢 结果数组就不需要reverse
+            arr.unshift(element)
+
+            // 除10取整覆盖
+            randomNumber = parseInt(randomNumber / 10)
+            console.log(`randomNumber=${randomNumber}`);
+        }
+
+        // arr.reverse()
+        console.log(arr);
+
+    </script>
+</body>
+
+</html>

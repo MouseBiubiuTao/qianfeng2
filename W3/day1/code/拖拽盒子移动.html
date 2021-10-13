@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            position: absolute;
+            left: 100px;
+            top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <script>
+        var box = document.querySelector("#box");
+
+        var shouleDragBox = false;
+
+        box.onmousedown = function () {
+            shouleDragBox = true;
+        }
+
+        document.onmouseup = function () {
+            shouleDragBox = false;
+        }
+
+        document.onmousemove = function (e) {
+
+            if (!shouleDragBox) {
+                return
+            }
+            console.log(e.pageX, e.pageY);
+            box.style.left = e.pageX - box.clientWidth / 2 + "px";
+            box.style.top = e.pageY - box.clientHeight / 2 + "px";
+
+        }
+    </script>
+</body>
+
+</html>

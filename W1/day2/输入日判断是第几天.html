@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input {
+            margin-bottom: 20px;
+            width: 200px;
+            height: 50px;
+            outline: none;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" placeholder="请输入年份" id="ipyear"><br>
+    <input type="text" placeholder="请输入月份" id="ipmonth"><br>
+    <input type="text" placeholder="请输入日期" id="ipdate"><br>
+    <button id="btn">点击查询</button>
+
+    <script>
+        function fn1() {
+            btn.onclick = function () {
+                var year = ipyear.value * 1
+                var month = ipmonth.value * 1
+                var date = ipdate.value * 1
+
+                var days = 0;
+
+                switch (month - 1) {
+                    case 11:
+                        days += 30
+                    case 10:
+                        days += 31
+                    case 9:
+                        days += 30
+                    case 8:
+                        days += 31
+                    case 7:
+                        days += 31
+                    case 6:
+                        days += 30
+                    case 5:
+                        days += 31
+                    case 4:
+                        days += 30
+                    case 3:
+                        days += 31
+                    case 2:
+                        days += ((year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0) ? 29 : 28)
+                    case 1:
+                        days += 31
+                        break;
+                }
+                days = days + date
+                alert(`为${year}年${month}月${days}日`);
+            }
+
+        }
+        fn1()
+    </script>
+
+</body>
+
+</html>

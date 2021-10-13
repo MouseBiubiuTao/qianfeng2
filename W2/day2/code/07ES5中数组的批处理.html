@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <script>
+        /* 
+        forEach() 方法对数组的每个元素执行一次给定的函数。 
+        callback 回调（在特定时机调用的函数）
+        arguments 参数 简写arg
+        arr.forEach(    callback(currentValue [, index [, array]])[,    thisArg]   )
+        */
+        var arr = ["a", "b", "c"]
+
+        // value每个元素的值 index每个元素的下标 arr就是当前正在遍历的数组
+        arr.forEach(function (value, index, arr) {
+            console.log(value, index, arr);
+        })
+    </script> -->
+
+    <!-- <script>
+        // 统计一个数组中偶数元素的数量
+        var arr = [3, 1, 4, 5, 9, 2, 6, 8, 7, 0]
+        var evenCount = 0
+        arr.forEach(function (item) {
+            if (item % 2 === 0) {
+                evenCount++
+            }
+        })
+        console.log(evenCount);
+    </script> -->
+
+    <!-- <script>
+        /*
+        map() 方法创建一个新数组，其结果是该数组中的每个元素是调用一次提供的函数后的返回值。
+        arr.map(callback(value[,index[,arr]])[,thisArg])
+        */
+        var arr = [1,4,9,16]
+        var obj = {name:"张全蛋",money:0}
+
+        // 得到arr中每个元素的平方根组成的新数组
+        // 绑定callback函数中的this为obj
+        var newArr = arr.map(function(value,index,arr){
+            var newValue =  Math.sqrt(value)//square root 平方根
+            this.money += newValue
+
+            // 映射结果数组中的元素
+            return newValue
+        },obj)
+        console.log(newArr);//[1, 2, 3, 4]
+        console.log(obj);//{name: "张全蛋", money: 10}
+        
+    </script> -->
+
+    <!-- <script>
+        /* filter() 方法创建一个新数组, 其包含通过所提供函数实现的测试的所有元素。 
+        var newArray = arr.filter(callback(element[, index[, array]])[, thisArg])
+        */
+        //从所有的三位数中过滤出素数
+        var arr = []
+        for(var i=100;i<1000;i++){
+            arr.push(i)
+        }
+
+        var newArray = arr.filter(function(value,index,arr){
+            //456
+            var a = parseInt(value/100)
+            var b = parseInt(value/10)%10
+            var c = value % 10
+            console.log(a,b,c);
+            // if(Math.pow(a,3)+Math.pow(b,3)+Math.pow(c,3)===value){
+            //     return true
+            // }
+
+            return (Math.pow(a,3)+Math.pow(b,3)+Math.pow(c,3)===value)
+        })
+        console.log(newArray);
+    </script> -->
+
+    <!-- some every -->
+    <script>
+        /* 
+        some() 方法测试数组中是不是至少有1个元素通过了被提供的函数测试。它返回的是一个Boolean类型的值。
+        every() 方法测试一个数组内的所有元素是否都能通过某个指定函数的测试。它返回一个布尔值。
+        */
+       var people = []
+       people.push({name:"张全蛋",money:1000000})
+       people.push({name:"张半蛋",money:5000000})
+       people.push({name:"张双蛋",money:2000000})
+
+        // 村里是不是有百万富翁 some
+        var ret = people.some(function(person){
+            // if(person.money >= 1000000){
+            //     return true
+            // }
+            return person.money >= 1000000
+        })
+        // console.log(ret);
+
+        // 村里是不是人人都是百万富翁 every
+        ret = people.every(function(person){
+            return person.money >= 1000000
+        })
+        console.log(ret);
+
+    </script>
+
+</body>
+
+</html>

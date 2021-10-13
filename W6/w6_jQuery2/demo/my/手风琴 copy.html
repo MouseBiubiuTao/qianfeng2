@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .accordion {
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        .accordion h4 {
+            margin: 0;
+            padding: 0 15px;
+            height: 50px;
+            line-height: 50px;
+            background-color: #2196f3;
+            border: 1px solid #ccc;
+        }
+
+        .accordion .content {
+            height: 160px;
+            padding: 15px;
+            border: 1px solid #aaa;
+        }
+    </style>
+    <script src="../js/jquery-3.1.1.js"></script>
+</head>
+
+<body>
+    <div class="accordion">
+        <h4>标题1</h4>
+        <div class="content">内容1</div>
+
+        <h4>标题2</h4>
+        <div class="content">内容2</div>
+
+        <h4>标题3</h4>
+        <div class="content">内容3</div>
+
+        <h4>标题4</h4>
+        <div class="content">内容4</div>
+    </div>
+
+    <script>
+        jQuery(function ($) {
+            $('.content').not(':first').hide();
+            $('h4').on('click', function () {
+                const $currentContent = $(this).next();
+                $currentContent.show();
+                $currentContent.siblings('.content').hide();
+            })
+        })
+    </script>
+</body>
+
+</html>

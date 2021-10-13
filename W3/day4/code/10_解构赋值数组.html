@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+
+
+  <script>
+    
+
+    /* {} 是用来解构对象的 [] 是用来解构数组的 */
+    // var arr = [1, 2, 3]
+
+    /* 解构提取首元素 */
+    // let [num1] = arr
+    // console.log(num1)//1
+
+    /* 解构提取多个元素 */
+    // var arr = [1, 2, 3]
+    // let [num1, num2] = arr
+    // console.log(num1,num2)//1 2
+
+
+    /* 多级解构数组 */
+    // let arr = [
+    //   1,
+    //   2,
+    //   [3, 4],
+    // ]
+    // let [a,b,[c,d]] = arr2
+    // console.log(a,b,c,d);
+
+const dataJson = `
+{
+  "name":"张全蛋",
+  "age":18,
+  "wife":{
+    "name":"王钢蛋",
+    "friends":["老王","Jack","John"]
+  }
+}
+    `
+
+    // json字符串解析为JS数据
+    const dataObj = JSON.parse(dataJson)
+    console.log(dataObj);
+
+    let {wife:{name,friends:[f1,f2,f3]}} = dataObj
+    console.log(name,f1,f2,f3);
+    
+  </script>
+</body>
+</html>

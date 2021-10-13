@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>09_正则的方法</title>
+</head>
+
+<body>
+
+
+
+  <script>
+    // 1. test()
+    // 检测字符串是否符合要求
+
+    // 2. exec() 执行（匹配（子串）检索（子串位置）二合一）
+    function testExec1() {
+      var reg = /\d{3}/g
+      var str = `abcd324sdfsdf333asdfsafd567`
+      console.log(reg.lastIndex);//0 开始检索前 正则游标位于字符串开头
+
+      // ["324", index: 4, input: "abcd324sdfsdf333asdfsafd567", groups: undefined]
+      // 324  第一个符合条件的子串
+      // 4    第一个子串出现的位置
+      // input  被检测的字符串
+      console.log(reg.exec(str));
+      console.log(reg.lastIndex);//7 正则游标位于324的后一位
+
+      // // ["333", index: 13, input: "abcd324sdfsdf333asdfsafd567", groups: undefined]
+      console.log(reg.exec(str));
+      console.log(reg.lastIndex);//16 正则游标位于333的后一位
+
+      // // ["567", index: 24, input: "abcd324sdfsdf333asdfsafd567", groups: undefined]
+      console.log(reg.exec(str));
+      console.log(reg.lastIndex);//27 正则游标位于567的后一位（其实已经越界）
+
+      // null（字符串已经轮询完毕 不再有新的结果）
+      console.log(reg.exec(str));
+      console.log(reg.lastIndex);//0 轮询结束 游标归0
+    }
+    // testExec1()
+
+    /* 一次性全部检索完毕 */
+    var reg = /(\d{3})@(qq|sina)\.com/g
+    var str = `abcd324@qq.comsdfsdf333@sina.comasdfsafd567@qq.com`
+
+    while (true) {
+      var ret = reg.exec(str)
+      console.log(ret);
+      if (ret === null) {
+        break
+      }
+
+      console.log("发现子串:", ret[0]);
+      console.log("子串位置:", ret.index);
+      console.log("当前游标位置:", reg.lastIndex);
+      console.log();
+    }
+    console.log("程序结束");
+
+  </script>
+</body>
+
+</html>

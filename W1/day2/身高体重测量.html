@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input {
+            margin-bottom: 20px;
+            width: 200px;
+            height: 50px;
+            outline: none;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            font-size: 30px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" placeholder="请输入身高" id="ipHeight">
+    <input type="text" placeholder="请输入体重" id="ipWeight">
+    <button id="btn">点击查看标准体重</button>
+
+    <script>
+        function fn1() {
+            btn.onclick = function () {
+                var standarWeight, height ,weight;
+                height = ipHeight.value*1;
+                standarWeight = (height - 108) * 2;
+                weight = ipWeight.value*1;
+
+                if ((weight >= standarWeight *0.9) && (weight <= standarWeight *1.1) ) {
+                    alert("您的标准体重为："+standarWeight+"您的体重符合")
+                }else {
+                    alert("您的标准体重为："+standarWeight+"您的体重不符合")
+                }
+            }
+        }
+        fn1()
+    </script>
+
+</body>
+
+</html>

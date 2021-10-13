@@ -1,0 +1,117 @@
+!
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./banner.css">
+    <script src="./anim.js"></script>
+</head>
+
+<body>
+    <div class="banner">
+
+        <!-- 轮播图 -->
+        <ul class="imgBox clearFix">
+            <li style="background-color: red">1</li>
+            <li style="background-color: orange">2</li>
+            <li style="background-color: green">3</li>
+            <li style="background-color: pink">4</li>
+            <li style="background-color: yellow">5</li>
+        </ul>
+
+        <!-- 指示器存放处 -->
+        <ol class="pointBox"></ol>
+
+        <div class="leftRightTabs">
+            <a class="left"> &lt; </a>
+            <a class="right"> &gt; </a>
+        </div>
+
+    </div>
+
+    <script>
+        const btnPrev = document.querySelector(".left")
+        const btnNext = document.querySelector(".right")
+        const ul = document.querySelector("ul")
+        const ol = document.querySelector("ol")
+
+        //生成N个小圆点指示器
+        //造一个DOM碎片（缓冲器）
+        const olFragment = document.createDocumentFragment()
+        for (let i = 0; i < ul.children.length; i++) {
+            const li = document.createElement("li")
+            olFragment.appendChild(li)
+        }
+        ol.appendChild(olFragment)
+
+        //制造头尾轮播页
+        const head = ul.lastElementChild.cloneNode(true)
+        const tail = ul.firstElementChild.cloneNode(true)
+        ul.insertBefore(head, ul.firstElementChild)
+        ul.appendChild(tail)
+        //重新设置ul宽度
+        ul.style.width = ul.children.length * 600 + "px";
+
+        //设置首页
+        let currentIndex = 1;
+        let pointerIndex = 0;
+        ul.style.left = -600 * currentIndex + "px";
+
+        /* 更新指示器 */
+        pointer()
+
+        //设置点击事件
+        btnPrev.addEventListener(
+            "click",
+            () => {
+                indexToPage(--currentIndex)
+            }
+        )
+
+        btnNext.addEventListener(
+            "click",
+            () => {
+                indexToPage(++currentIndex)
+            }
+        )
+
+        //设置一个根据id设置left的函数
+        const indexToPage = (index) => {
+            animate(
+                ul, {
+                    left: (-600 * index + "px")
+                },
+                500,
+                () => {
+                    if (currentIndex === 6) {
+                        currentIndex = 1;
+                        ul.style.left = -600 * currentIndex + "px"
+                    }
+                    if (currentIndex === 0) {
+                        currentIndex = 5;
+                        ul.style.left = -600 * currentIndex + "px"
+                    }
+                    pointer()
+                }
+            )
+        }
+
+        //遍历指示器 如果 指示器Index与页面相等为其添加class
+        function pointer() {
+            pointerIndex = currentIndex - 1;
+            for (i = 0; i < ol.children.length; i++) {
+                if (pointerIndex === i) {
+                    ol.children[i].classList.add("active")
+                } else {
+                    ol.children[i].classList.remove("active")
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

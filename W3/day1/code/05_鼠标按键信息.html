@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>05_鼠标按键信息</title>
+</head>
+
+<body>
+
+  <p id="log"></p>
+
+  <script>
+    // 事件对象中的 button 属性表示你点击的是鼠标的哪一个按钮
+    // 0 表示左键
+    // 2 表示右键
+
+    // 监听文档的鼠标按下事件 
+    // 从事件处理函数的形参中获取事件对象
+    document.onmousedown = function (e) {
+
+      // 如果没有e则使用window.event
+      e = e || window.event
+      console.log(e);
+
+      switch (e.button) {
+        case 0:
+          log.innerText = 'Left button clicked.';
+          break;
+        case 1:
+          log.innerText = 'Middle button clicked.';
+          break;
+        case 2:
+          log.innerText = 'Right button clicked.';
+          break;
+        default:
+          log.innerText = `Unknown button code: ${e.button}`;
+      }
+    }
+
+  </script>
+</body>
+
+</html>

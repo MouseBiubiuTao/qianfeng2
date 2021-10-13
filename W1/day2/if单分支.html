@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        input {
+            margin-top: 200px;
+            width: 200px;
+            height: 80px;
+            outline: none;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <input type="text" placeholder="请输入一个月跑步公里数" id="kms"><br>
+    <button id="btn">点击查看结果</button>
+
+    <script>
+        function fn1() {
+            btn.onclick = function () {
+
+                var km = kms.value * 1
+
+                if ((km <= 500) && (km >= 0)) {
+                    alert("就这水平");
+
+                } else if (km > 500) {
+                    alert("跑那么多，腿不想要了吧。");
+
+                } else {
+                    alert("fw");
+
+                }
+                console.log("程序结束");
+            }
+
+        }
+        fn1()
+    </script>
+
+</body>
+
+</html>

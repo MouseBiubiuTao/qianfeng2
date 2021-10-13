@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btnForward">前进</button>
+    <button id="btnBack">后退</button>
+    <button id="btnGo">跳转</button>
+
+    <script>
+        console.log(window.history);
+
+        btnForward.onclick = function(){
+            window.history.forward();
+        }
+
+        btnBack.onclick = function(){
+            window.history.back();
+        }
+
+        btnGo.onclick = function(){
+            window.history.go(2)
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: rgb(000, 000, 067);">
+    <button id="btn">点击改变颜色</button>
+    <script>
+        // ·实现点击按钮更换随机背景颜色
+        function getRandom(a,b){
+            return a+Math.round((b-a)*Math.random())
+        }
+
+        function getRandomColor(){
+            var red = getRandom(0,255);
+            var green = getRandom(0,255);
+            var blue = getRandom(0,255);
+
+            return `rgb(${red},${blue},${green})`
+        }
+
+        btn.onclick = function(){
+            
+            document.body.style.backgroundColor = getRandomColor();
+        }
+    </script>
+</body>
+</html>

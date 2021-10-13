@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>无缝滚动</title>
+    <link rel="stylesheet" href="./banner.css" />
+    <script src="./myanim.js"></script>
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- 轮播图 -->
+        <ul class="imgBox clearFix">
+            <li style="background-color: red">1</li>
+            <li style="background-color: orange">2</li>
+            <li style="background-color: green">3</li>
+            <li style="background-color: pink">4</li>
+            <li style="background-color: yellow">5</li>
+        </ul>
+
+        <!-- 指示器存放处 -->
+        <ol class="pointBox"></ol>
+
+        <div class="leftRightTabs">
+            <a class="left"> &lt;</a>
+            <a class="right">&gt;</a>
+        </div>
+    </div>
+
+    <script>
+        let index = 1
+        const container = document.querySelector(".container")
+        const left = document.querySelector(".left")
+        const right = document.querySelector(".right")
+        const ul = document.querySelector(".imgBox")
+        const ol = document.querySelector(".pointBox")
+
+        /* 渲染指示器 */
+        function renderPointers() {
+            console.log(ul.children.length);
+            for (var i = 0; i < ul.children.length; i++) {
+                const li = document.createElement("li")
+                ol.appendChild(li)
+            }
+            // console.log("children=",ol.children.length);
+
+            ol.children[0].classList.add("active")
+        }
+
+        /* 更新指示器状态 */
+        function updatePointer() {
+            // 全灭
+            for (var i = 0; i < ol.children.length; i++) {
+                ol.children[i].classList.remove("active")
+            }
+
+            // 当前序号亮
+            if(sliderIndexToPointerIndexMap){
+                ol.children[sliderIndexToPointerIndexMap[index]].classList.add("active")
+            }
+        }
+
+        /* 动画结束回调 */
+        function onMoveEnd() {
+            // 移形换影 5-12345-1
+            if (index === 6) {
+                ul.style.left = "-600px"
+                index = 1
+            }
+            if (index === 0) {
+                ul.style.left = "-3000px"
+                index = 5
+            }
+
+            // 移形换影完成 index落定 更新指示器
+            updatePointer()
+
+            // 标记动画结束
+            animIsRunning = false;
+        }
+
+        /* 下一章 */
+        let animIsRunning = false;
+        function next() {
+            index++
+            //5-12345-1
+            // index = index >= 6 ? 1 : index
+            // ul.style.left = -600*index +"px"
+
+            // 标记动画开始了
+            animIsRunning = true;
+            move0(ul, { left: -600 * index + "px" }, 1000, onMoveEnd)
+        }
+
+        /* 上一张 */
+        function prev() {
+            index--
+            //5-12345-1
+            // index = index <= 0 ? 5 : index
+
+            animIsRunning = true;
+            move0(ul, { left: -600 * index + "px" }, 1000, onMoveEnd)
+        }
+
+        /* 所有的事件监听器 */
+        function initListeners() {
+            /* 下一张按钮 */
+            right.onclick = function (e) {
+                // 如果动画正在运行 对下一章点击不予理会
+                if(animIsRunning) return
+                next()
+            }
+
+            /* 上一张按钮 */
+            left.onclick = function (e) {
+                // 当动画没在运行时 切换到上一张
+                if(!animIsRunning){
+                    prev()
+                }
+            }
+
+            /* 把手放到ul上 停止自动轮播 */
+            container.onmouseenter = function (e) {
+                stopAutoplay()
+            }
+
+            /* 鼠标离开ul 开始自动轮播 */
+            container.onmouseleave = function (e) {
+                startAutoplay()
+            }
+
+            /* 文档可见时自动轮播 不可见时停止轮播 */
+            document.onvisibilitychange = function (e) {
+                // console.log(document.visibilityState);
+                if (document.visibilityState === "visible") {
+                    startAutoplay()
+                }
+
+                if (document.visibilityState === "hidden") {
+                    stopAutoplay()
+                }
+            }
+        }
+
+        // 自动播放定时器
+        let autoplayTimerId = -1;
+
+        /* 自动轮播 */
+        function startAutoplay() {
+            // 如果没有自动播放定时器在跑
+            if (autoplayTimerId === -1) {
+                // 就创建一个 并且把id赋值给autoplayTimerId
+                autoplayTimerId = setInterval(() => {
+                    // console.log("shit");
+                    next()
+                }, 2000)
+            }
+        }
+
+        /* 停止自动轮播 */
+        function stopAutoplay() {
+            // 如果有自动轮播定时器在跑
+            if (autoplayTimerId !== -1) {
+                // 就杀死
+                clearInterval(autoplayTimerId)
+                autoplayTimerId = -1
+            }
+        }
+
+        // 滑动页index到指示器index的映射关系
+        const sliderIndexToPointerIndexMap = {}
+        function init() {
+            /* 移形换影准备工作 5-12345-1 */
+            const headLi = ul.children[0].cloneNode(true)
+            const tailLi = ul.children[4].cloneNode(true)
+            ul.appendChild(headLi)
+            ul.insertBefore(tailLi, ul.children[0])
+
+            // 修改ul的宽度
+            ul.style.width = 600 * ul.children.length + "px"
+
+            // 将ul的位置放在5-【1】2345-1
+            ul.style.left = "-600px"
+
+            // 初始化滑动页Index与指示器index的映射map
+            // {1:0, 2:1, 3:2, 4:3, 5:4}
+            for(let index =1;index<=5;index++){
+                const pointerIndex = index - 1
+                sliderIndexToPointerIndexMap[index] = pointerIndex
+            }
+        }
+
+        function main() {
+            // 根据原始布局绘制指示器
+            renderPointers()
+            // 移形换影的准备工作
+            init()
+            initListeners()
+            startAutoplay()
+        }
+        main()
+
+    </script>
+</body>
+
+</html>

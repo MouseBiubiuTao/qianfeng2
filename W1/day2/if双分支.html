@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input {
+            margin-bottom: 20px;
+            width: 200px;
+            height: 50px;
+            outline: none;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            font-size: 30px;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <input type="text" placeholder="请输入性别" id="ipGender"><br>
+    <input type="text" placeholder="请输入身高" id="ipHeight"><br>
+    <input type="text" placeholder="请输入体重" id="ipWeight"><br>
+    <button id="btn">查询</button>
+
+    <script>
+        function fn2() {
+            btn.onclick = function () {
+                var weight, height, gender,standarWeight;
+                gender = ipGender.value;
+                weight = ipWeight.value * 1;
+                height = ipHeight.value * 1;
+
+
+                if (gender === "男") {
+                    standarWeight = (height - 80) * 0.7;
+
+                    if ((weight > 0.9 * standarWeight) && (weight < 1.1 * standarWeight)) {
+                        alert("您的标准体重为：" + standarWeight + "您的体重在标准体重的范围内");
+                    } else {
+                        alert("您的标准体重为：" + standarWeight + "您的体重不是标准体重");
+                    }
+                } else if (gender === "女") {
+                    standarWeight = (height - 70) * 0.6;
+
+                    if ((weight > 0.9 * standarWeight) && (weight < 1.1 * standarWeight)) {
+                        alert("您的标准体重为：" + standarWeight + "您的体重在标准体重的范围内");
+                    } else {
+                        alert("您的标准体重为：" + standarWeight + "您的体重不是标准体重");
+                    }
+                } else {
+                    alert("请重新输入性别");
+                }
+
+                console.log("代码运行结束");
+            }
+        }
+        fn2()
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>homework</title>
+    <style>
+        #container {
+            width: 800px;
+            height: 600px;
+            margin: 50px auto;
+            border: 1px solid black;
+            position: relative;
+        }
+
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: cadetblue;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <p id="pPosition"></p>
+    <!-- container容器 wrapper包装器 -->
+    <div id="container">
+        <div id="box"></div>
+    </div>
+
+    <script>
+        // 页面实时显示鼠标位置
+        function fn1() {
+            document.onmousemove = function (e) {
+                pPosition.innerText = `position:(${e.pageX},${e.pageY})`
+            }
+        }
+        // fn1()
+
+        /* 拖拽盒子+禁止越界 */
+        function fn2() {
+            var shouldFollowMouse = false
+
+            box.onmousedown = function () {
+                shouldFollowMouse = true
+            }
+
+            document.onmouseup = function () {
+                shouldFollowMouse = false
+            }
+
+            var cMarginLeft = container.offsetLeft
+            var cMarginTop = getComputedStyle(container).marginTop.slice(0, -2) * 1
+            
+            console.log(getComputedStyle(container).marginLeft, getComputedStyle(container).marginTop);
+            console.log(cMarginLeft, cMarginTop);
+
+            document.onmousemove = function (e) {
+                console.log(e.pageX, e.pageY);
+
+                var left = e.pageX - cMarginLeft
+                var top = e.pageY - cMarginTop
+
+                left = left < 0 ? 0 : left
+                // left = left > (800-100) ? (800-100) : left
+                left = left > (container.clientWidth - box.clientWidth) ? (container.clientWidth - box.clientWidth) : left
+                top = top < 0 ? 0 : top
+                top = top > (600 - 100) ? (600 - 100) : top
+
+                box.style.left = left + "px"
+                box.style.top = top + "px"
+            }
+
+        }
+        fn2()
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>04_阻止事件传播</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .out {
+            width: 500px;
+            height: 500px;
+            background-color: pink;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .center {
+            width: 300px;
+            height: 300px;
+            background-color: skyblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .inner {
+            width: 100px;
+            height: 100px;
+            background-color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="out">
+        <div class="center">
+            <div class="inner"></div>
+        </div>
+    </div>
+
+    <script>
+        var inner = document.querySelector(".inner");
+        var center = document.querySelector(".center");
+        var out = document.querySelector(".out");
+
+        // 因为事件的传播
+        // 点在里层的时候也是点在了外层
+        // 两个元素的事件都会触发
+        // 我就想触发我自己的，不想让外层的事件触发
+        // 不冒泡 || 不传播(propagation)
+        inner.addEventListener(
+            "click",
+            function (e) {
+                e = e || window.event;
+                console.log("inner", e);
+
+                // // 不传播
+                // e.stopPropagation();
+
+                // cancel 取消 bubble 冒泡 capture 捕获
+                // Event.cancelBubble 属性是 Event.stopPropagation()的一个曾用名。在从事件处理程序返回之前将其值设置为true可阻止事件的传播。
+                // e.cancelBubble = true;
+            },
+
+            // useCapter 使用捕获
+            true
+        );
+
+        center.addEventListener(
+            "click",
+            function (e) {
+                return
+
+                e = e || window.event;
+                console.log("center", e);
+
+                // stop 阻止 propagation 传播
+                e.stopPropagation();
+
+                // Event.cancelBubble 属性是 Event.stopPropagation()的一个曾用名。在从事件处理程序返回之前将其值设置为true可阻止事件的传播。
+                // e.cancelBubble = true;
+            },
+
+            // useCapter 使用捕获
+            true
+        );
+
+        out.addEventListener(
+            "click",
+            function (e) {
+                // return
+
+                e = e || window.event;
+                console.log("out", e);
+
+                // 不传播
+                // e.stopPropagation();
+
+                // Event.cancelBubble 属性是 Event.stopPropagation()的一个曾用名。在从事件处理程序返回之前将其值设置为true可阻止事件的传播。
+                // e.cancelBubble = true;
+            },
+
+            // useCapter 使用捕获
+            true
+        );
+
+    </script>
+</body>
+
+</html>

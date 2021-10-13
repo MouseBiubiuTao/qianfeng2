@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            .nightsky {
+                width: 900px;
+                height: 600px;
+                background-color: #333;
+                border: 10px solid hotpink;
+                margin: 30px auto;
+                position: relative;
+            }
+
+            .fire {
+                width: 10px;
+                height: 10px;
+                position: absolute;
+                left: 0;
+                bottom: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="nightsky"></div>
+
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+        <script src="./anim-tools.js"></script>
+        <script src="./firework-class.js"></script>
+
+        <script>
+            const nightsky = document.querySelector(".nightsky");
+            const firework = new Firework(nightsky)
+        </script>
+    </body>
+</html>

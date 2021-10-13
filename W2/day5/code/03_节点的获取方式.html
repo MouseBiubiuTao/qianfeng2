@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <div>
+    我是第一个文本节点
+    <!-- 我是一个注释 -->
+    <p>1</p>
+    我是再 p1 下面 p2 上面
+    <p>2</p>
+    我是最后一个文本节点
+  </div>
+
+
+  <script>
+    // 元素内有不同的节点组成
+    // 使用 DOM 的方式获取到节点内容
+    var div = document.querySelector('div')
+
+    var p1 = document.querySelectorAll('p')[0]
+    var p2 = document.querySelectorAll('p')[1]
+
+    // 1. 获取元素下的所有 **子节点**
+    // childNodes
+    // 语法： dom元素.childNodes
+    // 得到： 是一个 **伪数组**，包含所有的节点（包含但不限于元素节点）
+    var arg1 = div.childNodes
+    // console.log(arg1)
+
+    // 2. 获取元素下所有的 **元素子节点**
+    // children
+    // 语法： dom元素.children
+    // 得到： 是一个 **伪数组**，包含该元素下所有的元素子节点
+    var arg2 = div.children
+    // console.log(arg2)
+
+    // 3. 获取元素下的第一个 **子节点**
+    // firstChild
+    // 语法： dom元素.firstChild
+    // 得到： 该元素下的子一个子节点（不一定是元素节点）
+    var firstChild = div.firstChild
+    // console.log(firstChild)
+
+    // 4. 获取元素下最后一个 **子节点**
+    // lastChild
+    // 语法： dom元素.lastChild
+    // 得到： 该元素下的最后一个子节点（不一定是元素节点）
+    var lastChild = div.lastChild
+    // console.log(lastChild)
+
+    // 5. 获取元素下第一个 **子元素节点**
+    // firstELementChild
+    // 语法： dom元素.firstElementChild
+    // 得到： 该元素下第一个子元素节点
+    var firstEleChild = div.firstElementChild
+    // console.log(firstEleChild)
+
+    // 6. 获取元素下的最后一个 **子元素节点**
+    // lastElementChild
+    // 语法： dom元素.lastElementChild
+    // 得到： 该元素下的最后一个元素节点
+    var lastELeChild = div.lastElementChild
+    // console.log(lastELeChild)
+
+    // 7. 获取上一个兄弟节点（上一个哥哥节点）
+    // previousSibling 上一个兄弟
+    // 语法: dom元素.previousSibling
+    // 得到： 该元素的上一个节点（不一定是元素节点）
+    var prevSib = p2.previousSibling
+    // console.log(prevSib)
+
+    // 8. 获取下一个兄弟节点（下一个弟弟节点）
+    // nextSibling 下一个兄弟
+    // 语法： dom元素.nextSibling
+    // 得到： 该元素的下一个节点（不一定是元素节点）
+    var nextSib = p1.nextSibling
+    // console.log(nextSib)
+
+    // 9. 获取上一个 **兄弟元素节点**（上一个哥哥元素）
+    // previousELementSibling  上一个元素兄弟
+    // 语法： dom元素.previousElementSibling
+    // 得到： 就是该元素的上一个兄弟 **元素节点**
+    var prevELeSib = p2.previousElementSibling
+    // console.log(prevELeSib)
+
+    // 10. 获取下一个 **兄弟元素节点**（下一个弟弟元素）
+    // nextELementSibling 下一个元素兄弟
+    // 语法： dom元素.nextElementSibling
+    // 得到： 该元素的下一个元素节点
+    var nextELeSib = p1.nextElementSibling
+    // console.log(nextELeSib)
+
+    // 11. 获取父元素
+    // parentNode
+    // 语法： dom元素.parentNode
+    // 得到： 该元素的父级元素
+    var parNode = p1.parentNode
+    console.log(parNode)
+    
+  </script>
+</body>
+</html>

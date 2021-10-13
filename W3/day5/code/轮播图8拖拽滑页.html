@@ -1,0 +1,298 @@
+!
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./banner.css">
+    <script src="./anim.js"></script>
+</head>
+
+<body>
+    <div class="banner">
+
+        <!-- 轮播图 -->
+        <ul class="imgBox clearFix">
+            <li style="background-color: red">1</li>
+            <li style="background-color: orange">2</li>
+            <li style="background-color: green">3</li>
+            <li style="background-color: pink">4</li>
+            <li style="background-color: yellow">5</li>
+        </ul>
+
+        <!-- 指示器存放处 -->
+        <ol class="pointBox"></ol>
+
+        <div class="leftRightTabs">
+            <a class="left"> &lt; </a>
+            <a class="right"> &gt; </a>
+        </div>
+
+    </div>
+
+    <script>
+        /* 找元素 */
+        const btnPrev = document.querySelector(".left")
+        const btnNext = document.querySelector(".right")
+        const ul = document.querySelector("ul")
+        const ol = document.querySelector("ol")
+        const container = document.querySelector(".banner")
+
+        //设置首页序号
+        let currentIndex = 1;
+
+        //指示器序号
+        let pointerIndex = 0;
+
+        //自动轮播定时器
+        let autoPlayTime = null
+
+        // 标记动画是否正在运行
+        let animIsRunning = false
+
+        //定义按下移动鼠标才有效
+        let mousemv = false
+
+        //定义鼠标按下时的位置
+        let mousetop, mouseLast
+
+        /*   初始化指示器 */
+        initPointer()
+
+        /*  坐移形换影准备 */
+        initPage()
+
+        /* 更新指示器 */
+        pointer()
+
+        /*  自动轮播 */
+        autoPlay()
+
+        /* 初始化监听事件 */
+        startListen()
+
+        function startListen() {
+            //设置点击上一张事件
+            btnPrev.addEventListener(
+                "click",
+                () => {
+                    //节流，动画未完成，不能点击下一张
+                    if (!animIsRunning) {
+                        prevPage()
+                    }
+
+                }
+            )
+            //设置点击下一张事件
+            btnNext.addEventListener(
+                "click",
+                () => {
+                    //节流，动画未完成，不能点击下一张
+                    if (!animIsRunning) {
+                        nextPage()
+                    }
+                }
+            )
+
+            //鼠标移入停止轮播
+            container.addEventListener(
+                "mouseenter",
+                () => {
+                    stopAutoplay()
+                }
+            )
+            //鼠标移出开始轮播
+            container.addEventListener(
+                "mouseleave",
+                () => {
+                    autoPlay()
+                }
+            )
+
+            document.onselectstart = e => {
+                e.preventDefault()
+            }
+
+            container.addEventListener(
+                "mousedown",
+                (e) => {
+                    if (mousemv) {
+                        return
+                    }
+                    // 标记开始拖拽
+                    mousemv = true
+
+                    // 记录down下的位置（撒手时计算整体拖拽偏移量）
+                    mouseLast = e.pageX
+
+                    // 作为首次move时的事件位置
+                    mousetop = e.pageX
+                }
+            )
+            container.addEventListener(
+                "mousemove",
+                (e) => {
+                    // 如果事先没有down下鼠标 则什么也不做
+                    if (!mousemv) {
+                        return
+                    }
+
+                    // 获取本次move与上次move的细小偏差
+                    let mouseOffset = e.pageX - mouseLast
+
+                    // ul位移一点点
+                    ul.style.left = parseFloat(getComputedStyle(ul).left) + mouseOffset + "px"
+
+                    // 下次move要获取与本次move的细小偏差
+                    mouseLast = e.pageX
+
+                }
+            )
+            document.addEventListener(
+                "mouseup",
+                (e) => {
+                    //添加条件
+                    if (!mousemv) {
+                        return
+                    }
+                    //鼠标抬起时，是在li上才执行
+                    if (e.target.nodeName === "LI") {
+                        let mouseUpOffset = e.pageX - mousetop
+
+                        console.log(mouseUpOffset, mouseLast, e.pageX);
+
+                        if (mouseUpOffset < -150) {
+                            nextPage()
+                        } else if (mouseUpOffset > 150) {
+                            prevPage()
+                        } else {
+                            indexToPage(currentIndex)
+                            // console.log("mouseup1");
+                        }
+                        mousemv = false
+                    }
+
+
+
+                }
+            )
+        }
+
+        //上一张
+        function prevPage() {
+            indexToPage(--currentIndex)
+        }
+
+        //下一张
+        function nextPage() {
+            indexToPage(++currentIndex)
+        }
+
+        //自动轮播
+        function autoPlay() {
+            if (!autoPlayTime) {
+                autoPlayTime = setInterval(() => {
+                    nextPage()
+
+                }, 2000);
+            }
+        }
+
+        //停止轮播
+        function stopAutoplay() {
+            if (autoPlayTime) {
+                clearInterval(autoPlayTime)
+                autoPlayTime = null
+            }
+        }
+
+        //设置一个根据id设置left的函数
+        function indexToPage(index) {
+            animate(
+                ul, {
+                    left: (-600 * index + "px")
+                },
+                500,
+                () => {
+
+                    //移形换影
+                    if (currentIndex === 6) {
+                        currentIndex = 1;
+                        ul.style.left = -600 * currentIndex + "px"
+                    }
+                    if (currentIndex === 0) {
+                        currentIndex = 5;
+                        ul.style.left = -600 * currentIndex + "px"
+                    }
+
+                    //更新指示器
+                    pointer()
+
+                    // 标记动画结束
+                    animIsRunning = false
+                }
+            )
+
+            // 标记动画开始
+            animIsRunning = true
+        }
+
+        //更新指示器
+        //遍历指示器 如果 指示器Index与页面相等为其添加class
+        function pointer() {
+            pointerIndex = currentIndex - 1;
+            for (i = 0; i < ol.children.length; i++) {
+                if (pointerIndex === i) {
+                    ol.children[i].classList.add("active")
+                } else {
+                    ol.children[i].classList.remove("active")
+                }
+            }
+        }
+
+        function initPage() {
+            //制造头尾轮播页
+            const head = ul.lastElementChild.cloneNode(true)
+            const tail = ul.firstElementChild.cloneNode(true)
+            ul.insertBefore(head, ul.firstElementChild)
+            ul.appendChild(tail)
+
+            //重新设置ul宽度
+            ul.style.width = ul.children.length * 600 + "px";
+            //设置首页
+            ul.style.left = -600 * currentIndex + "px";
+        }
+
+        function initPointer() {
+            //生成N个小圆点指示器
+            //造一个DOM碎片（缓冲器）
+            const olFragment = document.createDocumentFragment()
+            for (let i = 0; i < ul.children.length; i++) {
+                const li = document.createElement("li")
+                //给每个li添加一个index序号，点击指示器的时候通过序号锁定页面数
+                li.setAttribute("index", i + 1)
+
+                olFragment.appendChild(li)
+            }
+            ol.appendChild(olFragment)
+
+            //点击指示器跳转页面
+            ol.addEventListener(
+                "click",
+                (e) => {
+                    //鼠标点到li了才切换页面
+                    if (e.target.nodeName === "LI") {
+                        currentIndex = e.target.getAttribute("index")
+                        indexToPage(currentIndex)
+                    }
+
+                }
+            )
+        }
+    </script>
+</body>
+
+</html>

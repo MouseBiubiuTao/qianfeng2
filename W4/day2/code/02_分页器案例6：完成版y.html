@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分页器案例1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .pagiRoot {
+            width: 800px;
+            height: 40px;
+            border: 1px solid rgb(51, 51, 51);
+            margin: 30px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container>div {
+            display: inline-block;
+        }
+
+        .tableRoot {
+            width: 800px;
+            margin: 0 auto;
+        }
+
+        table {
+            width: 100%;
+            text-align: center;
+        }
+
+        tbody>tr:nth-child(odd) {
+            background-color: pink;
+        }
+
+        tbody>tr:nth-child(even) {
+            background-color: skyblue;
+        }
+
+        tbody>tr:hover {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="pagiRoot"></div>
+    <div class="tableRoot"></div>
+
+    <script src="../../../tools/mathtool.js"></script>
+    <script src="./mytable.js"></script>
+    <script src="./mypaginator.js"></script>
+
+    <script>
+        /* 找出表格与分页器的根布局 */
+        const tableRoot = document.querySelector(".tableRoot")
+        const pagiRoot = document.querySelector(".pagiRoot")
+
+        /* 造1234个随机数据 */
+        const genders = ["男", "女", "基", "同", "妖"]
+        var arr = []
+        for (let i = 0; i < 1234; i++) {
+            arr.push({
+                name: getRandomName(),
+                age: getRandom(20, 40),
+                gender: getRandomItem(genders)
+            })
+        }
+
+        /* 创建一个MyTable表格实例 丢入根布局 数据 每页条目数 */
+        const myTable = new MyTable(tableRoot, arr, 10)
+
+        /* 创建一个Paginator分页器实例 丢入根布局 基础配置 翻页回调 */
+        const paginator = new Paginator(
+            // 用于渲染的根布局
+            pagiRoot,
+
+            // 基础配置
+            { total: 1234, currentPage: 1 },
+
+            // 翻页回调函数: 接收分页器的翻页通知
+            (pagenum) => {
+                console.log("用户翻页", pagenum);
+
+                // 转告MyTable翻到指定的页数
+                myTable.turn2Page(pagenum)
+            }
+
+        )
+
+    </script>
+</body>
+
+</html>

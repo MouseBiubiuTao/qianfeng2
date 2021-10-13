@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- 1.引入框架的css和js文件 -->
+    <!-- <link rel="stylesheet" href="./swiper-bundle.css">
+    <script src="./swiper-bundle.js"></script> -->
+    <!-- 从CDN（内容分发网络content distribution network） 可以有效地减缓自家服务器的压力 -->
+    <!-- <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">  
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"> </script> -->
+    <!-- 从BOOTCDN.CN上引入CSS和JS文件 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/Swiper/6.7.1/swiper-bundle.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
+    <!-- 3.指定轮播图大小 -->
+    <style>
+        .swiper-container {
+            width: 900px;
+            height: 500px;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 2.拷贝HTML结构 -->
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="./imgs/1.webp" alt=""></div>
+            <div class="swiper-slide"><img src="./imgs/2.webp" alt=""></div>
+            <div class="swiper-slide"><img src="./imgs/3.webp" alt=""></div>
+            <div class="swiper-slide"><img src="./imgs/4.webp" alt=""></div>
+        </div>
+        <!-- 如果需要分页器 -->
+        <div class="swiper-pagination"></div>
+
+        <!-- 如果需要导航按钮 -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+
+        <!-- 如果需要滚动条 -->
+        <!-- <div class="swiper-scrollbar"></div> -->
+    </div>
+
+    <!-- 4.引入demo脚本 -->
+    <script>
+        var mySwiper = new Swiper('.swiper-container', {
+            grabCursor : true,
+
+            speed: 2000,
+            autoplay: {
+                delay: 5000
+            },
+
+            // direction: 'horizontal', // 垂直切换选项
+            loop: true, // 循环模式选项
+
+            // 如果需要分页器
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+            // 如果需要前进后退按钮
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+            // 如果需要滚动条
+            // scrollbar: {
+            //     el: '.swiper-scrollbar',
+            // },
+        })
+    </script>
+</body>
+
+</html>

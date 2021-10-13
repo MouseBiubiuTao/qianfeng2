@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul,
+        ol,
+        li {
+            list-style: none;
+        }
+
+        .wrapper {
+            width: 800px;
+            /* height: 600px; */
+            border: 1px solid black;
+            margin: 30px auto;
+            display: flex;
+            flex-direction: column;
+            /* justify-content: center; */
+            align-items: center;
+            padding: 5px;
+        }
+
+        #box {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 5px;
+        }
+
+        ul {
+            width: 100%;
+            /* height: 100px; */
+            display: flex;
+        }
+
+        ul>li {
+            flex-grow: 1;
+            border: 1px solid black;
+            margin: 1px;
+        }
+
+        li img {
+            width: 100%;
+        }
+
+        #btn,
+        #btn2 {
+            width: 100%;
+            height: 50px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- <div id="box" style="background:url(./imgs/1.webp) 0% 0% / 100% 100% no-repeat;"></div> -->
+        <div id="box"></div>
+        <ul id="ul">
+            <li><a><img src="./imgs/1.webp" alt=""></a></li>
+            <li><a><img src="./imgs/2.webp" alt=""></a></li>
+            <li><a><img src="./imgs/3.webp" alt=""></a></li>
+            <li><a><img src="./imgs/4.webp" alt=""></a></li>
+        </ul>
+        <button id="btn">更换背景</button>
+        <button id="btn2">随机女朋友</button>
+    </div>
+
+    <!-- 可复用的轮子 -->
+    <script>
+        // 从arr中获取随机元素
+        function getRandomItem(arr) {
+            var randomIndex = parseInt(Math.random() * arr.length)
+            return arr[randomIndex]
+        }
+    </script>
+
+    <script>
+        var normalImgs = [
+            "./imgs/1.webp",
+            "./imgs/2.webp",
+            "./imgs/3.webp",
+            "./imgs/4.webp",
+        ]
+        // var betterImgs = [
+        //     "./imgs/11.webp",
+        //     "./imgs/12.webp",
+        //     "./imgs/13.webp",
+        //     "./imgs/14.webp",
+        // ]
+
+
+        var btn = document.querySelector("#btn")
+        var box = document.getElementById("box")
+
+        // 存储box的实时背景图
+        var currentBackgroundImage = normalImgs[0]
+        box.style.background = `no-repeat center/100% 100% url(${currentBackgroundImage})`
+
+        var changeImg = function (imgs = normalImgs) {
+            // 获得随机图片（不能与上次相同）
+            // 只要随机的结果与上次相同 就一直重新获取
+            // tempImage = getRandomItem(imgs)
+            // while (tempImage === currentBackgroundImage) {
+            //     tempImage = getRandomItem(imgs)
+            // }
+            while ((tempImage = getRandomItem(imgs)) === currentBackgroundImage) {
+                // console.log("hello");
+            }
+
+            // 循环走完时 tempImage一定不等于上次的图片
+            console.log(tempImage);
+
+            // 设置新的图片背景
+            box.style.background = `no-repeat center/100% 100% url(${tempImage})`
+            currentBackgroundImage = tempImage
+        }
+
+        btn.onclick = function () {
+            changeImg()
+        }
+
+        var timer = null;
+        btn2.onclick = function () {
+
+            // 如果没有timer在跑 则起一个
+            if (!timer) {
+                timer = setInterval(
+                    changeImg,
+                    100
+                )
+            }
+
+            // 否则清除掉timer
+            else {
+                clearInterval(timer)
+                timer = null
+
+                // 给你小惊喜
+                // changeImg(betterImgs)
+            }
+
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <script>
+            /* 
+            普通字符串 
+            拼接得：头昏脑涨 欲仙欲死
+            */
+            // var str = ``;
+            // for (var i = 0; i < 3; i++) {
+            //     str += "<tr>";
+            //     str += "<td>";
+            //     str += i;
+            //     str += "</td>";
+            //     str += "<td>我是一个单元格</td>";
+            //     str += "</tr>";
+            // }
+            // console.log(str);//结果输出一坨屎
+
+            // /* 
+            // 反引号也是字符串的形式 ——模板字符串
+            // 可以换行书写
+            //  */
+            // var str = "";
+            // for (var i = 0; i < 3; i++) {
+            //     str += `
+            //       <tr>
+            //         <td>i</td>
+            //         <td>我是一个单元格</td>
+            //       </tr>
+            //     `;
+            // }
+            // console.log(str); //是不是清楚多了！~
+
+            // /* 可以直接在模板字符串里解析变量${ theFuckingVariable } */
+            const getValue = ()=>"你妹"
+            var str = "";
+            for (var i = 0; i < 3; i++) {
+                str += `
+                  <tr>
+                    <td>${i}</td>
+                    <td>${1+1===2?true:false}</td>
+                    <td>${getValue()}</td>
+                    <td>单元格</td>
+                  </tr>
+                `;
+            }
+            console.log(str);
+        </script>
+    </body>
+</html>

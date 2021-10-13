@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul,
+        ol,
+        li {
+            list-style: none;
+        }
+
+        .wrapper {
+            width: 800px;
+            /* height: 600px; */
+            border: 1px solid black;
+            margin: 30px auto;
+            display: flex;
+            flex-direction: column;
+            /* justify-content: center; */
+            align-items: center;
+            padding: 5px;
+        }
+
+        #box {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 5px;
+        }
+
+        ul {
+            width: 100%;
+            /* height: 100px; */
+            display: flex;
+        }
+
+        ul>li {
+            flex-grow: 1;
+            border: 1px solid black;
+            margin: 1px;
+        }
+
+        li img {
+            width: 100%;
+        }
+
+        #btn,
+        #btn2 {
+            width: 100%;
+            height: 50px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- <div id="box" style="background:url(./imgs/1.webp) 0% 0% / 100% 100% no-repeat;"></div> -->
+        <div id="box"></div>
+        <ul id="ul">
+            <li><a><img src="./imgs/1.webp" alt=""></a></li>
+            <li><a><img src="./imgs/2.webp" alt=""></a></li>
+            <li><a><img src="./imgs/3.webp" alt=""></a></li>
+            <li><a><img src="./imgs/4.webp" alt=""></a></li>
+        </ul>
+        <button id="btn">更换背景</button>
+        <button id="btn2">随机女朋友</button>
+    </div>
+
+    <script>
+        function getRandomImage(arr) {
+            var imageIndex = parseInt(Math.random() * arr.length)
+            return arr[imageIndex]
+        }
+    </script>
+
+    <script>
+        var imgs = [
+            "./imgs/1.webp",
+            "./imgs/2.webp",
+            "./imgs/3.webp",
+            "./imgs/4.webp",
+        ]
+
+        var box = document.getElementById("box")
+
+        var boxImage = imgs[0];
+        box.style.background = `no-repeat center/100% 100% url(${boxImage})`
+
+        var lunzi = function () {
+            while ((tempImage = getRandomImage(imgs)) === boxImage) {
+
+            }
+
+            console.log(tempImage);
+            box.style.background = `no-repeat center/100% 100% url(${tempImage})`
+            boxImage = tempImage
+        }
+
+        btn.onclick = function () {
+            lunzi()
+        }
+
+        var timer = null
+        btn2.onclick = function () {
+            if (!timer) {
+                timer = setInterval(
+                    lunzi, 100
+                )
+            } else {
+                clearInterval(timer);
+                timer = null;
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>

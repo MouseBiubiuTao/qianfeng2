@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 2. 通过循环按执行顺序，做一个5×5的二维数组，赋1到25的自然数，
+
+        // 二维数组
+        var bigArr = []
+
+        // 作为元素的一维数组
+        var tempArr = []
+
+        // 遍历1-25
+        for(var i=1;i<26;i++){
+            // 将i5个一组地丢入tempArr
+            tempArr.push(i)
+
+            // 每满5个，则将当前一维数组作为元素丢入二维数组
+            if(tempArr.length === 5){
+                // 满5则囫囵个地将tempArr丢入bigArr
+                bigArr.push(tempArr)
+
+                // 在堆中造一个新的空数组 地址丢给tempArr
+                // 所以bigArr每次添加的是不同的地址
+                tempArr = []
+            }
+        }
+        console.log(bigArr);
+
+        // 然后输出该数组的左下半三角。试编程。 
+        // 遍历二维数组中的每个一维数组 
+        for(var i=0;i<bigArr.length;i++){
+
+            // 将当前一维数组的前i+1个元素输出到页面
+            for(var j=0;j<i+1;j++){
+                var element = bigArr[i][j]
+                document.write(`${element}&nbsp;`)
+            }
+            // 行尾输出换行标签
+            document.write("<br>")
+        }      
+    </script>
+</body>
+</html>

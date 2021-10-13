@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>无缝滚动</title>
+    <link rel="stylesheet" href="./banner.css" />
+    <script src="./anim_tool.js"></script>
+</head>
+
+<body>
+    <div class="banner">
+
+        <!-- 轮播图 -->
+        <ul class="imgBox clearFix">
+            <li style="background-color: red">1</li>
+            <li style="background-color: orange">2</li>
+            <li style="background-color: green">3</li>
+            <li style="background-color: pink">4</li>
+            <li style="background-color: yellow">5</li>
+        </ul>
+
+        <!-- 指示器存放处 -->
+        <ol class="pointBox"></ol>
+
+        <div class="leftRightTabs">
+            <a class="left"> &lt; </a>
+            <a class="right"> &gt; </a>
+        </div>
+
+    </div>
+
+    <script>
+        const btnPrev = document.querySelector(".left")
+        const btnNext = document.querySelector(".right")
+        const ul = document.querySelector("ul")
+
+        // 定义当前页码
+        let currentPage = 1
+
+        btnPrev.addEventListener(
+            "click",
+            e => {
+                console.log("previous")
+                currentPage = currentPage - 1 < 1 ? 5 : currentPage - 1
+                turnToPage(currentPage)
+            }
+        )
+
+        btnNext.addEventListener(
+            "click",
+            e => {
+                console.log("next")
+                currentPage = currentPage + 1 > 5 ? 1 : currentPage + 1
+                turnToPage(currentPage)
+
+                // ul.style.left = parseFloat(getComputedStyle(ul).left) - 600 +"px"
+            }
+        )
+
+        const turnToPage = (n) => {
+            animate(
+                ul,
+                { left: (-600 * (n - 1) + "px") },
+                1000,
+                () => console.log("动画完成")
+            )
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>

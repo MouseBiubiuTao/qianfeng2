@@ -1,0 +1,42 @@
+.list {
+    padding: 10px;
+}
+
+.list h4 {
+    margin: 0;
+}
+
+.list ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.list ul li {
+    position: relative;
+}
+
+.list ul li img {
+    padding: 10px;
+    width: 120px;
+    height: 120px;
+    border: 1px solid #ddd;
+}
+
+.list ul li h6 {
+    margin: 10px 0;
+}
+
+.list ul li .price del::before,
+.list ul li .price span::before {
+    content: '￥'
+}
+
+.list ul li .price del {
+    color: #666;
+    margin-right: 5px;
+}
+
+.list ul li .price span {
+    color: #f00
+}

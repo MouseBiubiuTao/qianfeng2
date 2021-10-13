@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background-color: rgb(161, 219, 210);
+            display: flex;
+            justify-content: center;
+            align-content: center;
+        }
+
+
+        div {
+            width: 800px;
+            height: 800px;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            flex-direction: column;
+            background-image: url(imgs/8.jpg);
+            background-position: center center;
+            background-size: cover;
+
+        }
+
+        p,
+        span {
+            font: 40px "宋体";
+            width: 100%;
+            height: 100px;
+            text-align: center;
+        }
+    </style>
+    <style>
+        .normal {
+            color: black;
+        }
+
+        .right {
+            color: green;
+        }
+
+        .wrong {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <p id="pChar"></p>
+        <span id="spRet"></span>
+    </div>
+
+
+    <script>
+        function getRandomItem(str) {
+            return str[parseInt(Math.random() * str.length)]
+        }
+    </script>
+
+    <script>
+        var strItem = "abcdefghijklmnopqrstuvwxyz";
+
+        var targetLetter
+
+        function outItem() {
+            targetLetter = getRandomItem(strItem);
+            pChar.innerText = targetLetter;
+            spRet.innerText = "请输入";
+            spRet.className = "normal"
+        }
+        outItem()
+
+        document.onkeyup = function (ke) {
+
+            console.log("用户输入了", ke.key);
+
+            if (ke.key === "Escape") {
+                spRet.innerText = "GAME OVER";
+                document.onkeyup = null;
+                return
+            }
+
+            if (ke.key === targetLetter) {
+                spRet.innerText = "输入正确";
+                spRet.className = "right"
+            } else {
+                spRet.innerText = "输入错误";
+                spRet.className = "wrong"
+            }
+
+            setTimeout(
+                outItem,
+                500
+            )
+
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+
+
+  <script>
+    // 当你用这个正则取检测一个字符串的时候
+    // 字符串必须包含一段字符叫做 'abc'
+    // 如果字符串中有 'abc' 这样一段字符串，那么就符合规则，反之就是不符合规则
+    var reg = /abc/
+
+    // 1. 第一个正则方法
+    // test()
+    // 语法： 正则表达式.test(你要检测的字符串)
+    // 返回值： 这个字符串如果符合规则，返回 true，如果不符合规则，返回 false
+
+    var str = 'defgaabcc'//str.indexOf("abc")
+
+    // 测试str中是否有reg所定义的规则的子串
+    var res = reg.test(str)
+    console.log(res)
+
+  </script>
+</body>
+</html>

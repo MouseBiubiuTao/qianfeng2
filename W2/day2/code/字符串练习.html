@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var str = '准备下课了，冲冲冲，冲着去干饭。'
+        console.log(str.charAt(2)); //下    第二个字符
+
+
+        console.log(str.charCodeAt(10)); //20914    第十个字符的万国码序号
+
+        console.log(str.indexOf("了")); //4    该字符的开始 下标
+        console.log(str.indexOf("干饭")); //12      该字符的开始  下标
+        console.log(str.lastIndexOf("冲")); //10    最后一个 目标字符的下标
+        console.log(str.indexOf("*"))//-1       没有找到该值
+
+        console.log(str.substring(2, 8)); //下课了，冲冲    截取第二个字符到第八个字符
+
+        console.log(str.substr(2, 10)); //下课了，冲冲冲，冲去  截取 第2字符往后的10个字符
+
+        console.log(str.startsWith("准备")); //true 以该字符段开头
+        console.log(str.endsWith("干饭")); //false  以该字符段结尾
+
+        var one = str.replace("冲", "走")
+        console.log(one); //把全部的   冲  换成    走
+        var all = str.replaceAll("冲", "走")
+        console.log(all); //把第一个  冲  换成    走
+
+        var count = 0;
+        ret = str.replaceAll(
+            "冲",
+            function (zi) {
+                console.log(zi);
+                count++
+                if (count <= 2) {
+                    return "走"
+                } else {
+                    return "爬"
+                }
+            }
+        )
+        console.log(ret); //前两个   冲  换成    走  第三个换成  爬
+
+        var arr = str.split("") //用空字符串炸相当于直接分割字符
+
+        console.log(arr);
+
+        var arr = str.split("", 5)//炸碎的结果 只取前5段
+        console.log(arr);
+
+        var kstr = "    好累，压力好大。  "
+        console.log(kstr.trim()); //清除字符两边的空白
+        console.log(kstr.trimStart()); //清楚字符左边的空白
+        console.log(kstr.trimEnd()); //清除字符右边的空白
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分页器案例1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 800px;
+            height: 40px;
+            border: 1px solid rgb(51, 51, 51);
+            margin: 30px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container>div {
+            display: inline-block;
+        }
+
+        .tableRoot {
+            width: 800px;
+            margin: 0 auto;
+        }
+
+        table {
+            width: 100%;
+            text-align: center;
+        }
+
+        tbody>tr:nth-child(odd) {
+            background-color: pink;
+        }
+
+        tbody>tr:nth-child(even) {
+            background-color: skyblue;
+        }
+
+        tbody>tr:hover {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container"></div>
+    <div class="tableRoot"></div>
+
+    <script src="./mytable.js"></script>
+
+    <script>
+        function Paginator(domRoot, options = {}, onPageChangeCallback = null) {
+
+            this.domRoot = domRoot
+            this.onPageChangeCallback = onPageChangeCallback
+
+            /* 接收用户传入的配置 其它使用默认配置 */
+            this.options = {
+                total: 100,
+                pageSize: 10,
+                firstPage: "首页",
+                lastPage: "末页",
+                previous: "上页",
+                next: "下页",
+                currentPage: 1
+            }
+            for (let attr in options) {
+                this.options[attr] = options[attr]
+            }
+
+            /* 初始化总页码数量 */
+            this.options.totalPages = Math.ceil(this.options.total / this.options.pageSize)
+
+            // 渲染分页器
+            this.render()
+
+            // 绑定事件监听
+            this.startListen()
+        }
+
+        Paginator.prototype.render = function () {
+            this.renderBasic()
+            this.renderPagers()
+        }
+
+        Paginator.prototype.renderPagers = function () {
+            /* this.pagers.innerHTML = `
+            <p style="border: 1px solid rgb(51, 51, 51); margin: 0px 5px; padding: 0px 5px; background-color: orange;">1</p>
+            <p style="border: 1px solid rgb(51, 51, 51); margin: 0px 5px; padding: 0px 5px;">2</p>
+            <p style="border: 1px solid rgb(51, 51, 51); margin: 0px 5px; padding: 0px 5px;">3</p>
+            <p style="border: 1px solid rgb(51, 51, 51); margin: 0px 5px; padding: 0px 5px;">4</p>
+            <p style="border: 1px solid rgb(51, 51, 51); margin: 0px 5px; padding: 0px 5px;">5</p>
+            ...
+            <p style="border: 1px solid rgb(51, 51, 51); margin: 0px 5px; padding: 0px 5px;">120</p>
+            <p style="border: 1px solid rgb(51, 51, 51); margin: 0px 5px; padding: 0px 5px;">121</p>
+            <p style="border: 1px solid rgb(51, 51, 51); margin: 0px 5px; padding: 0px 5px;">122</p>
+            <p style="border: 1px solid rgb(51, 51, 51); margin: 0px 5px; padding: 0px 5px;">123</p>
+            <p style="border: 1px solid rgb(51, 51, 51); margin: 0px 5px; padding: 0px 5px;">124</p>            
+            `*/
+
+            // _draw( [1,5], [], [120,124] )
+            const _draw = (...arrs) => {
+                arrs.forEach(
+                    a => {
+                        //[1,5]
+                        if (a.length === 2) {
+                            for (let i = a[0]; i <= a[1]; i++) {
+                                if (i === this.options.currentPage) {
+                                    // background-color: orange;
+                                    pagersHtml += `<p style="background-color: orange; border: 1px solid rgb(51, 51, 51); margin: 0px 5px; padding: 0px 5px;">${i}</p>`
+                                } else {
+                                    pagersHtml += `<p style="border: 1px solid rgb(51, 51, 51); margin: 0px 5px; padding: 0px 5px;">${i}</p>`
+                                }
+                            }
+                        }
+
+                        // []
+                        else {
+                            pagersHtml += "..."
+                        }
+                    }
+                )
+            }
+
+            let pagersHtml = ""
+            /* 当前页如果位于首末5页 则页码 1 2 【3】 4 5 ... 120 121 122 123 124*/
+            // draw( [1,5], [], [120,124] )
+            if (this.options.currentPage < 1 + 5 || this.options.currentPage > this.options.totalPages - 5) {
+                _draw([1, 5], [], [this.options.totalPages - 4, this.options.totalPages])
+            }
+
+            /* 当前页如果位于中部 则页码 1 2 ... 98 99【100】101 102 ... 123 124*/
+            // draw( [1,2], [], [98,102],[],[123,124] )
+            else {
+                _draw([1, 2], [], [this.options.currentPage - 2, this.options.currentPage + 2], [], [123, 124])
+            }
+
+            /* 将攒好的html设置给this.pagers */
+            this.pagers.innerHTML = pagersHtml
+        }
+
+        /* 绘制静态内容：首页末页上页下页 */
+        Paginator.prototype.renderBasic = function () {
+            this.domRoot.innerHTML = `
+<div style="border: 1px solid rgb(51, 51, 51); padding: 0px 5px; margin: 0px 5px;" id="btnFirst">${this.options.firstPage}</div>
+<div style="border: 1px solid rgb(51, 51, 51); padding: 0px 5px; margin: 0px 5px;" id="btnPrev">${this.options.previous}</div>
+<div style="display: flex; justify-content: center; align-items: center;" class="pagers">这里用于放置动态页码</div>
+<div style="border: 1px solid rgb(51, 51, 51); padding: 0px 5px; margin: 0px 5px;" id="btnNext">${this.options.next}</div>
+<div style="border: 1px solid rgb(51, 51, 51); padding: 0px 5px; margin: 0px 5px;" id="btnLast">${this.options.lastPage}</div>
+<input type="number" style="outline: none; width: 50px; height: 20px;">
+<button style="outline: none; width: 30px; height: 24px; margin-left: 5px;">Go</button>           
+            `
+
+            this.pagers = this.domRoot.querySelector(".pagers")
+        }
+
+        Paginator.prototype.startListen = function () {
+            this.domRoot.addEventListener(
+                "click",
+                e => {
+                    if (e.target.id === "btn") {
+                        this.onPageChangeCallback(new Date().getSeconds())
+                    }
+                }
+            )
+        }
+    </script>
+
+    <script>
+        const tableRoot = document.querySelector(".tableRoot")
+        const pagiRoot = document.querySelector(".container")
+
+        var arr = []
+        const myTable = new MyTable(tableRoot, arr)
+
+        const paginator = new Paginator(
+            // 用于渲染的根布局
+            pagiRoot,
+
+            // 基础配置
+            { total: 1234, currentPage: 50 },
+
+            // 翻页回调函数
+            (pagenum) => {
+                console.log("用户翻页", pagenum);
+
+                // 转告MyTable翻到指定的页数
+                myTable.turn2Page(pagenum)
+            }
+        )
+
+    </script>
+</body>
+
+</html>

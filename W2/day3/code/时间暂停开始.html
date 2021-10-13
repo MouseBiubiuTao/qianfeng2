@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="p">innerText</p>
+    <button id="btn">暂停/开始</button>
+
+    <script>
+        var time = null;
+        btn.onclick = function () {
+            if (time === null) {
+                time = setInterval(
+                    function () {
+                        var date = new Date();
+                        var dateStr = date.getSeconds();
+                        p.innerText = dateStr;
+                    },
+                    1000
+                )
+            } else {
+                clearInterval(time);
+                time = null
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>

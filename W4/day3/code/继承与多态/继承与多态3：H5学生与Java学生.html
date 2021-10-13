@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 模拟校园生活
+        // 疫情汇报的时候：打印全体师生的姓名
+        // 中午的时候：全体师生吃饭+睡觉
+        // 晚自习开始：所有的学生（包括H5学生与Java学生）都开始学习（共性）
+        // 但具体的学习方式不一样，H5学生学习HTML+CSS+JS,Java学生学习数据库+SSM（个性）
+        function Person(name, age) {
+            this.name = name
+            this.age = age
+        }
+
+        Person.prototype.eat = function () {
+            console.log(`${this.name}正在吃饭`);
+        }
+
+        Person.prototype.sleep = function () {
+            console.log(`${this.name}正在酣睡`);
+        }
+
+        Person.prototype.selfTell = function () {
+            console.log(`我是${this.name}年龄${this.age},健康状况良好`);
+        }
+
+        // const p1 = new Person("张三疯", 80)
+    </script>
+
+    <script>
+        /* 
+        老师类
+        course课程 */
+        function Teacher(name, age, course) {
+            // Person(name,age) 函数中的this已经绑定为当前Teacher实例
+            // 这里实现了对Person属性的继承
+            Person.call(this, name, age)
+
+            // Teacher的特有属性
+            this.course = course
+        }
+
+        /* 
+        继承Person的全部方法： 
+        娶一个【Person实例】当老婆（原型）=> 老婆会的Teacher实例就会
+        */
+        Teacher.prototype = new Person()
+
+        Teacher.prototype.teach = function () {
+            console.log(`${this.name}正在教授${this.course}`);
+        }
+
+
+
+        /* 学生类 */
+        function Student(name, age, course) {
+            // this.name = name
+            // this.age = age
+            // 继承Person类的全部属性
+            Person.call(this, name, age)
+
+            this.course = course
+        }
+
+        /* 继承Person的全部方法 */
+        Student.prototype = new Person()
+
+        /* 学生的共性：会学习 */
+        Student.prototype.study = function () {
+            console.log(`${this.name}正在学习${this.course}`);
+        }
+
+        Student.prototype.takeExam = function () {
+            console.log(`${this.name}正在参加${this.course}考试`);
+        }
+
+    </script>
+
+    <script>
+        function H5Student(name, age) {
+            // this.name = name
+            // this.age = age
+            Student.call(this, name, age, "HTML5")
+        }
+
+        /* 继承Student的全部方法 */
+        H5Student.prototype = new Student()
+
+        /* 重写/覆写/覆盖/Override父类方法（对父类方法的实现不满意）*/
+        H5Student.prototype.study = function () {
+            console.log(`${this.name}正在学习：
+            《HTML从入门到精通》
+            《CSS从入门到放弃》
+            《JS从入门到住院》`
+            );
+        }
+
+        function JavaStudent(name, age) {
+            // this.name = name
+            // this.age = age
+            Student.call(this, name, age, "Java")
+        }
+
+        /* 继承Student的全部方法 */
+        JavaStudent.prototype = new Student()
+
+        /* 重写/覆写/覆盖/Override父类方法（对父类方法的实现不满意）*/
+        JavaStudent.prototype.study = function () {
+            console.log(`${this.name}正在学习：
+            《Java编程思想》
+            《Spring从入门到放弃》
+            《数据库从入门到住院》`
+            );
+        }
+    </script>
+
+    <script>
+        const hs = new JavaStudent("良哥", 40)
+        console.log(hs);
+
+        hs.selfTell()
+        hs.eat()
+        hs.sleep()
+        hs.study()
+        hs.takeExam()
+    </script>
+</body>
+
+</html>

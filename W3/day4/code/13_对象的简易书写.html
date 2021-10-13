@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* 
+const obj = {
+  // 属性简写
+  name,
+
+  // 普通函数简写
+  f1 () { this为调用者 },
+
+  // 箭头函数简写
+  f2: ()=>{ this为obj的作用域 },
+  f3: (a,b)=>{ this为obj的作用域 },
+  f4: (...a)=>{ this为obj的作用域 },
+}
+*/
+
+        let name = "Jack";
+        let age = 18;
+        let gender = "男";
+
+        /* ES5的对象写法 */
+        // var obj = {
+        //     name: name,
+        //     age: age,
+        //     gender: gender,
+
+        //     showMe: function () {
+        //         console.log(obj);
+        //     },
+
+        //     add: function (a, b) {
+        //         return a + b
+        //     }
+        // }
+
+        var obj = {
+
+            /* 属性名和属性值相同时 写一遍 */
+            name,
+            age,
+            gender,
+
+            // 属性的值是函数时 属性(参数列表){方法体}
+            showMe(){
+                console.log(obj);
+            },
+
+            add(a,b){
+                return a+b
+            }
+        }
+        // console.log(obj);
+        // obj.showMe()
+        console.log(obj.add(2,3));
+        
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* 求数组的平均数 average平均数 */
+        function getArrAverage(arr){
+            var sum = 0;
+            for(var i=0;i<arr.length;i++){
+                sum += arr[i]
+            }
+            return sum / arr.length
+        }
+
+        // 1. 定义一个含有30个整型元素的数组，按顺序分别赋予从2开始的偶数；
+        var arr = []
+        for(var i=2;i<61;i+=2){
+            arr.push(i)
+        }
+        // console.log(arr);
+
+        // 然后按顺序每五个数求出一个平均值，放在另一个数组中并输出。试编程。
+
+        // 5个一组地盛放求和的临时元素
+        var tempArr = []
+
+        // 盛放平均值
+        var retArr = []
+
+        for(var i=0;i<arr.length;i++){
+            // 5个5个地丢入临时数组
+            tempArr.push(arr[i])
+            // tempArr满5则求平均数
+            if(tempArr.length === 5){
+
+                // 求出平均数并丢入结果数组
+                var ret = getArrAverage(tempArr)
+                // console.log(tempArr,ret);
+                retArr.push(ret)
+
+                // 清空tempArr
+                // tempArr = []
+                tempArr.splice(0,5)
+            }
+        }
+        console.log(retArr);
+    </script>
+</body>
+
+</html>

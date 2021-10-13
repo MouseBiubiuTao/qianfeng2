@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input {
+            margin-bottom: 20px;
+            width: 200px;
+            height: 50px;
+            outline: none;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" placeholder="请输入你的段位" id="duanwei1">
+    <button id="btn">查询段位特权</button>
+
+    <script>
+        function fn1() {
+            btn.onclick = function () {
+                var duanwei, quanxian;
+                duanwei = duanwei1.value;
+
+                switch (duanwei) {
+                    case "王者":
+                        quanxian = "每赛季送官方定制衣服";
+                    case "钻石":
+                        quanxian += "\n注册峡谷之巅账号";
+                    case "白金":
+                        quanxian += "\n赛季叠加奖励";
+                    case "黄金":
+                        quanxian += "\n赛季基础奖励";
+                    case "白银":
+                        quanxian += "\n边框奖励";
+                        break;
+                    default:
+                        quanxian = "无特权";
+                        break;
+                }
+
+                alert("你的权限有：\n" + quanxian);
+                console.log("代码结束")
+
+            }
+        }
+        fn1()
+    </script>
+
+</body>
+
+</html>

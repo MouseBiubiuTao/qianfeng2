@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            border: 1px solid #ccc;
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+
+        tr:nth-child(odd) {
+            background-color: skyblue;
+        }
+
+        tr:nth-child(even) {
+            background-color: slateblue;
+        }
+
+        td {
+            width: 50px;
+            height: 15px;
+            text-align: center;
+            font: 12px "宋体";
+            color: #000;
+        }
+
+        input {
+            width: 200px;
+            height: 80px;
+            font-size: 20px;
+            outline: none;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin: auto;
+            margin-bottom: 20px;
+        }
+
+        button {
+            width: 200px;
+            height: 80px;
+            font-size: 20px;
+            outline: none;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin: auto;
+        }
+
+        button:hover {
+            background: skyblue;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        // 1. 编写一个函数，计算两个数字的和差积商
+        function fn1(a, b, sign) {
+            switch (sign) {
+                case "+":
+                    return a + b
+                    break;
+                case "-":
+                    return a - b
+                    break;
+                case "*":
+                    return a * b
+                    break;
+                case "/":
+                    return a / b
+                    break;
+
+                default:
+                    console.log("请重新输入");
+                    break;
+            }
+
+        }
+        // console.log(fn1(3, 4, "*"));
+
+        // 2. 编写函数，求圆的面积
+        function fn2(r) {
+            return mianji = Math.PI * r * r;
+
+        }
+        // console.log(fn2(4));
+
+
+
+        // 3. 编写函数，判断一个字符串的内容是不是纯数字
+        function fn3(str) {
+            // var ret = Number(srt);
+
+            // if (isNaN(str)) {
+            //    return false
+            // } else {
+            //    return true
+            // }
+
+            return !(isNaN(Number(str)))
+        }
+        // console.log(fn3("4561"));
+        // console.log(fn3("456aa1"));
+
+
+
+        // 4. 编写一个函数，计算三个数字的大小，按从小到大的顺序输出
+
+
+        // 5. 编写一个函数，在页面上输出一个N行M列的表格，表格内容填充0~100的随机数字
+        function fn5(n, m) {
+            document.write("<table border=`1`>");
+            for (i = 1; i < +n; i++) {
+                document.write("<tr>")
+                for (j = 1; j <= m; j++) {
+                    document.write("<td>")
+                    document.write(parseInt(Math.random() * 100))
+                }
+            }
+        }
+        // fn5(10, 10)
+
+
+        // 6. 编写一个函数，生成4位数字的验证码
+        function fn6(n) {
+
+            return String(Math.pow(10, n - 1) + parseInt((Math.pow(10, n) - Math.pow(10, n - 1)) * Math.random()))
+        }
+        // console.log(fn6(6));
+        // console.log(fn6(4));
+
+
+
+
+        // 7. 求m-n之间数字的和
+        function fn7(m, n) {
+            var sum = 0;
+            if (m > n) {
+                for (i = m; i > n; i--) {
+                    sum += i;
+                }
+                return sum
+            } else if (n > m) {
+                for (j = n; j > m; j--) {
+                    sum += j;
+                }
+                return sum
+            }
+        }
+        // console.log(fn7(5, 1));
+
+
+
+        // 8. 编写函数digit(num, k)，函数功能是：求整数num从右边开始的第k位数字的值，如果num位数不足k位则返回0
+        function fn8(num, k) {
+
+            var temp = parseInt(num / Math.pow(10, k - 1))
+
+            return temp % 10
+        }
+        // console.log(fn8(123456, 1));
+        // console.log(fn8(123456, 2));
+        // console.log(fn8(123456, 3));
+
+
+        // 9. 编写函数计算一个数字的长度
+        function fn9(num) {
+            var count = 0;
+            while (num >= 1) {
+                num = num / 10;
+                count++;
+            }
+            return count
+        }
+        // console.log(fn9(9994545499));
+
+
+        // 10. 编写一个函数，计算任意两个数字之间所能组成的奇数个数，数字必须是个位数。比如：计算0~3之间能组成的奇数是： 01、03、11、13、21、23、31、33
+        function fn10(a, b) {
+            var sum = 0;
+            var shi = 0;
+            var count = 0;
+            for (i = a; i <= b; i++) {
+                shi = i;
+                var ge = 0;
+                for (j = a; j <= b; j++) {
+                    ge = j;
+                    sum = shi * 10 + ge * 1;
+                    if (sum % 2 !== 0) {
+                        console.log(++count, sum);
+                    }
+                }
+            }
+        }
+        // fn10(0, 100)
+
+
+
+
+        // 11. 某个公司采用公用电话传递数据，数据是四位的整数，在传递过程中是加密的，加密规则如下：每位数字都加上5,然后用除以10的余数代替该数字，再将第一位和第四位交换，第二位和第三位交换，请编写一个函数，传入原文，输出密文
+
+        // 12. 编写一个函数，输入n为偶数时，调用函数求1/2+1/4+...+1/n,当输入n为奇数时，调用函数求1/1+1/3+...+1/n
+        function fn12(n) {
+            var temp = "";
+            if (n % 2 !== 0) {
+                for (i = 1; i < n + 1; i += 2) {
+                    temp += i + "+" + 1 + (i === n ? "" : "+")
+
+                }
+                console.log(temp);
+            } else if (n % 2 === 0) {
+                for (j = 2; j < n + 1; j += 2) {
+                    temp += j + "+" + 1 + (j === n ? "" : "+")
+
+                }
+                console.log(temp);
+            }
+        }
+        fn12(6)
+
+        // 13. 使用函数完成任意数字阶乘的计算14. 要求：页面输入任意数字，点击按钮后计算该数字的阶乘
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="PTime"></p>
+
+    <input type="text" placeholder="输入年份" id="ipYear">
+    <input type="text" placeholder="输入月份" id="ipMonth">
+    <input type="text" placeholder="输入日期" id="ipDate">
+    <button id="btn">点击查询</button>
+    <script>
+        function fn11() {
+            // 1. 编写一个函数，能够获得一个随机的 0 ～ 255 之间的数字
+            function getRandom(a, b) {
+                return a + Math.round((b - a) * Math.random())
+            }
+            console.log(getRandom(0, 255));
+        }
+        // fn11()
+
+        // 2. 编写一个函数，获得一个十六进制的随机颜色的字符串(例如：#20CD4F)
+        function fn12() {
+            function getRandom(a, b) {
+                return a + Math.round((b - a) * Math.random())
+            }
+
+            var red = getRandom(0, 255)
+            var green = getRandom(0, 255)
+            var blue = getRandom(0, 255)
+            console.log(red, green, blue);
+
+
+            red = red.toString(16);
+            green = green.toString(16);
+            blue = blue.toString(16);
+
+            console.log("#" + red, green, blue);
+
+            red = red.length === 2 ? red : "0" + red
+            green = green.length === 2 ? green : "0" + green
+            blue = blue.length === 2 ? blue : "0" + blue
+
+            console.log("#" + red, green, blue);
+
+        }
+        // fn12()
+
+        // 1. 编写函数，把当前时间格式化成 `YYYY-MM-DD HH-mm-ss`
+        function fn21() {
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = date.getMonth();
+            var date1 = date.getDate();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+            console.log(year + "-" + month + "-" + date1 + "  " + hours + "-" + minutes + "-" + seconds);
+
+        }
+        // fn21()
+
+        // 2. 编写函数，要求传入两个时间节点，能返回两个时间节点之间相差 
+        // `多少天多少小时多少分钟多少秒`
+        function getTimeDifference(date1, date2) {
+            var timeDifference = Math.abs(date1 - date2)
+            // console.log(timeDifference);
+
+            var date = Math.floor(timeDifference / (24 * (3600 * 1000)))
+            var hours = Math.floor(timeDifference % (24 * (3600 * 1000)) /
+                (3600 * 1000))
+            var minutes = Math.floor(timeDifference % ((3600 * 1000)) / 60000)
+            var seconds = Math.floor(timeDifference % (60 * 1000) / 1000)
+
+            return `${date}天${hours}小时${minutes}分钟${seconds}秒`
+        }
+        getTimeDifference()
+
+        function fn22() {
+            console.log(getTimeDifference(new Date(), new Date(2022, 0, 1)));
+        }
+        // fn22()
+
+        // 1. 用户输入任意年月日 告知该日为星期几
+        function fnx1() {
+
+            btn.onclick = function () {
+                var date1 = new Date(
+                    ipYear.value * 1,
+                    ipMonth.value * 1 - 1,
+                    ipDate.value * 1
+                )
+                var day = date1.getDay()
+                alert(day)
+
+            }
+        }
+        // fnx1()
+
+        function getZodiac(year) {
+            var ZODIACS = "鼠牛虎兔龙蛇马羊猴鸡狗猪"
+            var index = (year - 2020) % 12
+            index = index >= 0 ? index : (index + 12)
+            return ZODIACS[index]
+        }
+
+        function getConstellation(dateStr) {
+            var CONSTELLATIONS = [
+                ["0323", "0422", "白羊"], //白羊
+                ["0423", "0522", "金牛"], //金牛
+                ["0523", "0622", "双子"], //双子
+                ["0623", "0722", "巨蟹"], //巨蟹
+                ["0723", "0822", "狮子"], //狮子
+                ["0823", "0922", "处女"], //处女
+                ["0923", "1022", "天秤"], //天秤
+                ["1023", "1122", "天蝎"], //天蝎
+                ["1123", "1222", "射手"], //射手
+
+                ["1223", "1231", "摩羯"], //摩羯
+                ["0101", "0122", "摩羯"], //摩羯
+
+                ["0123", "0222", "水瓶"], //水瓶
+                ["0223", "0322", "双鱼"], //双鱼
+            ]
+
+            for (i = 1; i <= CONSTELLATIONS.length; i++) {
+                var arr = CONSTELLATIONS[i]
+                if (dateStr >= arr[0] && dateStr <= arr[1]) {
+                    return arr[2]
+                }
+            }
+        }
+
+        function formBirthday(month, date) {
+            month = month >= 10 ? month + "" : "0" + month
+            date = date >= 10 ? date + "" : "0" + date
+            return month + date
+        }
+
+
+
+        function fnx2() {
+            btn.onclick = function () {
+                var birthday = new Date(
+                    ipYear.value * 1,
+                    ipMonth.value * 1 - 1,
+                    ipDate.value * 1
+                )
+
+                function getBirthday(year) {
+                    return Math.floor((new Date() - new Date(birthday)) / (365 * 24 * 3600 * 1000))
+                }
+
+                var years = getBirthday(ipYear.value)
+                console.log(years + "岁");
+
+                var zodiac = getZodiac(ipYear.value)
+                console.log("生肖：" + zodiac);
+
+                var constellation = getConstellation(
+                    formBirthday(ipMonth, ipDate)
+                )
+                console.log("星座:" + constellation);
+            }
+        }
+        // fnx2()
+
+        // 3.用户输入任意年月日 告知距离这一天已经过去多少天 或显示距离这一天的倒计时
+        function fnx3() {
+            btn.onclick = function () {
+                var date2 = new Date(
+                    ipYear.value * 1,
+                    ipMonth.value * 1 - 1,
+                    ipDate.value * 1
+                )
+                console.log(date2);
+                
+                inFuture = date2 - new Date() > 0;
+
+                if (inFuture) {
+                    setInterval(
+                        function () {
+                            PTime.innerText = getTimeDifference(new Date(), date2)
+                        }, 1000
+                    )
+                } else {
+                    PTime.innerText = "距离您输入的时间已经过去了：" + getTimeDifference(date2, new Date())
+                }
+            }
+        }
+        fnx3()
+    </script>
+</body>
+
+</html>

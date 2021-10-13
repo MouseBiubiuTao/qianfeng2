@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>九宫格拖拽2</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        ul {
+            width: 640px;
+            height: 640px;
+            border: 10px solid pink;
+            border-radius: 10px;
+            margin: 50px auto;
+            position: relative;
+        }
+
+        li {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 100px;
+            position: absolute;
+            /* transition: all 0.5s linear; */
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="ul">
+        <li style="background-color:black;top: 10px; left: 10px">1</li>
+        <li style="background-color:black;top: 10px; left: 220px">2</li>
+        <li style="background-color:black;top: 10px; left: 430px">3</li>
+        <li style="background-color:black;top: 220px; left: 10px">4</li>
+        <li style="background-color:black;top: 220px; left: 220px">5</li>
+        <li style="background-color:black;top: 220px; left: 430px">6</li>
+        <li style="background-color:black;top: 430px; left: 10px">7</li>
+        <li style="background-color:black;top: 430px; left: 220px">8</li>
+        <li style="background-color:black;top: 430px; left: 430px">9</li>
+    </ul>
+
+    <script src="../../../../tools/arr_obj_tool.js"></script>
+    <script src="../../../../tools/animtool.js"></script>
+    <script>
+        // 定义9大li的预设背景色
+        var colorArr = [
+            "red",
+            "orange",
+            "yellow",
+            "green",
+            "blue",
+            "cyan",
+            "purple",
+            "pink",
+            "gray",
+        ];
+
+        var positions = [
+            [10, 10], [220, 10], [430, 10],
+            [10, 220], [220, 220], [430, 220],
+            [10, 430], [220, 430], [430, 430],
+        ]
+
+        function checkPosition(ep) {
+            for (var i = 0; i < positions.length; i++) {
+                var p = positions[i]
+                var distance = Math.sqrt(Math.pow(p[0] - ep[0], 2) + Math.pow(p[1] - ep[1], 2))
+                if (distance < 100) {
+                    return i
+                }
+            }
+            return -1;
+        }
+
+        function shuffle(op, np) {
+            var li = lisArr.splice(op, 1)[0]
+            lisArr.splice(np, 0, li)
+            // console.log(lisArr);
+            logArr(lisArr, "innerHTML")
+
+            lisArr.forEach(
+                function (li, index) {
+                    if (li.getAttribute("position") != index) {
+                        li.setAttribute("position", index)
+                        li.style.transition = "all 0.5s linear"
+                        li.style.left = positions[index][0] + "px"
+                        li.style.top = positions[index][1] + "px"
+                        li.style.transition = "none"
+                        moveWithTransition(
+                            li,
+                            { left: positions[index][0] + "px", top: positions[index][1] + "px" },
+                            50
+                        )
+                    }
+                }
+            )
+        }
+
+        var lis = document.querySelectorAll("ul>li")
+        var ul = document.querySelector("#ul")
+        var lisArr = []
+        lisArr = toArray(lis)
+
+        var isDragging = false;
+        var currentDraggingLi = null;
+        var maxZindex = 10;
+
+        lis.forEach(
+            function (li, index) {
+                li.style.backgroundColor = colorArr[index]
+                li.setAttribute("position", index)
+
+                li.addEventListener(
+                    "selectstart",
+                    function (e) {
+                        e.preventDefault()
+                    }
+                )
+
+                li.addEventListener(
+                    "mousedown",
+                    function (e) {
+                        isDragging = true
+                        currentDraggingLi = this;
+                        currentDraggingLi.style.zIndex = ++maxZindex
+                    }
+                )
+            }
+        )
+
+        document.addEventListener(
+            "mouseup",
+            function (e) {
+                isDragging = false
+                var p = currentDraggingLi.getAttribute("position") * 1
+
+                currentDraggingLi.style.transition = "all 0.5s linear"
+                currentDraggingLi.style.left = positions[p][0] +"px"
+                currentDraggingLi.style.top = positions[p][1] +"px"
+                currentDraggingLi.style.transition = "none"
+                moveWithTransition(
+                    currentDraggingLi,
+                    { left: positions[p][0] + "px", top: positions[p][1] + "px" },
+                    50
+                )
+                currentDraggingLi = null;
+            }
+        )
+
+        ul.addEventListener(
+            "mousemove",
+            function (e) {
+                if (!currentDraggingLi) {
+                    return
+                }
+
+                var offsetX = e.pageX - ul.offsetLeft
+                var offsetY = e.pageY - ul.offsetTop
+                // console.log(offsetX, offsetY);
+
+                offsetX = offsetX < 110 ? 110 : offsetX
+                offsetY = offsetY < 110 ? 110 : offsetY
+                offsetX = offsetX > ul.clientWidth - 110 ? ul.clientWidth - 110 : offsetX
+                offsetY = offsetY > ul.clientHeight - 110 ? ul.clientHeight - 110 : offsetY
+
+                currentDraggingLi.style.left = offsetX - 100 + "px"
+                currentDraggingLi.style.top = offsetY - 100 + "px"
+
+                var op = currentDraggingLi.getAttribute("position") * 1
+                if ((np = checkPosition([offsetX - 100, offsetY - 100])) != -1 && np != op) {
+                    console.log("new position=", np);
+                    shuffle(op, np)
+                }
+            }
+        )
+
+    </script>
+</body>
+
+</html>

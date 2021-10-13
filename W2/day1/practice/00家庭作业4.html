@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var arr = [3, 1, 4, 5, 9, 2, 6, 8, 7, 0]
+
+        function bubbleSort(arr) {
+            // 冒泡排序：第一次 最大的元素冒泡到水面（最右边） 第二次 将第二大的元素冒泡到次右边...
+            // 从9干到1
+            for (var j = 9; j > 0; j--) {
+                for (var i = 0; i < j; i++) {
+                    // 如果i+1位比i位小 则交换顺序
+                    if (arr[i + 1] < arr[i]) {
+                        var temp;
+                        temp = arr[i]
+                        arr[i] = arr[i + 1]
+                        arr[i + 1] = temp
+                    }
+                }
+            }
+            console.log(arr);
+        }
+
+        
+
+        function selectOrder(arr) {
+            // 选择排序：锁定第0位 将最小的元素拿过来 锁定第1位 将最小的元素拿过来
+            for (var i = 0; i < arr.length - 1; i++) {
+
+                // 先假设第i位元素是最小的
+                var minValue = arr[i], minIndex = i;
+
+                // 把i+1位到末尾的值遍历一遍  找出最小值 与i位互换
+                for (var j = i + 1; j < arr.length; j++) {
+                    if (arr[j] < minValue) {
+                        minValue = arr[j]
+                        minIndex = j
+                    }
+                }
+
+                // 将最小元素与i位元素交换位置
+                if (minIndex !== i) {
+                    var temp;
+                    temp = arr[i]
+                    arr[i] = arr[minIndex]
+                    arr[minIndex] = temp
+                }
+            }
+            console.log(arr);
+        }
+
+
+    </script>
+</body>
+
+</html>

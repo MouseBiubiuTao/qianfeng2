@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #div2 {
+            width: 100px;
+            height: 100px;
+            background-color: green;
+
+            position: absolute;
+            top: 200px;
+            left: 0;
+        }
+
+        #div3 {
+            width: 100px;
+            height: 100px;
+            background-color: blueviolet;
+
+            position: absolute;
+            top: 400px;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+
+    <div id="div2"></div>
+
+    <div id="div3"></div>
+
+    <script>
+        const div = document.querySelector("div")
+
+        div.onclick = function () {
+            move(div, "left", 200, 3000)
+        }
+
+        div.oncontextmenu = function (e) {
+            e.preventDefault()
+            move(div, "top", 200, 2000)
+        }
+
+        div2.onclick = function (e) {
+            move(div2, "left", 200, 1000)
+        }
+
+        div3.onclick = function (e) {
+            move(div3, "left", 500, 500)
+        }
+
+        /* 
+        动画封装
+        elem 要做动画的元素
+        attr 要做动画的属性
+        target 属性的目标值
+        timeCost 动画用时
+        */
+        function move(elem, attr, target, timeCost) {
+            /* 拿到当前attr值 */
+            let currentValue = parseFloat(window.getComputedStyle(elem)[attr])//obj.name obj["name"]
+
+            /* 计算动画速度：(attr目标值-attr当前值)/帧数 */
+            const attrSpeed = (target - currentValue) / (timeCost / 40)
+
+            /* 开启动画定时器 */
+            let timer = setInterval(
+                () => {
+                    currentValue += attrSpeed
+                    elem.style[attr] = currentValue + "px"
+                },
+                40
+            );
+
+            setTimeout(() => {
+                // 停止动画
+                clearInterval(timer)
+
+                // 暴力校正位置
+                elem.style[attr] = target + "px"
+            }, timeCost);
+        }
+
+    </script>
+</body>
+
+</html>

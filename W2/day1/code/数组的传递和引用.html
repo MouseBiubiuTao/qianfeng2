@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function p(person) {
+            person *= 2;
+        }
+
+        var money = 3000;
+        p(money)
+        console.log(money);
+
+        function p2(person) {
+            p.salary *= 2;
+        }
+
+        var p = {
+            name: "xxxx",
+            salary: 3000
+        }
+        p2(p)
+        console.log(p.salary);
+    </script>
+
+</body>
+
+</html>

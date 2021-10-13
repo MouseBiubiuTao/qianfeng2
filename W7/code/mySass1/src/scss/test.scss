@@ -1,0 +1,216 @@
+//  引入模块
+@use "sass:math";
+//  引入：把var.scss中的代码拷贝到当前文件 文件名加 _ 表示该文件不编译
+@import "./val";
+
+//  普通变量
+$mainColor:#009172;
+$highColor:#fc0;
+
+//  调整一个颜色的亮度 lighten 提高亮度     darken 降低亮度
+$uphighColor:lighten($highColor, 20%);
+$downhighColor:darken($highColor, 20%);
+
+// 多值变量
+//  1.list 类型
+$pd:5px 10px 15px 20px;
+// 2.map 类型
+$headings:(h1:2em, h2:1.5em, h3:1.2em);
+
+//  浮动方向
+$way:left;
+
+a {
+    font-size: $fontSize;
+    color: $mainColor;
+
+    &:hover {
+        color: $highColor;
+    }
+}
+
+h1 {
+    font-size: map-get($headings, h1);
+}
+
+.lsit {
+    padding: nth($pd, 2);
+
+    li {
+        float: $way;
+        //  属性名加变量 要加#{ }
+        border-#{$way}: 3px solid #f00;
+    }
+}
+
+// 利用循环语句实现h1-h6字体大小
+@for $i from 1 through 6 {
+    h#{$i} {
+        font-size: math.div(40, $i)px;
+    }
+}
+
+//  h1 - h5
+// @for $i from 1 to 6{
+
+// }
+
+//  设置 $type 的默认值
+$type:salePrice;
+
+.salePrice {
+    //  使用默认 $type
+    color: getColor($type);
+    //  使用默认 函数内的参数
+    border-color: getColor(activity);
+    //  使用默认函数的颜色   $color: yellow;
+    background-color: getColor();
+}
+
+//  数值的加减乘除
+.col-3 {
+    //  percentage 将一个没有单位的数转化为百分比   1/3 的百分比
+    width: percentage(math.div(1, 3));
+}
+
+.niuniu {
+    background-color: $uphighColor;
+    font-size: $bigFontSize;
+    margin-bottom: 10em;
+
+    &:hover {
+        //  数值的加减乘除
+        margin-bottom: 10em-3;
+    }
+}
+
+.biubiu {
+    background-color: $downhighColor;
+    font-size: $smallFontSize;
+    padding-top: 20px;
+
+    &:hover {
+        //  数值的加减乘除
+        padding-top: 20px-5;
+    }
+}
+
+//  复用与继承
+.baby {
+    float: left;
+    margin: 200px auto;
+    font-size: $smallFontSize;
+    color: getColor(activity);
+    background-color: getcolor();
+
+    .small-baby {
+        text-align: center;
+        color: #ccc;
+        background-color: #333;
+
+        &::before {
+            content: '￥';
+        }
+    }
+
+    .big-baby {
+        @extend .small-baby;
+    }
+}
+
+#bitch {
+    @extend .baby;
+}
+
+// 占位符(不会编译成具体样式，一般用于继承)
+%box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    font-size: $bigFontSize;
+}
+
+.heard {
+    @extend %box;
+    padding: 10px;
+}
+
+.body {
+    @extend %box;
+
+    div {
+        width: 100px;
+        height: 100px;
+        border: 3px solid #ccc;
+        background-color: red;
+        border-radius: 5px;
+    }
+}
+
+// mixin混合器
+// 1. 无参数mixin（更推荐使用继承实现）
+@mixin common {
+    font: 900 20px/30px "黑体 宋体";
+    color: slateblue;
+    background-color: orangered;
+
+}
+
+//  继承
+.key {
+    @include common;
+}
+
+//  继承
+.value {
+    @include common;
+    color: orchid;
+}
+
+
+// 2. 有参数的mixin
+
+// 不用mixin 实现 窗口变化改变参数效果
+
+// @media screen and (max-width:600px) {
+//     .box {
+//         width: 100px;
+//         height: 100px;
+//         background-color: red;
+//     }
+// }
+
+// @media screen and (width:1000px) {
+//     .box {
+//         width: 200px;
+//         height: 200px;
+//         background-color: slateblue;
+//     }
+// }
+
+// 用mixin 实现 窗口变化改变参数效果
+@mixin max-screen($width) {
+    @media screen and (max-width:$width) {
+        //  @content表示使用mixin时的传入的样式
+        @content;
+
+    }
+}
+
+@include max-screen(600px) {
+    .box {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+    }
+}
+
+@include max-screen(1000px) {
+    .box {
+        width: 200px;
+        height: 200px;
+        background-color: slateblue;
+    }
+}

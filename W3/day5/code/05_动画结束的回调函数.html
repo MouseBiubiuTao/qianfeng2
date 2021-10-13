@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>05_动画结束的回调函数</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 1;
+        }
+
+        #div2 {
+            width: 100px;
+            height: 100px;
+            background-color: green;
+
+            position: absolute;
+            top: 200px;
+            left: 0;
+        }
+    </style>
+
+    <!-- 引入动画框架 -->
+    <script src="./myanim.js"></script>
+</head>
+
+<body>
+    <div id="box"></div>
+
+    <div id="div2"></div>
+
+    <script>
+        box.onclick = function (e) {
+            move2(
+                box,
+                {
+                    left: "500px",
+                    top: "500px",
+                    opacity: 0.5
+                },
+                2000,
+                ()=>{
+                    console.log("动画结束");
+                }
+            )
+        }
+
+    </script>
+</body>
+
+</html>

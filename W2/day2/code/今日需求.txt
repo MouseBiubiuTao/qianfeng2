@@ -1,0 +1,44 @@
+ES5 中常见的数组常用方法
+·forEach      
+·map       
+·filter     
+·reduce       
+·some      
+·every
+
+@排序算法
+·选择排序
+·冒泡排序
+·插入排序
+        
+字符集
+·ASCII 字符集（了解）
+·unicode 编码
+·UTF-8 就是一种 8 位的unicode字符集
+·创建字符串（了解）
+
+字符串的常用方法
+·charAt
+·charCodeAt
+·indexOf
+·substring
+·substr
+·toUpperCase
+·toLowerCase
+·replace
+----------
+replace
+replaceAll
+split
+join
+endsWith("fuck")
+startsWith("fuck")
+includes(subStr)
+lastIndexOf(subStr)
+repeat(2)
+str.slice(4, 19)
+trim()
+trimEnd()
+trimStart()
+firstIndexOf("hello")
+lastIndexOf("hello")

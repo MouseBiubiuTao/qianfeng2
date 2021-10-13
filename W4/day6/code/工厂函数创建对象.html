@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let createPerson = (name, age, gender) => {
+            const P = new Object();
+
+            P.name = name;
+            P.age = age;
+            P.gender = gender;
+
+            P.work = function () {
+                console.log(`${age}岁的${name}是${gender}的`);
+            }
+            return P
+        }
+
+        const obj = createPerson("毛毛", 13, "女", )
+        obj.work()
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

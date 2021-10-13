@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="ip">
+    <button id="btn">提交</button>
+    <script>
+        var reg = /^[1-9]\d{4,14}@qq\.com$/
+
+
+
+        console.log(reg.test("12345@qq.com")); //true
+        console.log(reg.test("123456789012@qq.com")); //true
+        console.log(reg.test("1234你妹9012@qq.com")); //false
+        console.log(reg.test("012349012@qq.com")); //false
+
+
+
+        btn.addEventListener(
+            "click",
+            function (e) {
+                var str = ip.value
+                var ret = reg.test(str)
+                if (ret === false) {
+                    alert("非法输入")
+                } else {
+                    alert("输入正确")
+                }
+            }
+        )
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+
+  <script>
+    // OOP编程思想 让专业的人干专业的事 程序员无需过问细节
+
+    /*
+    面向过程编程：
+    采购()
+    和面()
+    切面条()
+    做开水()
+    煮面()
+    ---------
+    吃面()
+    */
+
+    /* 首先 你得有一个面馆对象的创建说明书 */
+    function Mianguan (whatDoUwant2Eat){
+      // 做面的类型
+      this.type = whatDoUwant2Eat
+
+      /* 每一个被new出来的Mianguan对象/实例 都会做面条 */
+      this.makeNoodle = function(){
+        console.log("采购")
+        console.log("和面")
+        console.log("切面")
+        console.log("做水")
+        console.log("煮面")
+        console.log("端面")
+
+        return `一碗经过了28道工序的${this.type}`
+      }
+    
+    }
+
+    // 创建一个生产重庆小面的面馆对象的实例
+    const mg = new Mianguan("重庆小面")
+
+    // 令其做面
+    const noodle = mg.makeNoodle()
+
+    // 吃面
+    console.log(`吃${noodle}`);
+
+  </script>
+</body>
+
+</html>

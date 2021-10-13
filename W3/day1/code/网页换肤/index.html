@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        /* 常规reset动作 */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        ul,
+        ol,
+        li {
+            list-style: none;
+        }
+
+        #box {
+            width: 100%;
+            height: 0;
+            background-color: darksalmon;
+            overflow: hidden;
+            transition: height 0.5s linear;
+        }
+
+        #box>ul {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        #box>ul>li {
+            width: 160px;
+            height: 100px;
+            /* flex-grow: 1; */
+        }
+
+        li:nth-child(1) {
+            background: url(./1.jpg) no-repeat center / 160px 100px;
+        }
+
+        li:nth-child(2) {
+            background: url(./2.jpg) no-repeat center / 160px 100px;
+        }
+
+        li:nth-child(3) {
+            background: url(./3.jpg) no-repeat center / 160px 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <button id="btn">换肤</button>
+    
+    <script>
+
+        // 找出盒子和按钮
+        var box = document.querySelector("#box")
+        var btn = document.querySelector("#btn")
+
+        // 标记盒子是否已打开 默认为false
+        var boxOpen = false;
+
+        /* 打开盒子 */
+        function openBox() {
+            // 设置盒子的CSS高度为120px
+            box.style.height = "120px"
+            // 标记盒子已经打开了
+            boxOpen = true
+        }
+
+        /* 关闭盒子 */
+        function closeBox() {
+            // 设置盒子的CSS高度为0px
+            box.style.height = "0px"
+            // 标记盒子已经关闭
+            boxOpen = false
+        }
+
+        /* 点击换肤按钮 */
+        btn.onclick = function () {
+
+            // 盒子如果未打开 则打开之
+            if (!boxOpen) {
+                openBox()
+            } 
+            
+            // 关闭之
+            else {
+                closeBox()
+            }
+        }
+
+        /* 找到所有的li */
+        var lis = document.querySelectorAll("ul>li")
+
+        /* 给所有的li绑定点击监听事件 */
+        for (var i = 0; i < lis.length; i++) {
+            lis[i].onclick = function () {
+
+                // 拿到当前点击的li（this）的样式中的背景图片
+                var bgImg = window.getComputedStyle(this).backgroundImage
+                console.log(bgImg);
+
+                // 给body设置样式 background: url(具体的图片地址) no-repeat center / 100% 100%;
+                document.body.style.background = `${bgImg} no-repeat center / 100% 100%`
+                
+                // 关闭盒子
+                closeBox()
+            }
+        }
+    </script>
+</body>
+
+</html>

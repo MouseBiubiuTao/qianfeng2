@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>弹幕6</title>
+    <style>
+        #root {
+            width: 800px;
+            /* height: 550px; */
+            margin: 50px auto;
+            /* display: flex;
+            flex-direction: column; */
+            padding: 5px;
+            border: 1px solid black;
+        }
+
+        #danmu {
+            width: 100%;
+            height: 500px;
+            background-color: rgb(0, 20, 73);
+            margin-bottom: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .comment {
+            position: absolute;
+            /* font-size: 25px; */
+            white-space: nowrap
+        }
+
+        #bottom {
+            width: 100%;
+            display: flex;
+            height: 50px;
+        }
+
+        #ipComment {
+            flex-grow: 3;
+            /* height: 100%; */
+        }
+
+        #btn {
+            flex-grow: 1;
+            height: 100%;
+            margin: auto 5px;
+        }
+
+        #cbWanlai {
+            width: 15px;
+            height: 15px;
+        }
+
+        #cbToggle {
+            width: 15px;
+            height: 15px;
+        }
+
+        #lbWanlai {
+            font-size: 15px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="root">
+        <div id="danmu"></div>
+        <div id="bottom">
+            <input type="text" id="ipComment" placeholder="请输入评论内容">
+            <button id="btn">发送</button>
+            <div>
+                <input id="cbWanlai" type="checkbox" checked="checked">
+                <input id="cbToggle" type="checkbox" checked="checked"><br>
+                <label id="lbWanlai" for="cbWanlai">玩赖模式</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+    comment评论
+     -->
+
+    <script src="../../../../tools/mathtool.js"></script>
+    <script src="../../../../tools/animtool.js"></script>
+    <script src="./danmu.js"></script>
+
+
+    <script>
+        const comments = ["skrskr", "我很大你忍一下", "你爹到此一游", "你爹飘过"]
+        const dm = new Danmu(
+            root,
+            comments,
+            {
+                useDefaultDOM: false,
+                useAutoPlay: true,
+            }
+        )
+    </script>
+
+</body>
+
+</html>

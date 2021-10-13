@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let fun = () => {
+            console.log("一个箭头函数");
+        }
+        // fun()
+
+        let fun2 = a => console.log(a);
+        // fun2(100)
+
+        let fun3 = a => {
+            console.log(a);
+        }
+        // fun3(200)
+
+        let fun4 = a => a + 200
+        let ret = fun4(100)
+        // console.log(ret);
+
+        const getRandom = (a, b) => a + Math.round((b - a) * Math.random());
+        // for (i = 0; i < 1000000; i++) {
+        //     let sum = getRandom(0, 1000000)
+        //     if (sum === 1) {
+        //         console.log(i,sum);
+        //         break
+        //     }
+        // }
+
+        let fun5 = (a = 10) => console.log(a * 2);
+        // fun5()
+
+        let fun6 = (a = 20, b = 50) => {
+            console.log(a * b);
+        }
+        // fun6()
+        // fun6(100, 50)
+    </script>
+</body>
+
+</html>

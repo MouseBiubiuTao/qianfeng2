@@ -1,0 +1,118 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+ul, li, ol {
+  list-style: none;
+}
+
+a, a:hover, a:visited, a:link, a:active {
+  text-decoration: none;
+  color: #333;
+}
+
+/* 清除ul两侧浮动 */
+.clearFix::after, .clearFix::before {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* 轮播图容器 */
+div.banner {
+  width: 600px;
+  height: 400px;
+  border: 3px solid #333;
+  margin: 30px auto;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 轮播图内容列表 对齐div左上角 宽度为5倍 高度铺满*/
+.banner > ul {
+  width: 500%;
+  height: 100%;
+  background-color: pink;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* 左浮动横排 */
+.banner > ul > li {
+  width: 600px;
+  height: 100%;
+  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 100px;
+  cursor: pointer;
+}
+
+/* 指示器 */
+.banner > ol {
+  /* background-color: rgba(0, 0, 0, .4); */
+  height: 20px;
+  
+  /* 绝对定位放在父元素底部居中 */
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  /* 向左校正自身宽度的一半 */
+  transform: translateX(-50%);
+
+  /* 自身内容纵横都居中 */
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.banner > ol > li {
+  width: 8px;
+  height: 8px;
+  background-color: #fff;
+  cursor: pointer;
+  margin: 0 5px;
+
+  /* 小圆点 */
+  border-radius: 50%;
+}
+
+.banner > ol > li.active {
+  /* 小圆点高亮 */
+  background-color: skyblue;
+}
+
+/* 左右按钮 */
+.banner > div {
+  width: 100%;
+  height: 40px;
+
+  /* 放在垂直居中位置 */
+  position: absolute;
+  left: 0;
+  top: 50%;
+  /* 向上调整自身高度的一半 */
+  transform: translateY(-50%);
+
+  /* 内容纵横居中 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 左右按钮 */
+.banner > div > a {
+  width: 20px;
+  height: 40px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, .4);
+
+  /* 内容纵横居中 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

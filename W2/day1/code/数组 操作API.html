@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function pushDemo() {
+            var sport = ["篮球", "足球"];
+            var newSport = sport.push("发非鸡", "游泳");
+            console.log(newSport);
+            console.log(sport);
+        }
+        // pushDemo()
+
+        function popDemo() {
+            var fish = ["咸鱼", "鲨鱼", "金枪鱼", "清道夫"]
+            var newFish = fish.pop()
+            console.log(fish);
+            console.log(newFish);
+        }
+        // popDemo()
+
+        function unshiftDemo() {
+            var arr = [1, 2, 3, 4, 5]
+            var newArr = arr.unshift(6, 7, 8)
+            console.log(arr);
+            console.log(newArr);
+
+        }
+        // unshiftDemo()
+
+        function shiftDemo() {
+            var arr = [1, 2, 3, 4, 5]
+            var newArr = arr.shift();
+            console.log(arr);
+            console.log(newArr);
+        }
+        // shiftDemo()
+
+
+        function spliceDemo() {
+            var arr = [1, 2, 3, 5, 5, 5, 8, 9, 0]
+            arr.splice(3, 0, 4)
+            console.log(arr);
+            // console.log(newArr);
+            var newArr = arr.splice(5, 2, 6, 7)
+            console.log(arr);
+            console.log(newArr);
+        }
+        spliceDemo()
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        var arr = [{
+                name: 'Jack',
+                age: 18,
+                gender: '男'
+            },
+            {
+                name: 'Rose',
+                age: 20,
+                gender: '女'
+            },
+            {
+                name: 'Top',
+                age: 22,
+                gender: '男'
+            }
+        ]
+
+
+        /* 动态创建的表格有删除功能，可以删除表格中的某一项 */
+        function fn33() {
+            // 找出body
+            var body = document.querySelector("body")
+            var htmlStr = `<table border=1>`
+
+            // 造出一行
+            var tr = "<tr>"
+
+            // 插入序号列
+            tr += "<th>index</th>"
+
+            /* 随便拿出一条数据，根据它的所有key创建表头的其它列 */
+            var obj = arr[0]
+            for (var key in obj) {
+                var td = `<th>${key}</th>`
+                // td丢入tr
+                tr += td
+            }
+
+            // 插入删除列
+            tr += "<th>actions</th>"
+
+            // 行收尾
+            tr += "</tr>"
+
+            // tr丢入表格字符串
+            htmlStr += tr
+
+
+            /* 遍历数据数组 */
+            arr.forEach(
+
+                // 同时拿到每个obj及其序号
+                function (obj, index) {
+
+                    // 为每个obj创建一个tr
+                    var tr = "<tr>"
+
+                    // 加入序号列
+                    tr += `<td>${index + 1}</td>`
+
+                    /* 加入3个属性列 */
+                    // 为每个属性创建一个td 拼接到tr中
+                    // {name: 'Top',age: 22,gender: '男'}
+                    for (var key in obj) {
+                        var td = `<td>${obj[key]}</td>`
+                        tr += td
+                    }
+
+                    // 加入删除列
+                    tr += `<td class="tdDel" index=${index}>删除</td>`
+
+                    // 将拼接好的tr
+                    tr += "</tr>"
+                    // 丢入htmlStr
+                    htmlStr += tr
+                }
+            )
+
+            // 表格字符串收尾
+            htmlStr += `</table>`
+            console.log(htmlStr);
+
+            // 为body设置innerHTML
+            body.innerHTML = htmlStr
+
+            /* 找出所有的tdDel 添加点击监听事件*/
+            var tdDels = document.querySelectorAll(".tdDel")
+            for (var i = 0; i < tdDels.length; i++) {
+                var td = tdDels[i]
+                td.onclick = function () {
+                    /* 当【某个tdDel】被点击时 删除其【this】index所指向的行 */
+                    var index = this.getAttribute("index") * 1
+                    console.log(`删除第${index}行`);
+
+                    // 删除arr中的数据
+                    arr.splice(index, 1)
+
+                    // 重新渲染
+                    if (arr.length > 0) {
+                        fn33()
+                    } else {
+                        body.innerHTML = ""
+                    }
+                }
+            }
+            console.log("循环结束i=", i);
+
+
+        }
+        fn33()
+
+        function fn23() {
+            var htmlStr = `<table border=1>`
+
+            // 造出一行
+            var tr = "<tr>"
+
+            // 插入序号列
+            tr += "<th>index</th>"
+
+            /* 随便拿出一条数据，根据它的所有key创建表头的其它列 */
+            var obj = arr[0]
+            for (var key in obj) {
+                var td = `<th>${key}</th>`
+
+                // td丢入tr
+                tr += td
+            }
+
+            // 行收尾
+            tr += "</tr>"
+
+            // tr丢入表格字符串
+            htmlStr += tr
+
+
+            /* 遍历数据数组 */
+            arr.forEach(
+
+                // 同时拿到每个obj及其序号
+                function (obj, index) {
+
+                    // 为每个obj创建一个tr
+                    var tr = "<tr>"
+
+                    // 加入序号列
+                    tr += `<td>${index + 1}</td>`
+
+                    /* 加入3个属性列 */
+                    // 为每个属性创建一个td 拼接到tr中
+                    // {name: 'Top',age: 22,gender: '男'}
+                    for (var key in obj) {
+                        var td = `<td>${obj[key]}</td>`
+                        tr += td
+                    }
+
+                    // 将拼接好的tr
+                    tr += "</tr>"
+                    // 丢入htmlStr
+                    htmlStr += tr
+                }
+            )
+
+            // 表格字符串收尾
+            htmlStr += `</table>`
+            console.log(htmlStr);
+
+            // 找出body
+            var body = document.querySelector("body")
+
+            // 为body设置innerHTML
+            body.innerHTML = htmlStr
+        }
+    </script>
+</body>
+
+</html>

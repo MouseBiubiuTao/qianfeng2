@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作业</title>
+</head>
+
+<body>
+    <input type="text" id="ipYear">年<input type="text" id="ipMonth">月<input type="text" id="ipDate">日<br>
+    <button id="btn">开始计算</button><br>
+
+    星期<span id="spDay"></span><br>
+    年龄<span id="spAge"></span><br>
+    属相<span id="spShuxiang"></span><br>
+    星座<span id="spXingzuo"></span><br>
+    时差<span id="spTimediffer"></span><br>
+
+    <script>
+        /* 根据日期获取星期 */
+        function getWeekdayFromDate(date) {
+            console.log(date);
+            var day = date.getDay()
+            console.log(day);
+            return `${toChineseNumber(day)}`
+        }
+
+        /* 根据日期获取年龄 */
+        function getAgeFromDate(date) {
+            // 计算时间差毫秒
+            var timeDifferMillis = new Date() - date
+            // 计算时差中有多少年 四舍五入作为年龄
+            var age = Math.round(timeDifferMillis / (365 * 24 * 3600 * 1000))
+            return age
+        }
+
+        /* 根据日期获取属相 */
+        var SHUXIANG = "鼠牛虎兔龙蛇马羊猴鸡狗猪"
+        function getShuxiangFromDate(date) {
+            // 计算差距多少年
+            // 已知2020是鼠年
+            var yearsDiffer = 2020 - date.getFullYear()
+            if (yearsDiffer > 0) {
+                //在2020之前
+                return SHUXIANG[12 - yearsDiffer % 12]
+            }else if(yearsDiffer===0){
+                return SHUXIANG[0]
+            } else {
+                //在2020之后
+                return SHUXIANG[Math.abs(yearsDiffer) % 12]
+            }
+            
+            
+        }
+
+        /* 根据日期获取星座 */
+        function getXingzuoFromDate(date) { return "xxx" }
+
+        /* 根据日期获取与当前时间的时差 */
+        function getTimeDifferFromDate(date) { 
+            var timeDiffer = date - new Date()
+            // 判断是未来还是过去
+            var isFuture = (timeDiffer > 0)
+            // 把时差弄成绝对值
+            timeDiffer = Math.abs(timeDiffer)
+
+            var daysDiffer = parseInt(timeDiffer / (24*3600*1000))
+            var hoursDiffer = parseInt(timeDiffer % (24*3600*1000) / (3600*1000))
+            var minutesDiffer = parseInt(timeDiffer % (3600*1000) / (60*1000))
+            var secondsDiffer = parseInt(timeDiffer % (60*1000) / 1000)
+        
+            return (isFuture?"还剩余":"已过去")+`${daysDiffer}天${hoursDiffer}小时${minutesDiffer}分${secondsDiffer}秒` 
+        }
+
+        /* 将阿拉伯数字转化为中文 */
+        var CHINESE_NUMBERS = "零一二三四五六七八九十百千万"
+        function toChineseNumber(n) {
+            var ret = ""
+            //123 2021
+            // 一二三
+            var arr = n.toString().split("")//["1","2","3"]
+            // arr.forEach(function(item){
+            //     ret += CHINESE_NUMBERS[item*1]//拼 一二三
+            // })
+
+            // 拼接十百千万  
+            // ["1","2","3"] => ["千","1",""百"","2","十","3"]  
+            var tempArr = [], count = 0
+            for (var i = arr.length - 1; i >= 0; i--) {
+
+                // 将 "1" "2" "3"丢到空数组的头部
+                var ch = arr[i]
+                tempArr.unshift(ch)
+                count++
+
+                // 在前面丢一个十/百/千
+                switch (count) {
+                    case 1:
+                        tempArr.unshift("十")
+                        break;
+                    case 2:
+                        tempArr.unshift("百")
+                        break;
+                    case 3:
+                        tempArr.unshift("千")
+                        break;
+                    case 4:
+                        tempArr.unshift("万")
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            // 将tempArr最前面的那个单位（十/百/千）干掉
+            tempArr.shift()
+
+
+            // 将tempArr中的阿拉伯数字替换为中文
+            tempArr.forEach(function (item, index) {
+                // 如果item是阿拉伯数字
+                // if(isNaN(Number(item))===false)
+                if (!isNaN(Number(item))) {
+                    // 替换成中文
+                    tempArr.splice(index, 1, CHINESE_NUMBERS[item * 1])
+                }
+            })
+
+            // 零后单位（十/百/千）全干掉
+            var tempStr = tempArr.join("")
+            // 一百零十三 【零+单位】替换为【零】 /零[十百千]/g代表在全局搜索【零十】或【零百】或【零千】
+            tempStr = tempStr.replaceAll("零十", "零")
+            tempStr = tempStr.replaceAll("零百", "零")
+            tempStr = tempStr.replaceAll("零千", "零")
+            tempStr = tempStr.replaceAll("一十", "十")
+
+            // /零+/g 全局检索挨在一起的多个零
+            tempStr = tempStr.replaceAll(/零+/g, function (replacement) {
+                console.log(replacement);
+                return "零"
+            })
+            // 将末尾的零替换为"" /零$/代表末尾的零
+            tempStr = tempStr.replace(/零$/, "")
+
+            console.log(tempStr);
+            return tempStr
+        }
+        // toChineseNumber(103)
+        // toChineseNumber(2103)
+        // toChineseNumber(2013)
+        // toChineseNumber(2003)
+        // toChineseNumber(2000)
+
+
+        /* 将数字num格式化为长度至少为len的字符串并返回 不足的位数在前面补充0*/
+        function getLengthedNumStr(num, len) {
+            num = num.toString()
+            if (num.length >= len) {
+                return num
+            }
+
+            // 缺几位就在头部补几个0 007
+            var zeros = len - num.length
+            for (var i = 0; i < zeros; i++) {
+                num = "0" + num
+            }
+
+            return num
+        }
+
+        // 1. 编写函数，把当前时间格式化成 `YYYY-MM-DD HH-mm-ss` format格式化
+        function formatDate(date) {
+            /* 获取年月日时分秒 并格式化为至少2长度的字符串 */
+            var year = getLengthedNumStr(date.getFullYear(), 2)
+            var month = getLengthedNumStr(date.getMonth() + 1, 2)
+            var dat = getLengthedNumStr(date.getDate(), 2)
+            var hours = getLengthedNumStr(date.getHours(), 2)
+            var minutes = getLengthedNumStr(date.getMinutes(), 2)
+            var seconds = getLengthedNumStr(date.getSeconds(), 2)
+
+            // 按格式拼接字符串并返回
+            return `${year}-${month}-${dat} ${hours}-${minutes}-${seconds}`
+        }
+        // console.log(formatDate(new Date()));
+
+        // 1. 用户输入任意年月日 告知该日为星期几
+        // 2. 用户输入任意年月日生日 告知用户他的年龄、属相、星座
+        // 3. 用户输入任意年月日 告知距离这一天已经过去多少天 或显示距离这一天的倒计时
+        function fn() {
+            btn.onclick = function () {
+                // 拿到用户的输入
+                var year = ipYear.value * 1
+                var month = ipMonth.value * 1 - 1
+                var dat = ipDate.value * 1
+                var date = new Date(year, month, dat)
+
+                /* 调用封装好的函数获得星期、年龄、属相、星座、时差 */
+                spDay.innerText = getWeekdayFromDate(date)
+                spAge.innerText = getAgeFromDate(date)
+                spShuxiang.innerText = getShuxiangFromDate(date)
+                spXingzuo.innerText = getXingzuoFromDate(date)
+                spTimediffer.innerText = getTimeDifferFromDate(date)
+            }
+        }
+        fn()
+    </script>
+</body>
+
+</html>

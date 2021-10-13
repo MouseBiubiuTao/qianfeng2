@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+
+  <script>
+    // 标识符是写在正则外面的东西
+    // 1. g
+    // 全局搜索
+    // 写了 g 以后
+    // 第一次搜索是从字符串索引0开始
+    // 第二次搜索是从上次结束的位置开始
+    // 第三次搜索是从第二次结束的位置开始
+    // 直到找不到内容了 返回 null
+    // 再下一次的时候又从 索引 0 开始搜索
+
+
+    /* g 全局匹配 */
+    // 此处的正则如果没有全局匹配标识符g 则永远只会检索到第一个子串
+    // var reg = /\d{3}/g
+    // var str = 'abcd324sdfsdf333asd234fs'
+    // console.log(reg.exec(str));
+    // console.log(reg.exec(str));
+    // console.log(reg.exec(str));
+    // console.log(reg.exec(str));
+
+    // 2. i
+    // 忽略大小写 ignore
+    // 表示再查找的时候忽略大小写问题
+    // var reg1 = /^[a-z]$/
+    // var reg2 = /^[a-z]$/i
+    // var str = 'Y'
+    // console.log(reg1.test(str))//false
+    // console.log(reg2.test(str))//true
+
+
+
+    /* m多行模式 每行都有收尾边界符^$
+    multiple多的 single单的 double双的 tripple三的
+    */
+    var reg1 = /^[a-z]$/
+    var reg2 = /^[a-z]$/mg
+    var str = 'Y\ne\ns'
+    console.log(str);
+    // console.log(reg1.test(str));//false
+    // console.log(reg2.test(str));//true
+
+    /* 
+    ^Y$
+    ^e$
+    ^s$
+    */
+    // console.log(reg2.exec(str));//["e", index: 2, input: "Y↵e↵s", groups: undefined]
+    // console.log(reg2.exec(str));//["s", index: 4, input: "Y↵e↵s", groups: undefined]
+    // console.log(reg2.exec(str));//null
+    // while(  (arr = reg2.exec(str))!=null ){
+    //   console.log(arr);
+    // }
+
+
+    /* y粘性模式 sticky粘性的 仅从正则表达式的 lastIndex 属性表示的索引处搜索*/
+    var reg2 = /^[a-z]$/gmy
+    var str = 'y\ne\ns'
+    console.log(reg2.lastIndex);//0
+    console.log(reg2.exec(str));
+    console.log(reg2.exec(str));
+    console.log(reg2.exec(str));
+    console.log(reg2.exec(str));
+
+
+
+
+  </script>
+</body>
+
+</html>

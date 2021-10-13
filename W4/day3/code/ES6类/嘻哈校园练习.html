@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn1">干饭</button>
+    <button id="btn2">午休</button>
+    <button id="btn3">工作</button>
+    <button id="btn4">学习</button>
+
+    <script>
+        class People {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+
+            eat() {
+                console.log(`${this.name}猛地干饭`);
+            }
+            sleep() {
+                console.log(`${this.name}天天睡觉`);
+            }
+            work() {
+                console.log(`${this.name}玩命加班`);
+            }
+
+        }
+
+        class Teacher extends People {
+            constructor(name, age, course) {
+                super(name, age);
+                this.course = course;
+            }
+            work() {
+                console.log(`${this.name}正在教授${this.course}`);
+            }
+        }
+
+        class Student extends People {
+            constructor(name, age, course) {
+                super(name, age);
+                this.course = course;
+            }
+            study() {
+                console.log(`${this.name}努力敲代码学习${this.course}想月薪过2W`);
+            }
+            work() {
+                this.study()
+            }
+        }
+
+        class H5Student extends Student {
+            constructor(name, age, course) {
+                super(name, age, ["HTML", "CSS", "JS"])
+            }
+            study() {
+                console.log(`${this.name}在努力学习${this.course}`);
+            }
+            work() {
+                this.study()
+            }
+
+        }
+
+        class JavaStudent extends Student {
+            constructor(name, age, course) {
+                super(name, age, ["Javaspcint", "SSM", "数据库，"])
+            }
+            study() {
+                console.log(`${this.name}在努力学习${this.course}这些听不懂的东西`);
+            }
+            work() {
+                this.study()
+            }
+
+        }
+
+        class XianyuStudent extends Student {
+            constructor(name, age, course) {
+                super(name, age, ",自己在家学习,")
+            }
+           
+
+        }
+    </script>
+
+    <script>
+        const teachers = [
+            new Teacher("苍老师", 20, "多人运动"),
+            new Teacher("波多老师", 20, "多人运动"),
+            new Teacher("桥本老师", 20, "多人运动")
+        ]
+
+        const student = [
+            new H5Student("biubiubiu", 18),
+            new H5Student("heiheiehi", 18),
+            new JavaStudent("classman", 20),
+            new JavaStudent("heiman", 19),
+            new XianyuStudent("shahei", 666)
+        ]
+
+        const peoples = [].concat(teachers, student)
+
+        //干饭
+        btn1.addEventListener(
+            "click",
+            e => {
+                peoples.forEach(
+                    s => s.eat()
+                )
+            }
+        )
+
+        /* 睡觉 */
+        btn2.addEventListener(
+            "click",
+            e => {
+                peoples.forEach(
+                    s => s.sleep()
+                )
+            }
+        )
+
+        /* 工作 */
+        btn3.addEventListener(
+            "click",
+            e => {
+                peoples.forEach(
+                    s => s.work()
+                )
+            }
+        )
+
+        /* 学习 */
+        btn4.addEventListener(
+            "click",
+            e => {
+                student.forEach(
+                    s => s.study()
+                )
+            }
+        )
+    </script>
+</body>
+
+</html>

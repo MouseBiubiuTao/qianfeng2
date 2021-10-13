@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>04_事件对象中的一些信息</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 20000px;
+      height: 20000px;
+    }
+
+    #outer {
+      width: 300px;
+      height: 300px;
+      background-color: pink;
+
+      /* margin: 100px auto; */
+      position: absolute;
+      top: 100px;
+      left: 100px;
+    }
+
+    #inner {
+      width: 150px;
+      height: 150px;
+      background-color: green;
+      margin: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="outer">
+    <div id="inner"></div>
+  </div>
+
+
+  <script>
+    // var div = document.querySelector('div')
+
+    outer.onclick = function (e) {
+
+      // 从形参中得不到事件对象则使用window.event
+      e = e || window.event
+      console.log(e)
+
+      // 类型
+      console.log("type:", e.type)//click
+
+      // 相对于末梢元素（e.target）偏移量
+      console.log("offsetPosition:", e.offsetX, e.offsetY);
+
+      // // 相对于页面偏移量
+      console.log("pagePosition:", e.pageX, e.pageY);
+
+      // // 相对于窗口偏移量 页面未发生滚动时 等效于页面偏移量
+      console.log("clientPosition:", e.clientX, e.clientY);
+
+      // // 事件发生的末梢元素
+      console.log("event.target", e.target);
+
+      // // 绑定该事件的元素
+      console.log("event.currentTarget", e.currentTarget);
+    }
+
+  </script>
+</body>
+
+</html>

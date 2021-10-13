@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+
+
+  <script>
+    // 对象访问机制
+    // 当你需要访问一个对象中的成员的时候
+    // 1. 现在对象自己本身查找，如果有，就直接返回来给你使用，不会继续向上了
+    // 2. 当你自己没有的时候，会自动到 __proto__ 上查找，如果有就返回使用
+    // 3. 当 __proto__ 上也没有的时候就在再去 __proto__ 上找
+    // 4. 直到 Object.prototype 上都没有的时候，返回 undefined
+
+    const obj = {
+      name: 'Jack',
+    }
+
+    obj.__proto__.age = 38
+    console.log(obj.age);
+
+    // 检测obj是否有自身的固有属性age（从原型链继承来的不算）
+    console.log(obj.hasOwnProperty("age"));
+
+    // 对象的设置机制（增加或者修改）
+    // 对象的设置永远都是向自己身上设置内容
+    obj.age = 20
+    console.log(obj)//{name:jack,age:20},20
+    console.log(obj.age)//{name:jack,age:20},20
+    console.log(obj.hasOwnProperty("age"));
+
+  </script>
+</body>
+</html>

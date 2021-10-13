@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+
+
+  <script>
+    // 1. \ 转译的意思
+
+    // 2. | 或的意思
+
+    // 3. ()
+    //   表示把一堆东西当成一个整体
+
+    /* 【1个以上的单词字符】.sina.com */
+    // var reg = /^\w+@(qq|163|162|sina|126)\.(cn|com|net)$/
+    // var str1 = 'asd@126.net'//true
+    // var str2 = 'asd123456@sina.com'//true
+    // var str3 = '  asd123456@sina.com '//false
+    // var str4 = 'asd123456@sinaaa.com'//false
+    // var str5 = 'asd123456@sina&com'//false
+    // console.log(reg.test(str1))
+    // console.log(reg.test(str2))
+    // console.log(reg.test(str3))
+    // console.log(reg.test(str4))
+    // console.log(reg.test(str5))
+
+    // 4. []
+    // 写在括号内部的东西人选一个就行
+    // 一个 [] 内部表示一个字符
+    // 下面这个正则表示 从开头到结尾 只能由一个字符出现
+    // a b c d 中过的任意一个都可以
+    // var reg = /^[abcd]$/
+    // var str1 = 'aaa'
+    // var str2 = 'a'
+    // console.log(reg.test(str1))//false
+    // console.log(reg.test(str2))//true
+
+
+    // 5. -
+    // 到 至
+    // var reg = /^[a-zA-Z0-9]$/
+    // var str1 = 'D'
+    // var str2 = 'Dd'
+    // console.log(reg.test(str1))//true
+    // console.log(reg.test(str2))//false
+
+    // 6. [^]
+    // 非的意思
+    // 表示字符串只能有一位组成
+    // 并且这一位必须是 非 a~z
+    // var reg = /^[^a-z]$/
+    // var str1 = '你'//true
+    // var str2 = '你妹'//false
+    // var str3 = 'a'//false
+    // var str4 = 'A'//true
+    // console.log(reg.test(str1))
+    // console.log(reg.test(str2))
+    // console.log(reg.test(str3))
+    // console.log(reg.test(str4))
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,276 @@
+!
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./banner.css">
+    <script src="./anim.js"></script>
+</head>
+
+<body>
+    <div class="banner">
+
+        <!-- 轮播图 -->
+        <ul class="imgBox clearFix">
+            <li style="background-color: red">1</li>
+            <li style="background-color: orange">2</li>
+            <li style="background-color: green">3</li>
+            <li style="background-color: pink">4</li>
+            <li style="background-color: yellow">5</li>
+        </ul>
+
+        <!-- 指示器存放处 -->
+        <ol class="pointBox"></ol>
+
+        <div class="leftRightTabs">
+            <a class="left"> &lt; </a>
+            <a class="right"> &gt; </a>
+        </div>
+
+    </div>
+
+    <script>
+        const btnPrev = document.querySelector(".left")
+        const btnNext = document.querySelector(".right")
+        const ul = document.querySelector("ul")
+        const ol = document.querySelector("ol")
+        const box = document.querySelector(".banner")
+
+        //生成N个小圆点指示器
+        //造一个DOM碎片（缓冲器）
+        const olFragment = document.createDocumentFragment()
+        for (i = 0; i < ul.children.length; i++) {
+            const li = document.createElement("li")
+
+            //给每个li添加一个index序号，点击指示器的时候通过序号锁定页面数
+            li.setAttribute("index", i + 1)
+            olFragment.appendChild(li)
+        }
+        ol.appendChild(olFragment)
+
+
+        //制造头尾轮播页
+        const head = ul.lastElementChild.cloneNode(true)
+        const tail = ul.firstElementChild.cloneNode(true)
+        //将克隆的页面插入头尾
+        ul.insertBefore(head, ul.firstElementChild)
+        ul.appendChild(tail)
+
+        //重新设置ul宽度
+        ul.style.width = ul.children.length * 600 + "px"
+
+        //设置首页
+        let currentIndex = 1;
+        ul.style.left = -600 * currentIndex + "px"
+
+        //设置节流
+        let animateinit = false
+
+        //设置鼠标点下的状态滑动才生效
+        let mousezhuangtai = false
+
+        //获取鼠标点击时的位置
+        let mosUp, mosLast
+
+        /* 更新指示器 */
+        pointer()
+
+        //自动轮播
+        let autoPlayTime = null
+        startAutoPlay()
+
+
+        //点击指示器跳转页面
+        ol.addEventListener(
+            "click",
+            (e) => {
+                currentIndex = e.target.getAttribute("index")
+                indexToPage(currentIndex)
+            }
+        )
+
+        //设置点击上一张事件
+        btnPrev.addEventListener(
+            "click",
+            () => {
+                prevPage()
+            }
+        )
+
+        //设置点击下一张事件
+        btnNext.addEventListener(
+            "click",
+            () => {
+                nextPage()
+            }
+        )
+
+        //鼠标移入停止轮播
+        box.addEventListener(
+            "mouseenter",
+            () => {
+                stopAutoPlay()
+            }
+        )
+
+        //鼠标移出开始轮播
+        box.addEventListener(
+            "mouseleave",
+            () => {
+                startAutoPlay()
+            }
+
+        )
+
+        //清除默认的滑动选中字体事件
+        document.onselectstart = e => {
+            e.preventDefault()
+        }
+
+        ul.addEventListener(
+            "mousedown",
+            (e) => {
+                //修改鼠标状态
+                mousezhuangtai = true
+
+                //获取点击时的位置
+                mosLast = e.pageX;
+                mosUp = e.pageX;
+
+            }
+        )
+        ul.addEventListener(
+            "mousemove",
+            (e) => {
+                if (!mousezhuangtai) {
+                    return
+                }
+                //计算偏差值
+                let mouseOffset = e.pageX - mosLast 
+                //将偏差值加到原本的值上
+                ul.style.left = parseFloat(getComputedStyle(ul).left) + mouseOffset + "px"
+
+                //重新将新的值 赋给上一次的值
+                mosLast = e.pageX
+
+            }
+        )
+        ul.addEventListener(
+            "mouseup",
+            (e) => {
+                //计算鼠标抬起时与点下时的位置
+                let mosUpOffset = e.pageX - mosUp
+
+                //自右向左滑动时超过-150的就翻下页
+                if (mosUpOffset < -150) {
+                    nextPage()
+                }
+
+                //自左向右滑动时超过150就翻上页
+                else if (mosUpOffset > 150) {
+                    prevPage()
+                }
+
+                //值太小时 回到原页面
+                else  {
+                    indexToPage(currentIndex)
+                }
+
+                //鼠标抬起时，重新让其不能滑动
+                mousezhuangtai = false
+
+            }
+        )
+
+        //上一张
+        function prevPage() {
+            if (!animateinit) {
+                indexToPage(--currentIndex)
+            }
+
+        }
+
+        //下一张
+        function nextPage() {
+            if (!animateinit) {
+                indexToPage(++currentIndex)
+            }
+
+        }
+
+        //自动轮播
+        function startAutoPlay() {
+            if (!autoPlayTime) {
+                autoPlayTime = setInterval(() => {
+                    nextPage()
+                }, 2000);
+            }
+        }
+
+
+        //停止轮播
+        function stopAutoPlay() {
+            if (autoPlayTime) {
+                clearInterval(autoPlayTime)
+                autoPlayTime = null
+            }
+        }
+
+
+
+
+        //设置一个根据id设置left的函数
+        function indexToPage(index) {
+
+            //之前定义的动画函数
+            animate(
+                ul, {
+                    left: (-600 * index + "px")
+                },
+                600,
+                () => {
+                    //移形换影
+                    if (currentIndex === 0) {
+                        currentIndex = 5
+                        ul.style.left = (-600 * currentIndex + "px")
+                    }
+                    if (currentIndex === 6) {
+                        currentIndex = 1
+                        ul.style.left = (-600 * currentIndex + "px")
+                    }
+
+                    //更新指示器
+                    pointer()
+
+                    //动画结束
+                    animateinit = false
+                }
+            )
+            //动画开始
+            animateinit = true
+        }
+
+
+
+
+
+        //遍历指示器 如果 指示器Index与页面相等为其添加class
+        function pointer() {
+            //让指示器的Id与页面同步
+            let pointerIndex = currentIndex - 1;
+            for (i = 0; i < ol.children.length; i++) {
+                if (pointerIndex === i) {
+                    ol.children[i].classList.add("active")
+                } else {
+                    ol.children[i].classList.remove("active")
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

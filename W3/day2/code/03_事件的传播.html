@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>03_事件的传播</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            .out {
+                width: 500px;
+                height: 500px;
+                background-color: pink;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .center {
+                width: 300px;
+                height: 300px;
+                background-color: skyblue;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .inner {
+                width: 100px;
+                height: 100px;
+                background-color: purple;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="out">
+            <div class="center">
+                <div class="inner"></div>
+            </div>
+        </div>
+
+        <!-- bubble冒泡 capture捕获 -->
+        <script>
+            var inner = document.querySelector(".inner");
+            var center = document.querySelector(".center");
+            var out = document.querySelector(".out");
+
+            /*
+      同样是一个点击事件
+        点在 inner 的同时就是
+          点在了 center 上
+            点在了 out 上
+              点在了 body 上
+                点在 html 上
+                  点在 document 上
+                    点在 window 上
+      如果我的 inner 有一个点击事件
+      假设我的 center 上也有一个点击事件
+
+      从我开始到 window 如果有相同的事件都应该触发
+
+      当一个元素触发一个事件的时候，会按照 html 的结构逐层向上传播
+      会触发结构父级或再结构父级的同类型事件，直到 window 的同类型事件
+      这些事件都会执行，但是执行是有顺序的
+      先执行准确点击的元素的事件，最后执行 window 的同类型事件，这个机制叫做 冒泡
+      先执行最外层 window 的同类型事件，最后执行准确点击的元素的事件，这个机制叫做 捕获
+      准确点击的这个元素我们起一个名字叫做 目标
+
+      // addEventListener 存在第三个参数 执行机制
+      // 执行机制默认值是 false，表示冒泡
+      // 如果是 true 就按照捕获的顺序执行
+      addEventListener(type, fn, )
+    */
+            // inner.addEventListener(
+            //     "click",
+            //     function (e) {
+            //         console.log(e.path, e.target);
+            //         // path 就是再事件传播的过程中你要经历的 dom 元素
+            //         // target 目标，你准确的点击的哪个元素
+            //     },
+            //     false
+            // );
+
+            /* target.addEventListener(type, listener, useCapture);*/           
+            /* useCapture 为 false 冒泡机制 自下而上 底层（末梢）（e.target)优先处理 */
+            // inner.addEventListener('click', function () { console.log('我被点击了。我是 inner') })
+            // center.addEventListener('click', function () { console.log('我被点击了。我是 center') })
+            // out.addEventListener('click', function () { console.log('我被点击了。我是 out') })
+            // document.body.addEventListener('click', function () { console.log('我被点击了。我是 body') })
+            // document.documentElement.addEventListener('click', function () { console.log('我被点击了。我是 html') })
+            // document.addEventListener('click', function () { console.log('我被点击了。我是 document') })
+            // window.addEventListener('click', function () { console.log('我被点击了。我是 window') })
+
+            /* useCapture 为 true 捕获机制 自上而下 顶层优先处理 */
+            inner.addEventListener('click', function () { console.log('我被点击了。我是 inner') }, true)
+            center.addEventListener('click', function () { console.log('我被点击了。我是 center') }, true)
+            out.addEventListener('click', function () { console.log('我被点击了。我是 out') }, true)
+            document.body.addEventListener('click', function () { console.log('我被点击了。我是 body') }, true)
+            document.documentElement.addEventListener('click', function () { console.log('我被点击了。我是 html') }, true)
+            document.addEventListener('click', function () { console.log('我被点击了。我是 document') }, true)
+            window.addEventListener('click', function () { console.log('我被点击了。我是 window') }, true)
+        </script>
+    </body>
+</html>

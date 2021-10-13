@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!-- document.documentElement -->
+<html lang="en">
+
+<!-- document.head -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- document.title -->
+  <title>我是网站标题</title>
+</head>
+
+<!-- document.body -->
+<body>
+  <div>
+    <p>
+      <span></span>
+    </p>
+  </div>
+
+  <form action="">
+    <input type="text" name="username">
+    <input type="text" name="username">
+  </form>
+
+
+  <script>
+    // 再页面中有几个特殊标签
+    // 有特殊的方式获取
+    // 1. 获取 body 标签
+    var body = document.body
+    // console.log(body)
+    document.body.innerHTML += '<div>我是新来的</div>'
+
+    // 2. 获取 head 标签
+    var head = document.head
+    // console.log(head)
+
+    // 3. 获取 title（不在是获取标签了，而是获取内容）
+    var title = document.title
+    // console.log(title)
+
+    // 4. 获取 html 标签
+    var html = document.documentElement
+    // console.log(html)
+
+    // 5. input 标签
+    // getElementsByName()
+    // 专门用来捕获有 name 属性的标签元素
+    // 返回值是一个 **伪数组**
+    var inp = document.getElementsByName('username')
+    console.log(inp)
+  </script>
+</body>
+
+</html>

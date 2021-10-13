@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>06_练习2</title>
+    <style>
+        .centerInLine {
+            margin: 50px auto;
+        }
+    </style>
+</head>
+
+<body>
+    姓名： <input type="text" id="ipName" />
+    年龄： <input type="text" id="ipAge" />
+    性别： <input type="text" id="ipGender" />
+    <button id="btnAdd">添加到数组中</button>
+
+    <!-- 放数据表格 -->
+    <div id="container"></div>
+
+    <script>
+        /*
+        ·根据用户的输入动态地向table中添加数据
+        ·当用户点击删除时删除某条数据并刷新表格
+        ·不要每次刷新表格时都重新绑定对删除按钮的事件监听（将事件委托给父元素）
+        (思路提示：tr是动态添加和删除的，如果一一绑定每个tr中的删除事件，则开销很大，因此可以一次性将所有tr的删除事件委托给父级元素，以节约开销)
+        */
+        function fn2() {
+
+            var arr = [
+                { name: "Tom", age: 18, gender: "男" },
+                { name: "Jerry", age: 18, gender: "男" },
+                { name: "Rose", age: 21, gender: "女" },
+            ]
+
+            function renderTable(arr) {
+                container.innerHTML = ""
+
+                /* 渲染表格 */
+                var table = document.createElement("table")
+                // table.border = "1px"
+                table.setAttribute("border", "1px")
+                table.classList.add("centerInLine")
+
+                /* 制作表头 */
+                var trHead = document.createElement("tr")
+                for (var attr in arr[0]) {
+                    var th = document.createElement("th")
+                    th.innerText = attr
+                    trHead.appendChild(th)
+                }
+                table.appendChild(trHead)
+
+                /* 根据数据渲染行 */
+                arr.forEach(
+                    function (p, index) {
+                        /* 向表格中插入数据行 */
+                        var tr = document.createElement("tr")
+                        table.appendChild(tr)
+
+                        /* 向行中插入数据列 */
+                        for (var attr in p) {
+                            var td = document.createElement("td")
+                            td.innerText = p[attr]
+                            tr.appendChild(td)
+                        }
+                    }
+                )
+
+                /* 将table插入页面 */
+                container.appendChild(table)
+            }
+            renderTable(arr)
+
+            btnAdd.addEventListener(
+                "click",
+                function (e) {
+                    /* 采集数据丢入arr */
+                    var person = {
+                        name: ipName.value,
+                        age: ipAge.value,
+                        gender: ipGender.value,
+                    }
+                    arr.push(person)
+
+                    /* 重新渲染表格 */
+                    renderTable(arr)
+                }
+            )
+        }
+        // fn2()
+
+        /* 增加删除功能 */
+        function fn2X() {
+
+            var arr = [
+                { name: "Tom", age: 18, gender: "男" },
+                { name: "Jerry", age: 18, gender: "男" },
+                { name: "Rose", age: 21, gender: "女" },
+            ]
+
+            function renderTable(arr) {
+                container.innerHTML = ""
+
+                /* 如果arr为空 什么都不做 */
+                if (arr.length === 0) {
+                    return
+                }
+
+                /* 渲染表格 */
+                var table = document.createElement("table")
+                // table.border = "1px"
+                table.setAttribute("border", "1px")
+                table.classList.add("centerInLine")
+
+                /* 制作表头 */
+                var trHead = document.createElement("tr")
+
+                /* 添加序号列到表头 */
+                var thIndex = document.createElement("th")
+                thIndex.innerText = "idx"
+                trHead.appendChild(thIndex)
+
+                for (var attr in arr[0]) {
+                    var th = document.createElement("th")
+                    th.innerText = attr
+                    trHead.appendChild(th)
+                }
+
+                /* 添加删除操作列到表头 */
+                var thAction = document.createElement("th")
+                thAction.innerText = "action"
+                trHead.appendChild(thAction)
+
+                table.appendChild(trHead)
+
+                /* 根据数据渲染行 */
+                arr.forEach(
+                    function (p, index) {
+                        /* 向表格中插入数据行 */
+                        var tr = document.createElement("tr")
+                        table.appendChild(tr)
+
+                        /* 序号列 */
+                        var tdIndex = document.createElement("th")
+                        tdIndex.innerText = index
+                        tr.appendChild(tdIndex)
+
+                        /* 向行中插入数据列 */
+                        for (var attr in p) {
+                            var td = document.createElement("td")
+                            td.innerText = p[attr]
+                            tr.appendChild(td)
+                        }
+
+                        /* 删除列 */
+                        var tdDel = document.createElement("th")
+                        tdDel.classList.add("tdDel")
+                        tdDel.setAttribute("index", index)//暗藏index于删除按钮
+                        tdDel.innerText = "删除"
+                        tr.appendChild(tdDel)
+                    }
+                )
+
+                /* 将table插入页面 */
+                container.appendChild(table)
+
+                /* 将删除按钮的点击事件委托给table */
+                table.addEventListener(
+                    "click",
+                    function (e) {
+                        if (!e.target.classList.contains("tdDel")) {
+                            console.log("别摸我");
+                            return
+                        }
+
+                        /* 点击删除按钮 */
+                        arr.splice(
+                            e.target.getAttribute("index") * 1,
+                            1
+                        )
+                        renderTable(arr)
+                    }
+                )
+            }
+            renderTable(arr)
+
+            btnAdd.addEventListener(
+                "click",
+                function (e) {
+                    /* 采集数据丢入arr */
+                    var person = {
+                        name: ipName.value,
+                        age: ipAge.value,
+                        gender: ipGender.value,
+                    }
+                    arr.push(person)
+
+                    /* 重新渲染表格 */
+                    renderTable(arr)
+                }
+            )
+        }
+        // fn2X()
+
+        /* 优化table的渲染 */
+        function fn2XX() {
+
+            var arr = [
+                { name: "Tom", age: 18, gender: "男" },
+                { name: "Jerry", age: 18, gender: "男" },
+                { name: "Rose", age: 21, gender: "女" },
+            ]
+            var table,tbody;
+
+            /* 创建table + table的事件绑定 全局只需要做一次 */
+            function createTable() {
+                /* 渲染表格 */
+                table = document.createElement("table")
+                // table.border = "1px"
+                table.setAttribute("border", "1px")
+                table.classList.add("centerInLine")
+
+                /* 制作表头 */
+                var trHead = document.createElement("tr")
+                table.appendChild(trHead)
+
+                /* 添加序号列到表头 */
+                var thIndex = document.createElement("th")
+                thIndex.innerText = "idx"
+                trHead.appendChild(thIndex)
+                for (var attr in arr[0]) {
+                    var th = document.createElement("th")
+                    th.innerText = attr
+                    trHead.appendChild(th)
+                }
+                /* 添加删除操作列到表头 */
+                var thAction = document.createElement("th")
+                thAction.innerText = "action"
+                trHead.appendChild(thAction)
+                
+                /* 添加一个tbody */
+                tbody = document.createElement("tbody")
+                table.appendChild(tbody)
+                
+                /* 添加table到div */
+                /* 将table插入页面 */
+                container.appendChild(table)
+
+                /* 将删除按钮的点击事件委托给table */
+                table.addEventListener(
+                    "click",
+                    function (e) {
+                        if (!e.target.classList.contains("tdDel")) {
+                            console.log("别摸我");
+                            return
+                        }
+
+                        /* 点击删除按钮 */
+                        arr.splice(
+                            e.target.getAttribute("index") * 1,
+                            1
+                        )
+                        renderData(arr)
+                    }
+                )
+            }
+
+            function renderData(dataArr) {
+
+                tbody.innerHTML = ""
+
+                /* 如果arr为空 什么都不做 */
+                if (dataArr.length === 0) {
+                    return
+                }
+
+                /* 根据数据渲染行 */
+                dataArr.forEach(
+                    function (p, index) {
+                        /* 向表格中插入数据行 */
+                        var tr = document.createElement("tr")
+                        tbody.appendChild(tr)
+
+                        /* 序号列 */
+                        var tdIndex = document.createElement("th")
+                        tdIndex.innerText = index
+                        tr.appendChild(tdIndex)
+
+                        /* 向行中插入数据列 */
+                        for (var attr in p) {
+                            var td = document.createElement("td")
+                            td.innerText = p[attr]
+                            tr.appendChild(td)
+                        }
+
+                        /* 删除列 */
+                        var tdDel = document.createElement("th")
+                        tdDel.classList.add("tdDel")
+                        tdDel.setAttribute("index", index)//暗藏index于删除按钮
+                        tdDel.innerText = "删除"
+                        tr.appendChild(tdDel)
+                    }
+                )
+            }
+
+            createTable()
+            renderData(arr)
+            btnAdd.addEventListener(
+                "click",
+                function (e) {
+                    /* 采集数据丢入arr */
+                    var person = {
+                        name: ipName.value,
+                        age: ipAge.value,
+                        gender: ipGender.value,
+                    }
+                    arr.push(person)
+
+                    /* 重新渲染表格 */
+                    renderData(arr)
+                }
+            )
+        }
+        fn2XX()
+
+    </script>
+</body>
+
+</html>

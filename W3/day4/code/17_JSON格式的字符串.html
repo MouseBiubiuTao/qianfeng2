@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 1. 把 JS 的对象或者数字传换成 json 格式的字符串
+            // JSON.stringify(你要转的对象) 字符串化
+            // 返回值就是一个转换好的 json 格式字符串
+            // json格式的字符串和对象的区别
+            // - 对象是 { key: 'value' }
+            // - json 字符串 { "key": "value" } (必须是双引号)
+
+            /* 对象转JSON */
+            const obj = {
+              name: 'Jack',
+              pwd: "123456"
+            }
+
+            /* 将JS数据（对象/数组）转化为json字符串 */
+            // var objJson = JSON.stringify(obj)
+            // console.log(typeof objJson);
+            // console.log(objJson);
+
+            /* 数组转JSON */
+            var arr = [
+              {
+                name: 'Jack',
+                age:25
+              }, 
+              {
+                name: 'Rose',
+                age:55
+              }
+            ]
+            const arrJson = JSON.stringify(arr)
+            console.log(typeof(arrJson));//string
+            console.log(arrJson);
+
+
+            // 2. 把json 格式的字符串转回我认识的对象
+            //   JSON.parse(你要解析的 json 格式字符串)  解析 json 格式字符串
+            //   必须是一个严格意义上的 json 字符串
+            // var dataJson = `[{"name":"Jack","age":25},{"name":"Rose","age":55}]`
+            var dataJson = `{
+              "boy":{"name":"Jack","age":25},
+              "girl":{"name":"Rose","age":55}
+            }`
+
+            // 将json字符串转换为JS数据对象（对象/数组）
+            // const data = JSON.parse(dataJson)
+            // console.log(data);
+
+            /*
+            json 是一个数据格式，就是一个字符串，翻译机
+            1. JSON.stringify(你要转换的对象或者数组)
+              返回值： 一个已经转换好的 json 格式字符串
+            2. JSON.parse(你要转换的 json 格式字符串)
+              返回值： 一个自己语言内认识的对象或者数组
+            注意的点：
+              1. json 格式的字符串就是一个字符串，不能向操作对象一样用 . 去获取内容
+              2. json 格式的字符串书写的时候，key 和 value 都必须是双引号包裹（单引号不行）
+            */
+        </script>
+    </body>
+</html>

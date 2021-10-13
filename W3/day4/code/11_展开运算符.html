@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+
+
+  <script>
+    /* 
+    // 展开运算符叫做 ...
+    // 是把数据解构展开来看
+     */
+    // var arr = [1, 2, 3, 4, 5]
+    // function fn(a, b, c, d, e) {
+    //   // console.log(a + b + c + d + e)
+    //   console.log(a)
+    //   console.log(b)
+    //   console.log(c)
+    //   console.log(d)
+    //   console.log(e)
+    // }
+    // fn(arr[0],arr[1],arr[2],arr[3],arr[4])
+    // 将复杂对象（数组，对象）按字面量展开 一变多 打散
+    // fn(...arr)
+
+
+    /* 获取数组最大值 */
+    // const arr = [3, 5, 7, 4, 9, 2, 8, 1]
+    // const res = Math.max(...arr)
+    // console.log(res)
+
+    /* 合并数组 */
+    const arr = [1, 2, 3, 4, 5]
+    // 传统方式
+    // const res = [6, 7, 8].concat(arr)
+    // console.log(res)
+    // 展开运算符
+    // const res = [6, 7, 8, ...arr]
+    // const res = [...arr,6, 7, 8,]
+    // console.log(res)
+
+    /* 展开一个对象 */
+    const obj = {
+      name: 'Jack',
+      age: 18,
+      gender: '男',
+      foo: 'bar'
+    }
+    
+    const obj2 = {
+      // 将一个obj拍碎为一堆键值对
+      ...obj,
+      info: {
+        id: 110108,
+        class: 1913
+      }
+    }
+    console.log(obj2)
+
+    
+
+  </script>
+</body>
+</html>

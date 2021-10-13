@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 4. 编写函数map(arr) 把数组中的每一位数字都增加30%，并返回一个新数组
+        var arr = [10, 100, 1000]
+        var temp = []
+
+        function map(arr) {
+            for (i = 0; i < arr.length; i++) {
+                temp.push(arr[i] * 1.3)
+            }
+            return temp
+        }
+
+        console.log(map(arr));
+    </script>
+</body>
+
+</html>

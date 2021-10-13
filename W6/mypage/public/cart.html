@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <style>
+        .logout {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">一表人才</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index.html">首页</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="discover.html">发现</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="cart.html">购物车</a>
+                        </li>
+                    </ul>
+                    <div class="d-flex">
+
+                        <div class="login">
+                            <a class="nav-link" href="login.html">登录</a>
+                            <a class="nav-link" href="reg.html">注册</a>
+                        </div>
+                        <div class="logout">
+                            <span></span>
+                            <a class="nav-link" href="#">退出</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div>
+            购物车
+        </div>
+    </div>
+    <script src="./js/bootstrap.js"></script>
+    <script>
+        const login = document.querySelector('.login');
+        const loginout = document.querySelector('.loginout');
+        const btnLoginOut = loginout.querySelector('a');
+        const span = loginout.querySelector('span')
+
+        //  cookie  写法
+        // 进入首页，先获取cookie
+
+        // const cookies = document.cookie;
+        // // // username=tiantian; password=123 -> {username:'tiantian',password:123}
+        // const arr = cookies.split(";")
+
+        // //  拿到写入cookie的用户名 与密码
+        // const data = {};
+        // arr.forEach(item => {
+        //     const [key, value] = item.split(';');
+        //     data[key] = value;
+        // })
+
+        //  web Storage     写法
+        const data = JSON.parse(localStorage.getItem('userInfo'))
+
+
+        // 判断是否已登录
+        // 登录：存在username&password
+        // null.username,undefined.username
+
+        if (data && data.username) {
+            //  登录注册按钮隐藏
+            login.style.display = "none";
+            // 退出按钮显示
+            loginout.style.display = "block";
+            // 将用户名写入 显示在页面上
+            span.innerHTML = data.username;
+        }
+
+        //  退出登录
+        btnLoginOut.onclick = function () {
+
+            //  cookie  写法'
+
+            // let date = new Date();
+            // //  写一个过去的时间  点击时  删除cookie内容
+            // date = date.setDate(date.getDate() - 1);
+            // document.cookie = 'username=x;expires=' + date;
+            // document.cookie = 'password=x;expires=' + date;
+
+            //  删除本地存储 ：userInfo
+            localStorage.removeItem('userInfo');
+            //  刷新页面
+            location.reload();
+        }
+
+        //  添加stoage事件
+        window.addEventListener('storage', (e) => {
+            // 该事件只有在其它页面修改localStorage时触发
+            if (e.key === 'userInfo') {
+                //  登录
+                if (e.newValue && !e.oldValue) {
+                    //  登录注册按钮隐藏
+                    login.style.display = "none";
+                    // 退出按钮显示
+                    loginout.style.display = "block";
+                    //  获取点击时的数据
+                    const userInfo = JSON.parse(e.newValue);
+                    // 将用户名显示到页面
+                    span.innerHTML = userInfo.username;
+
+                }
+                //  退出
+                else if (!e.newValue && e.oldValue) {
+                    //  登录注册按钮显示
+                    login.style.display = "block";
+                    // 退出按钮显示
+                    loginout.style.display = "none";
+                }
+            }
+        }, false);
+    </script>
+</body>
+
+</html>

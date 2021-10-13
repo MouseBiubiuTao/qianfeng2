@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>02_事件的绑定方式</title>
+</head>
+
+<body>
+    <div id="box">点我试试看</div>
+
+    <script>
+        var div = document.querySelector("#box")
+
+        // 注册事件的方式只能绑定一个函数
+        // div.onclick = function () {
+        //   console.log('我被点击了')
+        // }
+
+        // div.onclick = function () {
+        //   console.log('我做的第二件事情')
+        // }
+
+        // 事件监听
+        // 一刻不停的观察着你的动向
+        // element.addEventListener()  添加一个事件侦听器
+        // 是我们监听事件的一个方式
+        //                                    事件类型        处理函数
+        // 语法： dom元素.addEventListener('侦听哪一个事件'， 你要做什么)
+        // 这个方法不兼容 IE 8 及一下不支持
+
+        // 可以给同一个 dom 元素同一个事件绑定多个事件处理函数
+        // 有执行顺序的，哪个事件先绑定，哪个事件先执行
+
+        function clickHandler1(e) {
+            console.log('我被点击了1')
+        }
+        var clickHandler2 = function (e) {
+            console.log("我的第二个事情2");
+        }
+
+        // add 添加 event 事件 listener 监听器
+        div.addEventListener(
+            "click",
+            clickHandler1
+        )
+
+        div.addEventListener(
+            "click",
+            clickHandler2
+        )
+
+        /* 有add就有remove 移除事件监听器clickHandler */
+        div.removeEventListener(
+            "click",
+            clickHandler1
+        )
+
+        // div.removeEventListener("click", handler2);
+
+        // 在 IE 8 及一下使用 attachEvent 了监听事件
+        // on + 事件类型      处理函数
+        // 语法： dom 元素.attachEvent('你要监听什么事件'， 事件处理函数)
+        // 执行顺序是一个正序注册倒叙执行
+        // div.attachEvent('onclick', function () {
+        //     console.log('我被点击了')
+        // })
+
+        // div.attachEvent('onclick', function () {
+        //     console.log('我的第二个事情')
+        // })
+
+        // div.attachEvent('onclick', function () {
+        //     console.log('我的第三个事情')
+        // })
+
+        /*
+        需要接受参数
+        第一个参数：元素你要给哪一个元素绑定事件
+        第二个参数：事件类型
+        第三个参数：事件处理函数
+        */
+
+        /* 兼容性地绑定事件监听器 */
+        // listener 监听器（函数） handler 处理器（函数） callback 回调（函数）（回调：事件触发时回调的代码块）
+        // function bindEventListener(element, type, callback) {
+        //     if (element.addEventListener) {
+        //         // 主流浏览器
+        //         element.addEventListener(type, callback)
+        //     } else {
+        //         // 非主流浏览器
+        //         element.attatchEvent("on" + type, callback)
+        //     }
+        // }
+        // bindEventListener(div, "click", callback)
+        // bindEventListener(div, "click", fn)
+
+    </script>
+</body>
+
+</html>

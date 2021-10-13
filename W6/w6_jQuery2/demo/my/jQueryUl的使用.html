@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box,
+        .box {
+            margin: 10px;
+            width: 100px;
+            height: 100px;
+            background-color: #f00;
+        }
+    </style>
+    <link rel="stylesheet" href="../plugins/jquery.ui/jquery-ui.css">
+</head>
+
+<body>
+    <input type="date" name="" id="">
+    <div id="box"></div>
+
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+
+    <script src="../js/jquery-3.1.1.js"></script>
+    <script src="../plugins/jquery.ui/jquery-ui.js"></script>
+    <script>
+        jQuery($ => {
+            //  正常调用
+            // $('#box').resizable();/
+            // $('#box').draggable();
+
+            //  链式调用
+            $('#box').resizable().draggable();
+            $('#box')
+                .html('baby')
+                .css({
+                    color: '#fff',
+                    textAlign: 'center',
+                    lineHeight: '100px'
+                })
+            $('.box').draggable();
+        })
+    </script>
+</body>
+
+</html>

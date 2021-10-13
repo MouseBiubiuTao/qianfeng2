@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    div {
+      width: 100px;
+      height: 100px;
+      background-color: pink;
+    }
+
+    div::before {
+      content: '你好';
+      display: block;
+      width: 50px;
+      height: 50px;
+      background-color: skyblue;
+    }
+  </style>
+</head>
+<body>
+
+  <div style="opacity: 0.5;">你妹</div>
+
+
+  <script>
+    // style 可以获取和设置元素的行间样式
+
+    var div = document.querySelector('div')
+    // console.log(div.style)//CSSStyleDeclaration{...}
+    // console.log(div.style.opacity)//0.5
+    // console.log(div.style.backgroundColor)//拿不到 背景色不是通过行间样式定义的
+
+    // 获取非行间样式
+    // window.getComputedStyle()  IE 9 以上使用
+    // currentStyle   IE 8 及一下使用
+
+    // 1. getComputedStyle
+    // 语法： window.getComputedStyle(你要获取的dom元素).你要获取的样式属性
+    // 参数有两个，第二个可以写可以不写，默认是 null
+    // 第二个参数不写的时候默认是 null，表示一个正常元素
+    // 第二个参数可以写 'after' || 'before'，表示我要获取伪元素的样式
+    // 返回值： 就是你获取到的样式的值（行间和非行间都能获取到）
+    var cStyles = window.getComputedStyle(div)
+    // console.log(cStyles);//CSSStyleDeclaration{超级多的样式/绝大部分都不是我们亲自定义的 }
+    // console.log(cStyles.backgroundColor,cStyles.width,cStyles.height,cStyles.opacity);
+
+    var afterWidth = window.getComputedStyle(div, 'before').width
+    console.log(afterWidth)//50px
+
+    // 设置样式就是 元素.style.样式名 = 样式值
+    // 伪元素的样式可以设置，但是要求很多，各大浏览器都不是很支持，一般不去设置
+
+    // 2. currentStyle
+    // 语法： 你要获取的dom元素.currentStyle.样式名称
+    // 返回值： 就是你获取到的样式的值
+    // var width = div.currentStyle.width
+    // console.log(width)
+
+    // var width
+    // // 3. 兼容处理
+    if (window.getComputedStyle) {
+      // 判定是 IE 9 以上 包括非IE
+      width = window.getComputedStyle(div).width
+    } else {
+      // IE 8 及以下
+      width = div.currentStyle.width
+    }
+
+    console.log(width)
+
+  </script>
+</body>
+</html>

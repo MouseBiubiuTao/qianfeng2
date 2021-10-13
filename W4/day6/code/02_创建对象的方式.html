@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    /* 创建对象方式一 */
+    function fn1() {
+      // 首先创建一个空对象
+      const p = {}
+
+      // 给属性赋值
+      p.name = "张全蛋"
+      p.age = 18
+      p.gender = "男"
+
+      // 给方法赋值
+      p.work = function () {
+        console.log(`${this.name}正在搬砖`);
+      }
+
+      // OOP
+      p.work()
+    }
+
+    // fn1()
+
+    /* 按字面量创建对象 */
+    function fn2() {
+      const p = {
+        name: "张双蛋",
+        age: 18,
+        work: function () {
+          console.log(`${this.name}正在搬砖`);
+        }
+      }
+
+      p.work()
+    }
+    fn2()
+
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // 1. 实现向数组末尾追加一个元素有多少种方式
+        function fn11() {
+            var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+
+            var newArr = arr.push(666);
+
+            var newArr = arr.splice(10, 0, 666)
+
+
+
+            console.log(newArr);
+            console.log(arr);
+        }
+        // fn11()
+
+        // 1. 给一段文章中的全部指定词语进行过滤
+        // 比如我要过滤 "NH"
+
+        function fn21() {
+
+            var str = 'asdasdNHasdasdasdNHsdasdasdNHsadasd';
+            var newStr = str.replaceAll("NH", "**")
+            console.log(newStr);
+
+            // var arr = str.split("");
+            // var newArr = arr.filter(
+            //     function (value) {
+            //         return !value.includes("N")
+            //     }
+            // )
+            // var newArr1 = newArr.filter(
+            //     function (value) {
+            //         return !value.includes("H")
+            //     }
+            // )
+
+            // var newArr2 = newArr1.join()
+
+            // console.log(newArr2);
+        }
+        // fn21()
+
+        // 2. 反转字符串
+        function fn22() {
+
+            var str = 'abcdefg';
+            var arr = str.split("");
+            str = arr.reverse().join("")
+
+            console.log(str2);
+        }
+        // fn22()
+
+        // 3. 统计字符串中每个字符的个数？
+        // { a: 出现次数， b: 出现次数, ...}
+        function fn23() {
+            var str = 'abcdacbabcbababcbabcabd'
+            var obj = {}
+
+            /* for (i = 0; i < str.length; i++) {
+                // var char = str.charAt(i);
+                var char = str[i];
+
+                if (obj[char] === undefined) {
+                    obj[char] = 1;
+                } else {
+                    obj[char]++
+                }
+
+            }
+            console.log(obj); */
+            //方法一
+
+
+        }
+        // fn23()
+
+        // 1. aabccd统计每个字符出现的次数，去掉重复的字符，使结果显示 abcd
+        function fn31() {
+            var str = 'abcdacbabcbababcbcabd'
+            var obj = {}
+            var newStr = ""
+
+            for (i = 0; i < str.length; i++) {
+                var char = str.charAt(i);
+
+                if (!obj[char]) {
+                    obj[char] = 1;
+                } else {
+                    obj[char]++
+                }
+            }
+            console.log(obj);
+
+            for (var key in obj) {
+                newStr += key;
+            }
+            console.log(newStr);
+
+        }
+        // fn31()
+
+        function fn31_2() {
+            var str = 'abcdacbabcbababcbcabd';
+            var obj = {};
+            var newStr = "";
+            var arr = str.split("");
+
+            arr.forEach(
+                function (char, index, array) {
+                    if (!obj[char]) {
+                        obj[char] = 1;
+                    } else {
+                        obj[char]++;
+                    }
+
+                    if (newStr.indexOf(char) === -1) {
+                        newStr += char;
+                    }
+                }
+            )
+
+
+
+            console.log(obj);
+            console.log(newStr);
+
+        }
+        // fn31_2()
+
+        function fn31_3() {
+            var str = 'abcdacbabcbababcbcabd'
+            var obj = {}
+            var newStr = []
+            var arr = str.split("");
+
+            arr.forEach(
+                function (char, index, array) {
+                    if (!obj[char]) {
+                        obj[char] = 1;
+                    } else {
+                        obj[char]++
+                    }
+
+                    if (newStr.indexOf(char) === -1) {
+                        newStr.push(char)
+                    }
+                }
+            )
+
+
+            console.log(obj);
+            console.log(newStr.join());
+
+        }
+        // fn31_3()
+
+        function fn31_4() {
+            var str = 'abcdacbabcbababcbcabd'
+            var obj = {}
+            var newStr = []
+            var arr = str.split("");
+
+            arr.forEach(
+                function (char, index, array) {
+                    if (!obj[char]) {
+                        obj[char] = 1;
+                    } else {
+                        obj[char]++
+                    }
+                }
+            )
+
+            var retArr = arr.filter(
+                function (char, index) {
+                    var tempArr = arr.slice(0, index);
+                    return tempArr.indexOf(char) === -1;
+                }
+            )
+
+
+            console.log(obj);
+            console.log(retArr.join());
+
+        }
+        fn31_4()
+
+
+        function fn32(str) {
+            return str.split("").reverse().join("") === str
+        }
+        // console.log(fn32("12321"));
+        // console.log(fn32("123"));
+    </script>
+</body>
+
+</html>

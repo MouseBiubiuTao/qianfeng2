@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./banner.css">
+    <script src="./anim.js"></script>
+</head>
+
+<body>
+    <div class="banner">
+
+        <!-- 轮播图 -->
+        <ul class="imgBox clearFix">
+            <li style="background-color: red">1</li>
+            <li style="background-color: orange">2</li>
+            <li style="background-color: green">3</li>
+            <li style="background-color: pink">4</li>
+            <li style="background-color: yellow">5</li>
+        </ul>
+
+        <!-- 指示器存放处 -->
+        <ol class="pointBox"></ol>
+
+        <div class="leftRightTabs">
+            <a class="left"> &lt; </a>
+            <a class="right"> &gt; </a>
+        </div>
+
+    </div>
+
+    <script>
+        const btnPrev = document.querySelector(".left")
+        const btnNext = document.querySelector(".right")
+        const ul = document.querySelector("ul")
+
+        let currentIndex = 0;
+
+        btnPrev.addEventListener(
+            "click",
+            () => {
+                currentIndex = currentIndex - 1 < 0 ? 4 : currentIndex - 1;
+                btnValue(currentIndex)
+            }
+        )
+        btnNext.addEventListener(
+            "click",
+            () => {
+                currentIndex = currentIndex + 1 > 4 ? 0 : currentIndex + 1;
+                btnValue(currentIndex)
+            }
+        )
+
+        const btnValue = (index) => {
+            animate(
+                ul, {
+                    left: (-600 * index + "px")
+                }, 500, e => console.log("结束")
+            )
+        }
+    </script>
+</body>
+
+</html>

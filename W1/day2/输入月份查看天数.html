@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input {
+            margin-bottom: 20px;
+            width: 200px;
+            height: 50px;
+            outline: none;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            font-size: 30px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" placeholder="请输入月份" id="ipMonth">
+    <button id="btn">查询天数</button>
+
+    <script>
+        function fn1() {
+            btn.onclick = function () {
+                var month;
+                month = ipMonth.value * 1;
+
+                switch (month) {
+                    case 2:
+                        alert("该月份天数为28")
+                        break;
+
+                    case 4:
+                    case 6:
+                    case 9:
+                    case 11:
+                        alert("该月份天数为30")
+                        break;
+
+                    case 1:
+                    case 3:
+                    case 5:
+                    case 7:
+                    case 8:
+                    case 10:
+                    case 12:
+                        alert("该月份天数为31")
+                        break;
+                }
+
+
+            }
+        }
+        fn1()
+    </script>
+
+</body>
+
+</html>

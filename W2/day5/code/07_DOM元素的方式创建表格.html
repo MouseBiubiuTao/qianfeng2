@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .greyBg {
+      background-color: #ccc;
+    }
+  </style>
+</head>
+
+<body>
+  <table cellspacing="0">
+    <thead>
+      <tr>
+        <th>序号</th>
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>性别</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    var arr = [{
+        name: 'Jack',
+        age: 18,
+        gender: '男'
+      }, {
+        name: 'Rose',
+        age: 20,
+        gender: '女'
+      }, {
+        name: 'Tom',
+        age: 22,
+        gender: '男'
+      },
+      {
+        name: 'Jack',
+        age: 18,
+        gender: '男'
+      }, {
+        name: 'Rose',
+        age: 20,
+        gender: '女'
+      }, {
+        name: 'Tom',
+        age: 22,
+        gender: '男'
+      }
+    ]
+
+    // 找出tbody
+    var tbody = document.querySelector("tbody")
+
+    /* 向tbody中插入tr */
+
+    // 遍历数据
+    arr.forEach(
+      function (stuObj, index) {
+        // 为每个学生动态创建一个tr元素
+        var tr = document.createElement("tr")
+        if (index % 2 === 1) {
+          tr.classList.add("greyBg")
+        }
+
+        // 创建和插入序号td
+        var tdIndex = document.createElement("td")
+        tdIndex.innerText = index + 1
+        tr.appendChild(tdIndex)
+
+        // 遍历学生的所有属性
+        for (var attr in stuObj) {
+          // 为每个属性创建一个td
+          var td = document.createElement("td")
+          td.innerText = stuObj[attr]
+          // 将td插入到tr
+          tr.appendChild(td)
+        }
+
+        // 创建和插入删除按钮td
+        var tdDel = document.createElement("td")
+        tdDel.innerText = "删除"
+        tr.appendChild(tdDel)
+
+        // tr插入到tbody
+        tbody.appendChild(tr)
+      })
+  </script>
+</body>
+
+</html>

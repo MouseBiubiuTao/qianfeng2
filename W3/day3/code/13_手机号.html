@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1+[356789]多选一+9位数字
+        var reg = /1[356789]\d{9}/g
+        var str = "哎呀13123456789你妹15123456789真19123456789好看"
+
+        // 检测：有无子串
+        console.log(reg.test(str));//true
+        
+        // 匹配：找出所有子串
+        console.log(str.match(reg));
+
+        // 检索：找出子串出现的位置
+        console.log(str.search(reg));
+
+        // 替换：
+        console.log(str.replace(reg,"【这是一个手机号】"));
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+@use "sass:math";
+
+$mainColor:#333;
+$highColor:#fc0;
+
+// 引入：把var.scss中的代码拷贝到当前文件
+@import './var';
+
+// 多值变量
+// 1. list类型
+$pd: 5px 10px 20px 30px;
+// 2.map类型
+$headings: (h1: 2em, h2: 1.5em, h3: 1.2em);
+
+// 浮动方向
+$direction:right;
+
+a {
+    font-size: $fontSize;
+    color: $mainColor;
+
+    &:hover {
+        color: $highColor;
+    }
+}
+
+h1 {
+    font-size: map-get($headings, h1)
+}
+
+.list {
+    padding: nth($pd, 1);
+
+    li {
+        float: $direction;
+        border-#{$direction}: 5px solid #900;
+    }
+}
+
+// 利用循环语句实现h1-h6字体大小
+@for $i from 1 through 6 {
+    h#{$i} {
+        // font-size: (36/$i)px;
+        font-size: math.div(36, $i)px;
+    }
+}
+
+// @for $i from 1 to 6{
+
+// }

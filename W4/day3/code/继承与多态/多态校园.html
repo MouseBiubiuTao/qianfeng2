@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn1">上课</button>
+    <button id="btn2">午休</button>
+    <button id="btn3">考试</button>
+    <button id="btn4">劳动</button>
+
+    <script>
+        //公共类
+        function People(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        People.prototype.eat = function () {
+            console.log(`${this.name}在疯狂干饭`);
+        }
+        People.prototype.sleep = function () {
+            console.log(`${this.name}已进入睡眠状态`);
+        }
+        People.prototype.selfTell = function () {
+            console.log(`${this.age}岁的${this.name}精力旺盛`);
+        }
+        People.prototype.rest = function () {
+            this.eat()
+            this.sleep()
+        }
+    </script>
+
+    <script>
+        //老师类
+        function Teacher(name, age, course) {
+
+            People.call(this, name, age)
+            this.course = course
+        }
+
+        Teacher.prototype = new People()
+
+        Teacher.prototype.study = function () {
+            console.log(`${this.name}老师正在授课。`);
+        }
+    </script>
+
+    <script>
+        //学生类
+        function Student(name, age, course) {
+            People.call(this, name, age)
+            this.course = course;
+        }
+
+        Student.prototype = new People()
+
+        Student.prototype.study = function () {
+            console.log(`${this.name}正在努力学习${this.course}`);
+        }
+
+        Student.prototype.takeExam = function () {
+            console.log(`${this.name}正在进行${this.course}的考试`);
+        }
+    </script>
+
+    <script>
+        //H5的学生
+        function H5Student(name, age, course) {
+            Student.call(this, name, age, "HTML5")
+
+        }
+
+        H5Student.prototype = new Student();
+
+        H5Student.prototype.study = function () {
+            console.log(`${this.name}正在学习：
+            《HTML从入门到精通》
+            《CSS从入门到放弃》
+            《JS从入门到住院》`);
+        }
+    </script>
+
+    <script>
+        //JAVA的学山
+        function JavaStudent(name, age, course) {
+            Student.call(this, name, age, "JAVA")
+        }
+
+        JavaStudent.prototype = new Student();
+
+        JavaStudent.prototype.study = function () {
+            console.log(`${this.name}正在学习：
+            《Java编程思想》
+            《Spring从入门到放弃》
+            《数据库从入门到住院》`);
+        }
+    </script>
+
+    <script>
+        //构建人员
+        const teacher = [
+            new Teacher("欧阳哥", 20, "JavaScript"),
+            new Teacher("老田", 21, "HTML/CSS")
+        ]
+        const students = [
+            new H5Student("小可爱", 30),
+            new H5Student("大可爱", 30),
+            new JavaStudent("班长", 18),
+            new JavaStudent("死宅", 18),
+        ]
+        // const peoples = [].concat(teacher,students)
+
+        const peoples = [
+            ...teacher,
+            ...students
+        ]
+
+        /* 上课 */
+        btn1.addEventListener(
+            "click",
+            e => {
+                peoples.forEach(
+                    s => s.study()
+                )
+            }
+        )
+        /* 午休 */
+        btn2.addEventListener(
+            "click",
+            e => {
+                peoples.forEach(
+                    s => s.rest()
+                )
+            }
+        )
+        /* 考试 */
+        btn3.addEventListener(
+            "click",
+            e => {
+                students.forEach(
+                    s => s.takeExam()
+                )
+            }
+        )
+            /* 身体状况 */
+        btn4.addEventListener(
+            "click",
+            e => {
+                peoples.forEach(
+                    s => s.selfTell()
+                )
+            }
+        )
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div>点我试试</div>
+
+        <script>
+            // event
+
+            // 事件的组成部分
+            // 三部分组成
+            //   - 事件源： 谁的事件
+            //   - 事件类型：  什么事件
+            //   - 事件处理函数：  当事件触发的时候你要干什么（函数）
+
+            var div = document.querySelector("div");
+
+            // div: 事件源（事件在哪一个元素身上）
+            // on: 是一种绑定事件的方法
+            // click: 事件类型
+            // function () {}:  事件处理函数
+            // 当你点击 div 的时候执行一个函数
+            // 事件处理函数在每一次触发该元素的事件的时候都会执行一遍
+            div.onclick = function () {
+                console.log("我被点击了", this);
+            };
+
+            window.onload = function(){
+                console.log("页面资源加载完毕");
+            }
+            
+        </script>
+    </body>
+</html>

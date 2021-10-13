@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn1">上课</button>
+    <button id="btn2">午休</button>
+    <button id="btn3">考试</button>
+    <button id="btn4">劳动</button>
+
+    <script>
+
+        /* 封装Person类 */
+        class Person {
+
+            /* 构造器 */
+            constructor(name, age) {
+                this.name = name
+                this.age = age
+            }
+
+            /* 实例方法eat */
+            eat() {
+                console.log(`${this.name}正在饕餮`);
+            }
+
+            /* 实例方法sleep */
+            sleep() {
+                console.log(`${this.name}正在酣睡`);
+            }
+
+            /* 实例方法work */
+            work() {
+                console.log(`${this.name}正在工作`);
+            }
+        
+            rest(){
+                this.eat()
+                this.sleep()
+            }
+        }
+
+        /* 
+        Teacher类继承于Person 
+        extends 扩展（继承） 一个继承声明就相当于拿下父类的全部实例方法
+        */
+        class Teacher extends Person {
+            constructor(name, age, course) {
+                // this.name = name
+                // this.age = age
+                // 继承父类的属性：name age
+                super(name, age)
+
+                this.course = course
+            }
+
+            /* 添加新的实例方法 */
+            teach() {
+                console.log(`${this.name}正在教授${this.course}`);
+            }
+
+            /* 覆写父类方法work */
+            work() {
+                this.teach()
+            }
+        }
+
+        /* 学生类继承于Person */
+        class Student extends Person {
+            constructor(name, age, course) {
+                // 写了构造器就必须【显式地】调用父类构造器
+                super(name, age)
+                this.course = course
+            }
+
+            study() {
+                console.log(`${this.name}正在学习${this.course}`);
+            }
+
+            /* 覆写父类方法work */
+            work() {
+                // 调用父类的work逻辑
+                // super.work()
+
+                // 再添加新的逻辑
+                this.study()
+            }
+        }
+
+        /* H5学员类 */
+        class H5Student extends Student {
+            constructor(name, age) {
+                super(name, age, ["HTML", "CSS", "JS"])
+            }
+
+            study() {
+                console.log(`${this.name}正在通过敲代码的方式学习`, ...this.course);
+            }
+        }
+
+        /* H5学员类 */
+        class JavaStudent extends Student {
+            constructor(name, age) {
+                super(name, age, ["Java", "数据库", "SSM"])
+            }
+
+            study() {
+                console.log(`${this.name}正在通过敲代码的方式学习`, ...this.course);
+            }
+        }
+    </script>
+
+    <script>
+        const teachers = [
+            new Teacher("张真人", 80, "太极拳"),
+            new Teacher("罗真人", 80, "呼风唤雨"),
+        ]
+
+        const students = [
+            new H5Student("尤玉玺", 40),
+            new JavaStudent("李逵", 30)
+        ]
+
+        const people = [].concat(teachers, students)
+
+        /* 上课 */
+        btn1.addEventListener(
+            "click",
+            e => {
+                students.forEach(
+                    s => s.study()
+                )
+            }
+        )
+
+        /* 午休 */
+        btn2.addEventListener(
+            "click",
+            e => {
+                people.forEach(
+                    p => p.rest()
+                )
+            }
+        )
+
+        /* 全体劳动 */
+        btn4.addEventListener(
+            "click",
+            e => {
+                people.forEach(
+                    p => p.work()
+                )
+            }
+        )
+
+    </script>
+</body>
+
+</html>

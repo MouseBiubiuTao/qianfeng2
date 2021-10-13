@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- map映射 replace替换 filter过滤 -->
+    <script>
+        var arr = ["水煮鱼", "清蒸鱼", "酸菜鱼", "烤鱼"];
+
+        /* 对每个元素都执行一下指定函数 */
+        function demoForEach() {
+            // 把每条鱼都加孜然 然后打印到控制台
+            arr.forEach(function (value, index, array) {
+                // console.log(value,index,array);
+                var newValue = "孜然" + value;
+                document.write(newValue + "<br>");
+            });
+        }
+
+        /* map() 方法创建一个新数组，其结果是该数组中的每个元素是调用一次提供的函数后的返回值。 */
+        function demoMap() {
+            var newArr = arr.map(
+                // function(value,index,array){
+                function (value) {
+                    var newValue = value.replace("鱼", "肉");
+
+                    // 为每个value生成映射后的新value 丢入结果数组
+                    return newValue;
+                }
+            );
+            console.log(newArr);
+            console.log(arr);
+        }
+        // demoMap()
+
+        /* filter() 方法创建一个新数组, 其包含通过所提供函数实现的测试的所有元素。 */
+        // 过滤出不带菜的鱼（劳资只想吃肉）
+        function demoFilter() {
+            var filteredArr = arr.filter(
+                // value进去 true/false出来（代表的是该元素是否通过过滤）
+                function (value) {
+                    // return true
+                    // 过滤出不带菜的鱼（劳资只想吃肉）
+                    return !value.includes("菜");
+                }
+            );
+            console.log("经过过滤后的新数组", filteredArr);
+            console.log("原始数组", arr);
+        }
+        // demoFilter()
+
+        /* some() 方法测试数组中是不是至少有1个元素通过了被提供的函数测试 */
+        function demoSome() {
+            // 是不是至少有一条鱼很菜
+            var answer = arr.some(
+                // value进去 value是不是很菜出来
+                function (value) {
+                    return value.includes("菜");
+                    // return value.includes("孜然")
+                }
+            );
+            console.log("是否至少有一条鱼很菜呢？", answer);
+        }
+        // demoSome()
+
+        /* every() 方法测试一个数组内的所有元素是否都能通过某个指定函数的测试。它返回一个布尔值。 */
+        function demoEvery() {
+            var arr = ["水煮鱼", "清蒸鱼", "酸菜鱼", "烤鱼"];
+
+            // 是不是每条鱼都很菜
+            var answer = arr.every(
+                // value进去 value是不是很菜出来
+                function (value) {
+                    return value.includes("菜");
+                }
+            );
+            console.log("是否", answer);
+        }
+        demoEvery();
+    </script>
+</body>
+
+</html>

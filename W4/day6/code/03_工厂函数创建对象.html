@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+
+    /* 工厂模式：根据不同参数创建结构雷同的Person对象 */
+    function createPerson(name, age, gender) {
+      // const p = {}
+      const p = new Object()
+
+      p.name = name
+      p.age = age
+      p.gender = gender
+
+      p.work = function () {
+        console.log(`${p.age}的${p.gender}性${p.name}正在工作`);
+      }
+
+      return p
+    }
+
+    const p = createPerson("张全蛋",18,"男")
+    p.work()
+
+  </script>
+
+</body>
+
+</html>

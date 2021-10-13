@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 原型 prototype
+        // **每一个函数天生自带一个成员，叫做 prototype，prototype 是一个对象空间**
+        // 是一个对象空间我们就可以向里面添加成员
+        // 构造函数也是函数
+        // 每一个构造函数也有一个成员叫做 prototype
+        // 我们把这个空间叫做构造函数的 原型对象
+        function Person(name) {
+            this.name = name
+        }
+
+        //所有实例的sayHi属性都是一样的方法
+        // prototype 原型 Person的原型对象Person.prototype中的内容 为Person的所有实例共享
+        Person.prototype.sayHi = function () {
+            console.log(`Hi`);
+        }
+
+        // 创建两个Person的【实例】
+        const p1 = new Person("Jack")
+        const p2 = new Person("John")
+
+        // console.log(p1.a,p2.a);
+        p1.sayHi()
+        p2.sayHi()
+
+        // p1.sayHi方法和p2.sayHi共享同一个块内存
+        console.log(p1.sayHi === p2.sayHi);
+
+
+        // // Person.prototype 可以理解为【任何Person实例】
+        Person.prototype.legs = 2;//所有Person的实例都是2条腿
+        Person.prototype.fingers = 10//所有Person的实例都是10根手指头
+        console.log(p1.legs, p2.legs);
+        console.log(p1.fingers, p2.fingers);
+
+        // console.log(Person);// ƒ Person() {}
+        // // directory目录 罗列
+        console.dir(Person);// 更多信息 prototype: {a: 100, b: 200, sayHi: ƒ, constructor: ƒ}
+        console.log(p1);//打印p1的字面量
+        console.log(p1.toString())//[object Object]
+
+    </script>
+
+</body>
+
+</html>

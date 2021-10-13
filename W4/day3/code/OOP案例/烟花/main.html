@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .nightsky {
+            width: 900px;
+            height: 600px;
+            background-color: #333;
+            border: 10px solid hotpink;
+            margin: 30px auto;
+            position: relative;
+        }
+
+        .fire {
+            width: 10px;
+            height: 10px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nightsky"></div>
+
+    <script>
+        const nightsky = document.querySelector(".nightsky");
+
+        // 鼠标点击事件
+        nightsky.addEventListener("click", function (e) {
+            const ex = e.offsetX;
+            const ey = e.offsetY;
+
+            // 在事件位置的正下方创建一颗烟花
+            const sp = createFirework(
+                ex + "px",
+                nightsky.clientHeight + "px"
+            );
+            nightsky.appendChild(sp);
+
+            // 烟花升起到事件位置 然后飞溅splash
+            move(sp, { top: ey }, () => {
+                nightsky.removeChild(sp);
+                splash(ex + "px", ey + "px", getRandom(25, 50));
+            });
+        });
+
+        /* 在指定位置创建一颗烟花 */
+        function createFirework(x, y) {
+            const sp = document.createElement("span");
+            sp.className = "fire";
+            sp.style.backgroundColor = getRandomColor();
+            sp.style.borderRadius = "50%";
+            sp.style.left = x;
+            sp.style.top = y;
+            return sp;
+        }
+
+        /* 若干多烟花 从指定位置开始飞溅 */
+        function splash(x, y, count) {
+            for (let i = 0; i < count; i++) {
+                const fw = createFirework(x, y);
+                nightsky.appendChild(fw);
+
+                // 生成一个随机消失位置
+                const dieX = getRandom(0, nightsky.clientWidth);
+                const dieY = getRandom(0, nightsky.clientHeight);
+
+                move(fw, { left: dieX, top: dieY, opacity: 0 }, () => {
+                    console.log("许个愿吧");
+
+                    // 从天空里移出 从内存里移出
+                    nightsky.removeChild(fw);
+                    delete fw;
+                });
+            }
+        }
+
+        function getRandomColor() {
+            return `rgb(${getRandom(0, 255)},${getRandom(0,255)},${getRandom(0, 255)})`;
+        }
+
+        function getRandom(a, b) {
+            return a + parseInt(Math.random() * (b - a + 1));
+        }
+
+        // target {left:100,top:80}
+
+        function move(element, target, callback) {
+            // animObj{ leftTimerId:1, topTimerId:2 }
+            // 存储每个属性的定时器的id
+            const animObj = {};
+
+            for (const attr in target) {
+                // 拿到动画前element的left属性
+                let currentAttrValue = parseFloat(getStyle(element, attr));
+
+                // 50帧(1秒跑完) 计算动画速度
+                const speed = (target[attr] - currentAttrValue) / 50;
+
+                // 已经跑完的帧数 50帧跑完就结束动画
+                let frameCount = 0;
+
+                // 将当前属性定时器的id存入animObj
+                animObj[attr] = setInterval(() => {
+                    currentAttrValue += speed;
+                    if (attr !== "opacity") {
+                        element.style[attr] = currentAttrValue + "px";
+                    } else {
+                        element.style[attr] = currentAttrValue;
+                    }
+
+                    if (++frameCount >= 50) {
+                        // 万一动画最后一帧略有偏差 手动校正
+                        if (attr !== "opacity") {
+                            element.style[attr] = target[attr] + "px";
+                        } else {
+                            element.style[attr] = target[attr];
+                        }
+                        clearInterval(animObj[attr]);
+
+                        // 从animObj中删除left键值
+                        delete animObj[attr];
+
+                        // 如果所有定时器都从animObj中移出 全部属的动画都做完了 就回调callback函数
+                        if (isEmptyObj(animObj)) {
+                            // callback && callback()
+                            if (callback) {
+                                callback();
+                            }
+                        }
+                    }
+                }, 20);
+            }
+        }
+
+        function getStyle(element, attr) {
+            return window.getComputedStyle(element)[attr];
+        }
+
+        /* 检查一个obj是不是一个空对象 */
+        function isEmptyObj(obj) {
+            // 数一数obj有多少自身的属性（Object给的不算）
+            let attrCount = 0;
+            for (const attr in obj) {
+                attrCount++;
+            }
+
+            // 属性数量为0 则为空对象 is empty
+            return attrCount === 0;
+        }
+    </script>
+</body>
+
+</html>

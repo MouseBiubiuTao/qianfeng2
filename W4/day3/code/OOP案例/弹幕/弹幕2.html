@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>弹幕2</title>
+    <style>
+        #root {
+            width: 800px;
+            /* height: 550px; */
+            margin: 50px auto;
+            /* display: flex;
+            flex-direction: column; */
+            padding: 5px;
+            border: 1px solid black;
+        }
+
+        #danmu {
+            width: 100%;
+            height: 500px;
+            background-color: black;
+            margin-bottom: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .comment {
+            position: absolute;
+            /* font-size: 25px; */
+            white-space: nowrap
+        }
+
+        #bottom {
+            width: 100%;
+            display: flex;
+            height: 50px;
+        }
+
+        #ipComment {
+            flex-grow: 3;
+            /* height: 100%; */
+        }
+
+        #btn {
+            flex-grow: 1;
+            height: 100%;
+            margin: auto 5px;
+        }
+
+        #cbWanlai {
+            width: 20px;
+            height: 20px;
+        }
+
+        #lbWanlai {
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <div id="danmu"></div>
+        <div id="bottom">
+            <input type="text" id="ipComment" placeholder="请输入评论内容">
+            <button id="btn">发送</button>
+            <div>
+                <input id="cbWanlai" type="checkbox" checked="checked"><br>
+                <label id="lbWanlai" for="cbWanlai">玩赖模式</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+    comment评论
+     -->
+
+    <script src="../../../../tools/mathtool.js"></script>
+    <script src="../../../../tools/animtool.js"></script>
+
+    <script>
+        /* 如果传入了根布局 就使用传入的根布局 */
+        function Danmu(root) {
+            this.root = root
+
+            /* 找出【【【自己的】】】屏幕 输入框 按钮 checkbox */
+            this.findElements()
+
+            console.log(this);
+
+            // 弹幕能【自己】监听用户事件
+            this.startListen()
+        }
+
+        /* 找出所有的控件元素 */
+        Danmu.prototype.findElements = function () {
+            this.danmu = root.querySelector("#danmu")
+            this.ipComment = root.querySelector("#ipComment")
+            this.btn = root.querySelector("#btn")
+            this.cbWanlai = root.querySelector("#cbWanlai")
+        }
+
+        /* dm实例监听用户事件 */
+        Danmu.prototype.startListen = function () {
+            // 此时的this还是调用当前函数的主语
+            const dm = this
+
+            /* 用户点击发送按钮可以发送弹幕 */
+            dm.btn.onclick = function (e) {
+                dm.sendComment()
+            }
+
+            /* 用户敲回车也可以发送弹幕 */
+            dm.ipComment.onkeydown = function (ke) {
+                // console.log(ke.code);
+                if (ke.code === "Enter") {
+                    dm.sendComment()
+                }
+            }
+        }
+
+        /* 发送弹幕 */
+        Danmu.prototype.sendComment = function () {
+            // 从input中拿到输入comment
+            const comment = this.ipComment.value
+
+            // 造一个span名曰sp
+            const sp = document.createElement("span")
+            // sp的文字为comment
+            sp.innerText = comment
+            // 样式设置为.comment
+            sp.classList.add("comment")
+            // 颜色随机
+            sp.style.color = getRandomColor()
+            // sp的位置随机出现在（800px,随机高度）
+            sp.style.left = this.danmu.clientWidth + "px"
+            sp.style.top = getRandom(0, this.danmu.clientHeight * 0.9) + "px"
+            console.log(getComputedStyle(sp).left, getComputedStyle(sp).top);
+
+            // sp丢入danmu
+            this.danmu.appendChild(sp)
+
+            // sp做动画（使用轮子）
+            // 动画结束后消灭sp
+            move(sp, { left: 0 - sp.clientWidth + "px" }, getRandom(500, 2000), () => sp.remove())
+
+        }
+
+    </script>
+
+    <script>
+        new Danmu(root)
+    </script>
+
+</body>
+
+</html>

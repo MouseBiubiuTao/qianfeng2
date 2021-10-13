@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>插件封装</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        input {
+            width: 300px;
+            height: 30px;
+            margin: 5px;
+        }
+
+        span {
+            color: red;
+        }
+    </style>
+    <script src="./biaodan.js"></script>
+</head>
+
+<body>
+    <input type="text" id="inp1" placeholder="请输入姓名:"><span></span><br>
+    <input type="text" id="inp2" placeholder="请输入手机号:"><span></span><br>
+    <input type="text" id="inp3" placeholder="请输入邮箱号:"><span></span><br>
+    <button id="btn">点我注册</button>
+    <script>
+        // ·封装一个注册表单插件，包含姓名、手机号、邮箱
+        // ·点击提交时自动进行合法性校验，对于不合法的字段以红字提示
+        // ·全部合法时，回调主程序函数进行页面跳转
+        // ·以外部JS文件形式使用该插件
+        function callback() {
+            alert("注册成功！")
+            window.location.assign("http://www.baidu.com")
+        }
+        register(callback)
+    </script>
+</body>
+
+</html>

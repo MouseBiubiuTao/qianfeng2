@@ -1,0 +1,29 @@
+$mainColor:#871999 !default;
+//  默认样式
+
+//  下划线开头的文件名不会被编译  合并
+
+//  设置变量
+$fontSize:16px;
+$smallFontSize:$fontSize*0.7;
+$bigFontSize:$fontSize*1.3;
+
+// 构造函数  关键字要加 @
+@function getColor($type:color) {
+    $color: yellow;
+
+    @if $type==salePrice {
+        $color: black;
+    }
+
+    @else if $type==activity {
+        $color: red;
+    }
+
+    @else {
+        $color: pink;
+    }
+
+    //  必须返回一个值
+    @return $color;
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+
+    <script>
+        const box = document.querySelector("div")
+
+        let timerId = null
+        box.addEventListener(
+            "click",
+            e => {
+
+                /* 每40毫秒 将box的left样式递增20px */
+                timerId = setInterval(
+                    () => {
+                        box.style.left = parseFloat(getComputedStyle(box).left) + 20 + "px"
+
+                        // 一旦box的left样式的值超过500 就停止动画
+                        if (parseFloat(getComputedStyle(box).left) >= 500) {
+                            clearInterval(timerId)
+                        }
+                    },
+                    40
+                );
+            }
+        )
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var bb1 = {
+            name: "xxx",
+            like: {
+                shirt1: "heisi"
+            }
+        }
+
+        var bb2 = {
+            name: "sss"
+        }
+        var hs = {
+            shirt1: "heisi"
+        }
+        bb2.like = hs
+        console.log(bb1.like === bb2.like);
+
+        bb1.yifu = hs;
+        bb2.yifu = bb2.like;
+        console.log(bb1. yifu === bb2.yifu);
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>浏览器事件</title>
+
+    <script>
+        // 页面资源加载完成时回调
+        window.onload = function () {
+            console.log(box);
+        }
+    </script>
+
+    <style>
+        body {
+            width: 2000px;
+            height: 2000px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">盒子</div>
+    <script>
+        // ·当页面滚动时输出信息
+        window.onscroll = function () {
+            console.log("有人在拨弄滚动条");
+
+            // 水平滚动的距离 垂直方向滚动的距离
+            console.log(window.scrollX, window.scrollY);
+            console.log(document.documentElement.scrollLeft,document.documentElement.scrollTop);
+        }
+
+        // 响应窗口缩放事件
+        window.onresize = function(){
+            console.log(window.innerWidth,window.innerHeight);
+        }
+
+    </script>
+</body>
+
+</html>

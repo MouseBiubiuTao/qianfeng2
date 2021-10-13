@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            width: 2000px;
+            height: 2000px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <body>
+        innerWidth:<span id="siw"></span>
+        innerHeight:<span id="sih"></span>
+        <br>
+        outerWidth:<span id="sow"></span>
+        outerHeight:<span id="soh"></span>
+
+        <script>
+            // 显示页面内容的宽高（包括滚动条）
+            siw.innerText = window.innerWidth
+            sih.innerText = window.innerHeight
+
+            // 显示窗口的整体宽高（包含标签、地址栏、菜单栏、侧边栏、控制台...）
+            sow.innerText = window.outerWidth
+            soh.innerText = window.outerHeight
+        </script>
+    </body>
+</body>
+
+</html>

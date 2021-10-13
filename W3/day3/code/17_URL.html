@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL</title>
+</head>
+<body>
+    <script>
+        // https://域名.<n级域名>.后缀.<n级后缀>-<路径1/路径n>-<?参数名1=参%数%值1&参数名n=参%数%值n> */
+        // https://  blog.sina.com.cn    /path/path  ?a=123&bb=你妹@!#$%^*()_+   
+        
+        // var regUrl = /^(协议)-(域名段1【.域名段2....域名n】.后缀1【.后缀2】)-(路径)-(?参数1=值1【&参数2=值2...】)?$/
+        var regUrl = /^(https?:\/\/)-(\w{2,}(\.\w{2,})*\.\w+(\.\w+)?)-((\/\w{2,})*)-(\?\w+=[\u0000-\u007f\u4e00-\u9fa5]+(&\w+=[\u0000-\u0025\u0027-\u007f\u4e00-\u9fa5]+)*)?$/
+        console.log(regUrl.test("http://-blog.sina.com.cn-/path/path-?a=123&bb=你妹@!#$%^*()_+"));//true
+        console.log(regUrl.test("https://-blog.sina.com.cn-/path/path-?a=123&bb=你妹@!#$%^*()_+"));//true
+        console.log(regUrl.test("httpxs://-blog.sina.com.cn-/path/path-?a=123&bb=你妹@!#$%^*()_+"));//false
+        console.log(regUrl.test("https://-blog-/path/path-?a=123&bb=你妹@!#$%^*()_+"));//false
+        console.log(regUrl.test("https://-blog.com-/path/path-?a=123&bb=你妹@!#$%^*()_+"));//false
+        console.log(regUrl.test("https://-blog.com.cn-/path/path-?a=123&bb=你妹@!#$%^*()_+"));//false
+        console.log(regUrl.test("https://-blog.com.cn.nimei-/path/path-?a=123&bb=你妹@!#$%^*()_+"));//false
+        console.log(regUrl.test("https://-blog.com.cn.nimei--?a=123&bb=你妹@!#$%^*()_+"));//false
+        console.log(regUrl.test("https://-blog.com.cn.nimei-/path/pa你妹th-?a=123&bb=你妹@!#$%^*()_+"));//false
+        console.log(regUrl.test("https://-blog.com.cn.nimei-/path/path-"));//true
+        console.log(regUrl.test("https://-blog.com.cn.nimei-/path/path-?a=123"));//true
+        console.log(regUrl.test("https://-blog.com.cn.nimei-/path/path-?a=123&bb=你&妹@!#$%^*()_+"));//true
+
+        var str = "http://-blog.sina.com.cn-/path/path-?a=123&bb=你妹@!#$%^*()_+"
+        var arr = regUrl.exec(str)
+        console.log(arr);
+        arr.forEach(function(item){
+            console.log(item);
+        })
+
+        // 打印捕获的完整url
+        console.log(arr[0]);
+
+        // 从正则中取出域名
+        console.log(arr[2]);//从左往右数左括号"(" 从1开始数
+        
+    </script>
+</body>
+</html>

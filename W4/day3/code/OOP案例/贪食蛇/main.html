@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>贪食蛇</title>
+        <link rel="stylesheet" href="./snake.css" />
+    </head>
+    <body>
+        <button class="start">开始游戏</button>
+        <button class="stop">开始停止</button>
+        <button class="restart">从新开始</button>
+        <input type="text" disabled value="0" />
+        <div class="map"></div>
+
+        <script>
+            let direction = "right";
+            const snakePieces = [];
+            let headPostion;
+
+            // [100,200]
+            let foodPosition;
+            let score = 0;
+            let interval = 500;
+            let timerId;
+
+            // 代表食物的那个div
+            let food;
+
+            // 地图div
+            const map = document.querySelector(".map");
+
+            const inp = document.querySelector("input");
+            const start = document.querySelector(".start");
+            const stop = document.querySelector(".stop");
+            const restart = document.querySelector(".restart");
+
+            start.addEventListener("click", () => {
+                console.log("start game");
+                init();
+            });
+
+            stop.addEventListener("click", () => {
+                console.log("stop game");
+                clearInterval(timerId);
+            });
+            
+            restart.addEventListener("click", () => {
+                console.log("restart game");
+                window.location.reload();
+            });
+
+            function init() {
+                /* 画一个食物 */
+                createFood();
+                /* 画一条蛇 */
+                createSnake(3);
+                // /* 开始监听 */
+                startListen();
+                // /* 自动游走 */
+                // restartAutoMove();
+            }
+
+            /* 绘制食物 */
+            function createFood() {
+                // 绘制一颗食物div 加入到地图div中
+                food = document.createElement("div");
+                food.className = "food";
+                map.appendChild(food);
+
+                // 设置食物的位置
+                updateFoodPosition();
+            }
+
+            /* 键盘监听事件 */
+            function startListen(params) {
+                document.addEventListener("keydown", (e) => {
+                    // console.log(e.keyCode);
+                    switch (e.keyCode) {
+                        case 37:
+                            direction = "left";
+                            break;
+                        case 38:
+                            direction = "up";
+                            break;
+                        case 39:
+                            direction = "right";
+                            break;
+                        case 40:
+                            direction = "down";
+                            break;
+                        default:
+                            break;
+                    }
+                    
+                    // 移动加检查
+                    moveAndCheck();
+                });
+            }
+
+            function moveAndCheck() {
+                move();
+
+                if (shouldDie()) {
+                    clearInterval(timerId);
+                    window.alert("GAME OVER");
+                    return;
+                }
+
+                if (shouldGrow()) {
+                    grow();
+                    updateFoodPosition();
+                    updateScore();
+                }
+            }
+
+            function restartAutoMove() {
+                if (timerId) {
+                    clearInterval(timerId);
+                }
+                timerId = setInterval(() => {
+                    moveAndCheck();
+                }, interval);
+            }
+
+            function upgrade() {
+                interval /= 2;
+                // restartAutoMove();
+            }
+
+            function updateScore() {
+                console.log("updateScore");
+                inp.value = ++score;
+                upgrade();
+            }
+
+            function grow(params) {
+                console.log("grow");
+                const piece = document.createElement("div");
+                piece.className = "body";
+                piece.style.left = foodPosition[0] + "px";
+                piece.style.top = foodPosition[1] + "px";
+                snakePieces.push(piece);
+                map.appendChild(piece);
+            }
+
+            function shouldDie() {
+                const left = snakePieces[0].offsetLeft;
+                const top = snakePieces[0].offsetTop;
+                return left < 0 || left >= 40 * 20 || top < 0 || top >= 30 * 20;
+            }
+
+            function shouldGrow() {
+                return (
+                    snakePieces[0].offsetLeft === foodPosition[0] &&
+                    snakePieces[0].offsetTop === foodPosition[1]
+                );
+            }
+
+            /*  */
+            function move() {
+                // 蛇头改身体
+                snakePieces[0].className = "body";
+
+                // 弹出并移除尾巴
+                const tail = snakePieces.pop();
+                map.removeChild(tail);
+
+                // 更新蛇头位置（往上移动一格）
+                updateHeadPostion();
+
+                // 绘制一个新的蛇头 并绘制到地图中新的蛇头位置
+                const head = document.createElement("div");
+                head.className = "head";
+                head.style.left = headPostion[0] + "px";
+                head.style.top = headPostion[1] + "px";
+                map.appendChild(head);
+
+                // 将蛇头存入数组的头部
+                snakePieces.unshift(head);
+            }
+
+            function updateFoodPosition() {
+                console.log("grow");
+
+                // 获得随机位置 [left,top]
+                foodPosition = getRandomPosition();
+
+                // 设置食物位置
+                food.style.left = foodPosition[0] + "px";
+                food.style.top = foodPosition[1] + "px";
+            }
+
+            /* 根据移动方向 更新蛇头位置 向右移动一格 蛇头.left += 20px */
+            function updateHeadPostion() {
+                switch (direction) {
+                    case "left":
+                        headPostion[0] -= 20;
+                        break;
+                    case "right":
+                        // 蛇头位置向右移动一格
+                        headPostion[0] += 20;
+                        break;
+                    case "up":
+                        headPostion[1] -= 20;
+                        break;
+                    case "down":
+                        headPostion[1] += 20;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            /* 绘制一条有n节身体的蛇 */
+            function createSnake(n) {
+                // 随机产生蛇头位置
+                headPostion = getRandomPosition();
+                for (let i = 0; i < n; i++) {
+                    // 蛇头向右移动一格
+                    updateHeadPostion();
+                    // console.log(headPostion);
+
+                    // 在当前蛇头位置绘制一节身体 并加入到地图div
+                    const piece = document.createElement("div");
+                    piece.className = "body";
+                    piece.style.left = headPostion[0] + "px";
+                    piece.style.top = headPostion[1] + "px";
+                    map.appendChild(piece);
+
+                    // 将这节身体加入蛇神数组
+                    snakePieces.unshift(piece);
+                }
+
+                // 取出第一节身体 设置为蛇头
+                snakePieces[0].className = "head";
+            }
+
+            function getRandomPosition() {
+                return [getRandom(0, 39) * 20, getRandom(0, 29) * 20];
+            }
+
+            function getRandom(a, b) {
+                return a + parseInt(Math.random() * (b - a + 1));
+            }
+        
+        </script>
+    </body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 2. 有一个从小到大排好序的数组。现输入一个数，要求按原来的规律将它插入数组中。
+        var arr = [1, 3, 7, 15, 58, 945]
+        var index = 66;
+
+        function order(arr, index) {
+            if (index < arr[0]) {
+                arr.unshift(index)
+                return
+            }
+
+            if (index > arr[arr.length]) {
+                arr.push(index)
+                return
+            }
+
+            for (var i = 0; i < arr.length; i++) {
+
+                if (index > arr[i-1] && index < arr[i]) {
+                    arr.splice(i, 0, index)
+                    return
+                }
+            }
+
+
+        }
+        order(arr, 66)
+        console.log(arr);
+    </script>
+</body>
+
+</html>

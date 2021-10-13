@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #outer {
+            width: 800px;
+            height: 600px;
+            margin: 50px auto;
+            border: 1px solid black;
+            position: relative;
+        }
+
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: cadetblue;
+            position: absolute;
+            left: 0;
+            top: 0;
+            /* transition: all 1s 0s linear; */
+        }
+    </style>
+    </style>
+</head>
+
+<body>
+    <div id="outer">
+        <div id="box"></div>
+    </div>
+
+    <script>
+        var shouldDrag = false;
+
+        var startLeft, startTop;
+        box.addEventListener(
+            "mousedown",
+            function () {
+
+                startLeft = window.getComputedStyle(this).left;
+                startTop = window.getComputedStyle(this).top;
+                shouldDrag = true
+            }
+        )
+
+
+        document.addEventListener(
+            "mouseup",
+            function () {
+                shouldDrag = false
+            }
+        )
+
+        var marginLeft = outer.offsetLeft;
+        var marginTop = outer.offsetTop;
+
+        var outw = outer.clientWidth
+        var outh = outer.clientHeight
+
+        var bw = box.clientWidth;
+        var bh = box.clientHeight;
+
+
+
+        document.addEventListener(
+            "mousemove",
+            function (e) {
+                if (!shouldDrag) {
+                    return
+                }
+                var left = e.pageX - marginLeft - bw / 2;
+                var top = e.pageY - marginTop - bh / 2;
+
+                box.style.left = left + "px";
+                box.style.top = top + "px"
+
+                switch (true) {
+                    case left <= 0:
+
+                    case left >= outw - bw:
+
+                    case top <= 0:
+
+                    case top >= outh - bh:
+
+                        console.log("已超出边界，请返回！");
+
+                        box.style.transition = "all .5s linear"
+
+                        box.style.left = startLeft;
+                        box.style.top = startTop;
+
+                        setTimeout(
+                            function () {
+                                box.style.transition = "none"
+                            }, 500
+                        )
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+
+
+        )
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 2000px;
+    }
+
+    div.out {
+      width: 300px;
+      height: 300px;
+      background-color: pink;
+      overflow: hidden;
+      margin-left: 100px;
+      position: relative;
+    }
+
+    div.in {
+      width: 100px;
+      height: 100px;
+      border: 20px solid #333;
+      padding: 10px;
+      /* margin-top: 30px; */
+
+      /* position: fixed; */
+      /* position: absolute; */
+      left: 30px;
+      top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="out">
+    <div class="in"></div>
+  </div>
+
+
+  <script>
+    // 获取元素的尺寸
+    // clientWidth 和 clientHeight  内容 + paddind 的区域的宽度和高度
+    var div = document.querySelector('.in')
+
+    // 尺寸：内容宽高 + padding
+    console.log("clientWidth=", div.clientWidth);
+    console.log("clientHeight=", div.clientHeight);
+
+    // 尺寸：内容宽高 + padding + border
+    console.log("offsetWidth=", div.offsetWidth);
+    console.log("offsetHeight=", div.offsetHeight);
+
+    // 尺寸：获取边框的宽度
+    console.log("clientLeft=", div.clientLeft);
+    console.log("clientTop=", div.clientTop);
+
+    // 获取元素的偏移量
+    // offsetLeft 和 offsetTop
+    // 区分有定位和没有定位
+    // 没有定位的时候，获取元素边框外侧到页面内侧的距离
+    // 有定位的时候，获取元素边框外侧到定位父级边框内侧的距离（其实就是我们写的 left 和 top 值）
+    console.log("offsetLeft=", div.offsetLeft);
+    console.log("offsetTop=", div.offsetTop);
+  </script>
+</body>
+
+</html>

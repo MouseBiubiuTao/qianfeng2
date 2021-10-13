@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // ·掰一掰如何创建一个日期对象
+        // ·查MDN文档了解new Date()的所有细节
+
+        /* new Date(dateString) */
+        var date = new Date('july 25, 2021 19:00:15')
+        console.log(date);
+
+        /* 根据当前时间创建Date对象 */
+        date = new Date('2021-09-30T21:00:00')
+        console.log(date);
+
+        /* 根据年月日时分秒毫秒实例化Date对象 */
+        date = new Date()
+        console.log(date);
+
+        /* 根据Unix时间戳（距离1970年0时所逝去的时间毫秒数）来创建Date对象 */
+        date = new Date(160833604561100)
+        console.log(date);
+    </script>
+</body>
+
+</html>

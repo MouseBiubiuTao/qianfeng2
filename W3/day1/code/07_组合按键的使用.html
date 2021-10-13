@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>08_组合按键的使用</title>
+</head>
+<body>
+
+
+
+  <script>
+    // ctrl + y
+    // alt + y
+    // shift + y
+
+    document.onkeydown = function (e) {
+
+      e = e || window.event
+      console.log(e);
+
+      if (e.altKey && e.key === "a") {
+        console.log('你按下的是 alt + a')
+      }
+
+      // 13 表示回车
+      if (e.key === "Enter") {
+        console.log('我要发布消息了')
+      }
+
+      /*
+        键盘事件的事件对象中
+        还有三个属性给我们使用
+
+        altKey alt键是否被按下
+        ctrlKey ctrl键是否被按下
+        shiftKey shift键是否被按下
+
+        当你按下一个按键的时候，如果上面三个某一个的值书 true
+        表示你同时按下了某一个按键
+
+        我们就通过这个属性来判断你按下的是不是组合按键
+      */
+    }
+
+
+  </script>
+</body>
+</html>

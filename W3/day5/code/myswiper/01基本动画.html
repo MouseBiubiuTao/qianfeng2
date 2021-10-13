@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <link rel="stylesheet" href="./banner.css" />
+        <script src="./myanim.js"></script>
+    </head>
+    <body>
+        <div class="banner">
+
+            <!-- 轮播图 -->
+            <ul class="imgBox clearFix">
+                <li style="background-color: red">1</li>
+                <li style="background-color: orange">2</li>
+                <li style="background-color: green">3</li>
+                <li style="background-color: pink">4</li>
+                <li style="background-color: yellow">5</li>
+            </ul>
+
+            <!-- 指示器存放处 -->
+            <ol class="pointBox"></ol>
+
+            <div class="leftRightTabs">
+                <a class="left"><</a>
+                <a class="right">></a>
+            </div>
+        </div>
+        
+        <script>
+            let index = 0
+            const left = document.querySelector(".left")
+            const right = document.querySelector(".right")
+            const ul = document.querySelector(".imgBox")
+
+            right.onclick = function(e){
+                index++
+                index = index > 4 ? 0 : index
+                // ul.style.left = -600*index +"px"
+                move0(ul, {left:-600*index +"px"}, 500)
+            }
+
+            left.onclick = function(e){
+                index--
+                index = index < 0 ? 4 : index
+                move0(ul, {left:-600*index +"px"}, 500)
+            }
+
+        </script>
+    </body>
+</html>

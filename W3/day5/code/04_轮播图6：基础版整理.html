@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>无缝滚动</title>
+    <link rel="stylesheet" href="./banner.css" />
+    <script src="./anim_tool.js"></script>
+</head>
+
+<body>
+    <div class="banner">
+
+        <!-- 轮播图 -->
+        <ul class="imgBox clearFix">
+            <li style="background-color: red">1</li>
+            <li style="background-color: orange">2</li>
+            <li style="background-color: green">3</li>
+            <li style="background-color: pink">4</li>
+            <li style="background-color: yellow">5</li>
+        </ul>
+
+        <!-- 指示器存放处 -->
+        <ol class="pointBox"></ol>
+
+        <div class="leftRightTabs">
+            <a class="left"> &lt; </a>
+            <a class="right"> &gt; </a>
+        </div>
+
+    </div>
+
+    <script>
+
+        /* 找元素 */
+        const btnPrev = document.querySelector(".left")
+        const btnNext = document.querySelector(".right")
+        const ul = document.querySelector("ul")
+        const ol = document.querySelector("ol")
+        const container = document.querySelector(".banner")
+
+        // 定义当前页码
+        let currentIndex = 1
+
+        // 指示器序号
+        let pointerIndex = 0
+
+        // 自动轮播定时器
+        let autoplayTimer = null
+
+        // 标记动画是否正在运行
+        let animIsRunning = false
+
+        /* 初始化指示器 */
+        initPoninters()
+
+        /* 做【无缝滚动/移形换影准备】 5-12345-1 */
+        initSeamlessScroll()
+
+        /* 更新指示器 */
+        updatePointer()
+
+        /* 自动轮播 */
+        startAutoplay()
+
+        /* 初始化事件监听器 */
+        startListen()
+
+        /* 初始化事件监听器 */
+        function startListen() {
+            /* 当鼠标悬停在ul身上时停止自动轮播 否则开启之 */
+            container.addEventListener(
+                "mouseenter",
+                e => {
+                    stopAutoplay()
+                }
+            )
+
+            container.addEventListener(
+                "mouseleave",
+                e => {
+                    startAutoplay()
+                }
+            )
+
+            btnPrev.addEventListener(
+                "click",
+                e => {
+                    // 事件节流：如果当前动画未结束 什么也不做
+                    if (animIsRunning) {
+                        return
+                    }
+
+                    goPrev()
+                }
+            )
+
+            btnNext.addEventListener(
+                "click",
+                e => {
+                    // 事件节流：如果当前动画未结束 什么也不做
+                    if(!animIsRunning){
+                        goNext()
+                    }
+                }
+            )
+
+        }
+
+        /* 上一张 */
+        function goPrev() {
+            console.log("previous")
+            turnToIndex(--currentIndex)
+        }
+
+        /* 下一张 */
+        function goNext() {
+            console.log("next")
+            turnToIndex(++currentIndex)
+        }
+
+        /* 翻页的统一入口 */
+        function turnToIndex(n) {
+            animate(
+                ul,
+                { left: (-600 * n + "px") },
+                500,
+                () => {
+                    console.log("动画完成")
+
+                    // 移形换影大法
+
+                    /* 5-12345-【1】 */
+                    if (currentIndex === 6) {
+                        currentIndex = 1
+                        ul.style.left = -600 * currentIndex + "px"
+                    }
+
+                    /* 【5】-12345-1 */
+                    if (currentIndex === 0) {
+                        currentIndex = 5
+                        ul.style.left = -600 * currentIndex + "px"
+                    }
+
+                    /* 更新指示器 */
+                    updatePointer()
+
+                    // 标记动画结束
+                    animIsRunning = false
+                }
+            )
+
+            // 标记动画开始
+            animIsRunning = true
+        }
+
+        /* 更新指示器 */
+        function updatePointer() {
+            pointerIndex = currentIndex - 1
+            for (let i = 0; i < ol.children.length; i++) {
+                if (i === pointerIndex) {
+                    ol.children[i].classList.add("active")
+                } else {
+                    ol.children[i].classList.remove("active")
+                }
+            }
+        }
+
+        function startAutoplay() {
+            if (!autoplayTimer) {
+                autoplayTimer = setInterval(() => {
+                    goNext()
+                }, 2000);
+            }
+        }
+
+        function stopAutoplay() {
+            if (autoplayTimer) {
+                clearInterval(autoplayTimer)
+                autoplayTimer = null
+            }
+        }
+
+        function initSeamlessScroll() {
+            const head = ul.lastElementChild.cloneNode(true)
+            const tail = ul.firstElementChild.cloneNode(true)
+            ul.insertBefore(head, ul.firstElementChild)
+            ul.appendChild(tail)
+            ul.style.width = 600 * ul.children.length + "px"
+            ul.style.left = -600 * currentIndex + "px"
+        }
+
+        /* 初始化指示器 */
+        function initPoninters() {
+            /* 造n个li作为指示器 丢入ol */
+            // 造一个DOM碎片（缓冲器）
+            const olFragment = document.createDocumentFragment()
+            for (let i = 0; i < ul.children.length; i++) {
+                const li = document.createElement("li")
+                li.setAttribute("index", i + 1)//点击第0个指示器 显示第1张幻灯片
+                // ol.appendChild(li)
+                // 将造出来的li先丢入olFragment碎片缓冲器
+                olFragment.appendChild(li)
+            }
+            // 将碎片缓冲器集结好的li 一次性地丢入ol（5个li总共只渲染了一次）
+            ol.appendChild(olFragment)
+
+            /* 指示器的点击事件 */
+            ol.addEventListener(
+                "click",
+                e => {
+                    currentIndex = e.target.getAttribute("index")
+                    turnToIndex(currentIndex)
+                }
+            )
+        }
+
+    </script>
+
+</body>
+
+</html>

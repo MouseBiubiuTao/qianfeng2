@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>浏览器弹出层</title>
+    </head>
+    <body>
+        <button id="btnAlert">警告会话框</button>
+        <button id="btnConfirm">确认会话框</button>
+        <button id="btnPrompt">用户输入会话框</button>
+
+        <script>
+            // ·演示警告会话框alert
+            btnAlert.onclick = function(){
+                window.alert("点人家干嘛")
+            }
+
+            // ·演示确认会话框confirm
+            btnConfirm.onclick = function(){
+                // 确定则返回true 否则返回false
+                var ret = window.confirm("确定要点我吗？")
+                console.log(ret);
+            }
+
+            // ·演示命令提示符会话框prompt 
+            btnPrompt.onclick = function(){
+                // 捕捉用户的输入
+                var ret = window.prompt("您愿意支付多少消费呢？","0.5")
+                console.log(ret);
+            }  
+
+        </script>
+    </body>
+</html>

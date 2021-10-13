@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 构造函数的使用
+
+    /*
+  1. 首字母大写（规范）（普通函数则首字母不得大写）
+  2. 构造函数必须和 new 连用
+    + 构造函数是用来创造对象
+    + 如果你不和 new 连用，那么没有创造对象的能力（本质上是给构造函数的this绑定一个对象）
+  3. 在和 new 连用的时候，如果需要传递参数，那么写在 ()
+    + 如果不需要传递参数，() 可以不写，但是建议书写 new Person()
+  4. 在构造函数内部不要写 return
+*/
+
+    function Person(name, age) {
+      this.name = name
+      this.age = age
+
+      // 在构造函数内部不要写 return
+      // return 3//如果你 return 了一个基本数据类型，写了白写
+      // return {age:-1}//如果你 return 了一个引用数据类型，那么构造函数白写
+    }
+
+    const p1 = new Person("Jack", 18);
+    console.log(p1);
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>02_es6定义变量</title>
+    </head>
+    <body>
+        <div>dianwoshishis</div>
+
+        <script>
+            /* 
+            以前我们定义变量用 var
+            ES6 里面 let 和 const 用来定义变量 常量 constant variable
+            */
+
+            /* ES5可以重复定义变量 */
+            // var num = 100
+            // var num = 200
+            // console.log(num)
+
+            /* let 是声名变量的关键字 不允许定义两个一摸一样的变量 */
+            // let num = 200
+            // let num = 300//Uncaught SyntaxError: Identifier 'num' has already been declared
+            // console.log(num)
+
+            /* const constant variable 不允许声名两个一摸一样的变量 */
+            // const num = 200
+            // const num = 300//Uncaught SyntaxError: Identifier 'num' has already been declared
+            // console.log(num)
+
+            /* ES5的预解析（变量提升） */
+            // console.log(num);//undefined
+            // var num = 100
+
+            /* let/const 关键字不进行预解析 */
+            // console.log(num)//Uncaught ReferenceError: Cannot access 'num' before initialization
+            // let num = 100
+            // console.log(num)//Uncaught ReferenceError: Cannot access 'num' before initialization
+            // const num = 200
+
+            /* var定义的关键字可以突破大括号的作用域 真是无语问苍天 */
+            // if (true) {
+            //   var num = 100
+            // }
+            // console.log(num)
+
+            /* let 定义的变量严格遵守{ 大括号作用域 } */
+            // if (true) {
+            //   let num = 100
+            //   console.log(num)//100
+            // }
+            // console.log(num)//Uncaught ReferenceError: num is not defined
+
+            /* num定义在循环体内 其作用域也在循环体内 外部无法访问 */
+            // for (let i = 0; i < 5; i++) {
+            //   let num = i
+            //   console.log(num);
+            // }
+            // console.log(num)//Uncaught ReferenceError: num is not defined
+
+            /* 变量可以反复修改 */
+            // let num = 100
+            // num = 200
+            // console.log(num)
+
+            /* 常量在声明时必须赋初值 且不允许修改 */
+            // const num2//Uncaught SyntaxError: Missing initializer in const declaration
+            // const num2 = 200
+            // num2 = 300//Uncaught TypeError: Assignment to constant variable.
+            // console.log(num2)
+
+            /* 当常量的值为一个对象时 不允许修改的是其地址 然而其对应的堆中的具体内容可以随意修改 */
+            // const obj = {
+            //     name: "Jack",
+            // };
+            // // obj.age = 18;
+            // obj.name = "John"
+            // console.log(obj);
+
+            // /* Uncaught TypeError: Assignment to constant variable. */
+            // obj = {
+            //     name:"约翰"
+            // }
+            // console.log(obj);
+
+            /* 凡不会发生变化的数据 都推荐使用常量 安全 */
+            const div = document.querySelector('div')
+            const arr = [1, 2, 3 ,4 ,5 ,6 ,7]
+            const obj = {
+              name: 'Jack',
+              age: 18,
+              gender: '男'
+            }
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 5. 编写函数has(arr , 60) 判断数组中是否存在60这个元素，返回布尔类型  
+        function has(arr, item) {
+
+            // 双分支写法
+            // if(arr.indexOf(item)===-1){
+            //     return false
+            // }else{
+            //     return true
+            // }
+
+            // 三元运算符
+            // return (arr.indexOf(item) === -1 ? false : true)
+
+            // 最简洁写法
+            return !(arr.indexOf(item)===-1)
+        }
+        var arr = [1, 2, 3]
+        console.log(has(arr, 2));//true
+        console.log(has(arr, 4));//false
+    </script>
+</body>
+
+</html>

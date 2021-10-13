@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>this指向</title>
+</head>
+
+<body>
+    <button id="btn">摸摸我试试</button>
+    <div id="box">默默我试试</div>
+
+    <!-- this指向谁？当前函数的调用者 -->
+    <script>
+        var zsd = { name: "张双蛋", age: 36 };
+
+        zsd.selfTell = function () {
+            for (var key in this) {
+                console.log(key, this[key]); //obj的相关属性
+            }
+        };
+        // zsd.selfTell()
+
+        function fn() {
+            console.log("我被", this, "调用了");
+        }
+        // fn();
+        // window.fn();
+
+        zsd.selfTell = fn;
+        // zsd.selfTell()//fn被 {name: "张双蛋", age: 36, selfTell: ƒ} 调用了
+
+        /* 事件处理函数，内部的this指的是事件源（在谁身上触发的事件） */
+        btn.onclick = function () {
+            console.log(this);
+            this.innerText = "别摸我";
+        };
+
+        // box.onclick = function () {
+        //     console.log(this);
+        //     // this.innerText = "别摸我";
+        // };
+
+        //点击btn
+
+        /* 无主语，直接调用的函数，this指的是window */
+        // fn();
+
+        /* 主语.方法名() 方法内部的this指的是主语 */
+        // window.fn();
+        // obj.selfTell()//obj
+        // obj2.selfTell()
+        // obj.doSth()//obj
+        // obj2.doSth();
+
+        /* 触发DOM事件（比如点击） this指向事件源 */
+        btn.onclick = fn;
+        // 点击按钮等同于执行如下代码
+        // btn.onclick()
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 假设QQ号的规则是5~15位数字 开头不为0 */
+    var reg = /^[1-9]\d{4,14}@qq\.com$/
+
+    console.log(reg.test("12345@qq.com"));//true
+    console.log(reg.test("123456789012@qq.com"));//true
+    console.log(reg.test("1234你妹9012@qq.com"));//false
+    console.log(reg.test("012349012@qq.com"));//false
+  </script>
+</body>
+</html>

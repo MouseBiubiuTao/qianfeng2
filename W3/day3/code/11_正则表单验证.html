@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>11_正则表单验证</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        span {
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>注册页面</h1>
+
+    邮箱： <input class="email" type="text" /><span id="spInfo1">请输入正确的邮箱地址</span><br />
+    密码: <input class="pwd" type="password" /><span id="spInfo2">密码长度为6~16个单词字符</span><br />
+    <button id="btn">注册</button>
+
+    <script>
+        btn.addEventListener("click",function(e){
+            // 拿到用户的输入
+            var email = document.querySelector(".email").value
+            var pwd = document.querySelector(".pwd").value
+
+            var validEamil=false,validPwd=false
+            // 验证QQ邮箱是否合法 不合法则显示提示信息
+            var regEmail = /^\d{5,12}@qq\.com$/
+            if( !(validEamil = regEmail.test(email)) ){
+                spInfo1.style.display = "block"
+            }else{
+                spInfo1.style.display = "none"
+            }
+
+            // 验证密码是否合法 不合法则显示提示信息
+            var regPwd = /^\w{6,16}$/
+            if(!(validPwd = regPwd.test(pwd))){
+                spInfo2.style.display = "block"
+            }else{
+                spInfo2.style.display = "none"
+            }
+
+            // 都合法则alert注册成功
+            if(validEamil && validPwd){
+                alert("注册成功！")
+            }
+
+        })
+    </script>
+</body>
+
+</html>

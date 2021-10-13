@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>03_事件对象</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div#inner {
+            width: 300px;
+            height: 300px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="outer" style="padding: 50px;margin: 50px; width: 100%;height: 100%;border: 1px solid black;">
+        <div id="inner"></div>
+    </div>
+
+    <!-- event事件 target目标 current当前的-->
+    <script>
+        // 事件对象
+
+        // 当你触发一个事件的时候，需要有一些内容来描述这个事件的信息
+
+        // 浏览器给我们提供了一个 黑盒子 是事件对象
+
+        // window.event 就是事件对象，是一个 object 数据类型
+
+        var div = document.querySelector("div");
+
+        // div.onclick = function () {
+        //     // window.event 是一个事件对象
+        //     // 里面包含着一些对事件的描述
+        //     // 你每次点击都会得到这个事件对象
+        //     // 每次得到的内容有可能不一样（主要指坐标点不一样）
+        //     console.log(window.event);
+        //     console.log("祝你不用撸代码就能暴富");
+        // };
+
+        /*
+        window.event
+        以前是不能在 chrome 和 firefox 里面使用的
+        在以前，我们不能用过的时候，我们 chrome 和 firefox 给我们提供了另外一个东西
+        是在事件处理函数里面的一个形参，会在你的事件触发的时候，由浏览器给你传入实参
+        */
+
+        // 这个形参 event 就是我给事件对象起的名字
+        // div.onclick = function (e) {
+        //     // 当这个事件触发的时候
+        //     // 浏览器回自动帮我们把事件对象当作实参传递进来
+        //     // console.log(window.event, e);
+
+        //     // 我们在处理的时候会使用 ||
+        //     // 如果浏览器在你触发事件的时候给你传递了实参事件对象，那么就是用这个事件对象
+        //     // 如果浏览器在你触发事件的时候没有给你传递实参，那么你得到的是 undefiend，就使用 window.event
+        //     e = e || window.event;
+
+        //     console.log("要处理事件对象为", e);
+        // };
+
+        // 事件是绑定在outer身上的
+        outer.onclick = function (e) {
+            // 事件发生的末梢元素
+            console.log("event.target", e.target);
+
+            // 绑定该事件的元素（事件源）
+            console.log("event.currentTarget", e.currentTarget);
+        }
+
+    </script>
+</body>
+
+</html>

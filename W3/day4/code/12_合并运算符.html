@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 合并运算符 ...
+            // 合并运算符是再函数的形参位置使用的
+            // 展开的时候，要么是直接使用，要么写再实参的位置
+            // 一旦这个 ... 写再了形参的位置就是合并运算
+            // 把所有实参给我合并成一个东西
+
+            /* 不定长参数 */
+            // function fn(...a) {
+            //   console.log(a)//[1, 2, 3, 4, 5]
+            // }
+            // fn(1, 2, 3, 4, 5)
+
+            /* 箭头函数 + 不定长参数 */
+            const fn = (...a) => console.log(a)//[1, 2, 3, 4, 5]
+            fn(1, 2, 3, 4, 5)
+
+            // // 其它地方代表打散
+            // fn(...arr);
+
+        </script>
+    </body>
+</html>

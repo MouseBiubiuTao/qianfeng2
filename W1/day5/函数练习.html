@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            border: 1px solid #ccc;
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+
+        tr:nth-child(odd) {
+            background-color: skyblue;
+        }
+
+        tr:nth-child(even) {
+            background-color: slateblue;
+        }
+
+        td {
+            width: 50px;
+            height: 15px;
+            text-align: center;
+            font: 12px "宋体";
+            color: #000;
+        }
+
+        input {
+            width: 200px;
+            height: 80px;
+            font-size: 20px;
+            outline: none;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin: auto;
+            margin-bottom: 20px;
+        }
+
+        button {
+            width: 200px;
+            height: 80px;
+            font-size: 20px;
+            outline: none;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin: auto;
+        }
+
+        button:hover {
+            background: skyblue;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="ip">
+    <button id="btn">点击查询</button>
+    <script>
+        // 1. 编写一个函数，计算两个数字的和差积商
+        function fn1(a, b, sign) {
+            switch (sign) {
+                case "+":
+                    return a + b;
+                    break;
+                case "-":
+                    return a - b;
+                    break;
+                case "*":
+                    return a * b;
+                    break;
+                case "/":
+                    if (b === 0) {
+                        console.log("分母不能为0");
+                        return ""
+                    }
+                    return a / b;
+
+
+                    break;
+                default:
+                    console.log(`请重新输入！`);
+                    break;
+            }
+        }
+
+        // console.log(fn1(9, 5, "+"));
+        // console.log(fn1(9, 5, "-"));
+        // console.log(fn1(9, 5, "*"));
+        // console.log(fn1(9, 5, "/"));
+
+
+
+
+
+
+        // 2. 编写函数，求圆的面积
+
+
+        function fn2(r) {
+            return mj = Math.PI * r * r
+
+        }
+        fn2(2)
+        // console.log(mj);
+
+
+
+
+        // 3. 编写函数，判断一个字符串的内容是不是纯数字
+        function fn3(str) {
+            // var ret = Number(str)
+
+            // if (isNaN(str)) {
+            //     return false
+            // } else {
+            //     return true
+            // }
+
+            return !isNaN(Number(str))
+        }
+        console.log(fn3("123456"));
+        console.log(fn3("123456xxx"));
+        
+
+
+
+        // 4. 编写一个函数，计算三个数字的大小，按从小到大的顺序输出
+
+        function fn4(a, b, c) {
+            if (a < b && b < c) {
+                console.log(a, b, c);
+                return
+            } else if (a < c && c < b) {
+                console.log(a, c, b);
+                return
+            }
+            if (b < a && a < c) {
+                console.log(b, a, c);
+                return
+            } else if (b < c && c < a) {
+                console.log(b, c, a);
+                return
+            }
+            if (c < a && a < b) {
+                console.log(c, a, b);
+                return
+            } else if (c < b && b < a) {
+                console.log(c, b, a);
+                return
+            }
+
+
+        }
+        // fn4(3, 5, 1)
+
+
+
+        // 5. 编写一个函数，在页面上输出一个N行M列的表格，表格内容填充0~100的随机数字
+        function fn5(n, m) {
+            document.write("<table border=`1`");
+            for (i = 1; i <= n; i++) {
+                document.write("<tr>");
+                for (j = 1; j <= m; j++) {
+                    document.write("<td>");
+                    document.write(Math.round(Math.random() * 100));
+                }
+            }
+            document.write("<table>");
+        }
+        // fn5(10, 10)
+
+
+
+
+
+        // 6. 编写一个函数，生成4位数字的验证码
+        function fn6(n) {
+            var code = "";
+            for (i = 0; i < n; i++) {
+                code += parseInt(Math.random() * 10)
+            }
+            return code;
+
+        }
+        // console.log(fn6(4));
+
+
+        // 7. 求m-n之间数字的和
+
+        function fn7(m, n) {
+            var sum = 0;
+            for (var i = m; i <= n; i++) {
+                sum += i;
+            }
+            return sum;
+        }
+        // console.log(fn7(1, 100));
+
+        // 8. 编写函数digit(num, k)，函数功能是：求整数num从右边开始的第k位数字的值，如果num位数不足k位则返回0。
+        function digit(num, k) {
+            var ret = 0;
+            for (i = 1; i <= k; i++) {
+                ret = num % 10;
+                num = parseInt(num / 10);
+            }
+            return ret
+        }
+        // console.log(digit(987654,5));
+
+
+
+        // 9. 编写函数计算一个数字的长度
+        function fn9(num) {
+            var count = 0;
+            while (num !== 0) {
+                num = parseInt(num / 10);
+                count++
+            }
+            return count
+        }
+        // console.log(fn9(666666));
+
+
+        // 10. 编写一个函数，计算任意两个数字之间所能组成的奇数个数，数字必须是个位数。比如：计算0~3之间能组成的奇数是： 01、03、11、13、21、23、31、33
+        function fn10(a, b) {
+            var shi = 0,
+                sum = 0;
+            for (var i = a; i <= b; i++) {
+                shi = i;
+                var ge = 0;
+                for (var j = a; j <= b; j++) {
+                    ge = j;
+                    sum = shi * 10 + ge * 1;
+                    if (sum % 2 !== 0) {
+                        console.log(sum);
+                    }
+                }
+            }
+        }
+        // fn10(1, 5)
+
+
+
+
+        // 11. 某个公司采用公用电话传递数据，数据是四位的整数，在传递过程中是加密的，加密规则如下：每位数字都加上5然后用除以10的余,数代替该数字，再将第一位和第四位交换，第二位和第三位交换，请编写一个函数，传入原文，输出密文
+        function fn11(num) {
+            var a1 = (parseInt(num / 1000) + 5) % 10;
+            var a2 = (parseInt(num % 1000 / 100) + 5) % 10;
+            var a3 = (parseInt(num % 100 / 10) + 5) % 10;
+            var a4 = (parseInt(num % 10) + 5) % 10;
+            return a4 * 1000 + a3 * 100 + a2 * 10 + a1;
+
+        }
+        // console.log(fn11(1359))
+
+
+
+        // 12. 编写一个函数，输入n为偶数时，调用函数求1/2+1/4+...+1/n,当输入n为奇数时，调用函数求1/1+1/3+...+1/n
+
+        function fn12(n) {
+            var srt = "";
+            if (n % 2 === 0) {
+                for (i = 2; i <= n; i += 2) {
+                    srt += 1 + "/" + i + (i === n ? "" : "+");
+                }
+            } else {
+                for (i = 2; i <= n; i += 2) {
+                    srt += 1 + "/" + i + (i === n ? "" : "+");
+                }
+            }
+            return srt
+        }
+        // console.log(fn12(5));
+
+
+        // 13. 使用函数完成任意数字阶乘的计算
+        function fn13(n) {
+            if (n === 1) {
+                return 1
+            }
+
+            return fn13(n - 1) * n;
+
+        }
+        // console.log(fn13(8));
+
+
+        // 14. 要求：页面输入任意数字，点击按钮后计算该数字的阶乘
+        function jieCheng(n) {
+            if (n === 1) {
+                return 1
+            }
+            return jieCheng(n - 1) * n
+        }
+
+
+        function fn14() {
+            btn.onclick = function () {
+                var i = ip.value * 1;
+
+
+                console.log(jieCheng(i));
+            }
+        }
+        fn14()
+    </script>
+
+</body>
+
+</html>

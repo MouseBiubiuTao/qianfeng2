@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            .borderedBox {
+                padding: 10px;
+                border: 5px solid gray;
+            }
+            .greenBox{
+                background-color: green;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="adBox" style="width: 200px" class="greenBox">
+            <button id="btnFuckOff">增加样式</button>
+            <button id="btnRemoveClass">移出样式</button>
+        </div>
+
+        <script>
+            // ·通过选择器获得div和button
+            var box = document.getElementById("adBox")
+            var btn = document.querySelector("#btnFuckOff")
+
+            // ·打印div的innerText文本节点 和innerHTML内部的全部HTML结构
+            console.log(box.innerHTML);//<button id="btnFuckOff">不再显示</button>
+            console.log(box.innerText);//不再显示
+
+            // ·打印和设置div的行内样式
+            console.log(box.style);//width: 200px
+            // 以直接写CSS的方式定义元素的行内样式
+            // box.style = "width: 2000px;background-color:red"
+            // // 所有的CSS样式都可以以驼峰的方式 去动态地进行设置
+            // box.style.height = "400px"
+            // box.style.backgroundColor = "green"
+
+            // ·设置div的固有属性id
+            console.log(box.id);
+            // box.style = "width: 2000px;background-color:red"
+
+            // ·设置和获取div的自定义属性（index）
+            box.setAttribute("user","zqd")
+            console.log(box.getAttribute("user"));//zqd
+
+            // ·点击按钮为div添加class样式   
+            btn.onclick = function(){
+                // 覆盖式地修改元素的样式（不推荐）
+                // box.className = "borderedBox"
+
+                // DOMTokenList  
+                box.classList.add("borderedBox")
+            }
+
+            // ·移除div的class属性
+            btnRemoveClass.onclick = function(){
+                box.classList.remove("borderedBox")
+            }
+
+        </script>
+    </body>
+</html>

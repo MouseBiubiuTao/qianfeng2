@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>历史记录</title>
+    </head>
+    <body>
+        <button id="btnForward">前进</button>
+        <button id="btnBack">后退</button>
+        <button id="btnGo">跳转</button>
+
+        <script>
+            // 04_浏览器的历史纪录
+            // ·打印历史记录信息
+            console.log(window.history);
+
+            // ·点击按钮前进
+            btnForward.onclick = function(){
+                window.history.forward()
+            }
+
+            // ·点击按钮后退  
+            btnBack.onclick = function(){
+                window.history.back()
+            }  
+            
+            // 一次前进/后退多步
+            btnGo.onclick = function(){
+                window.history.go(1)
+            } 
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,34 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.map {
+  width: 800px;
+  height: 600px;
+  border: 10px solid pink;
+  margin: 30px auto;
+  background: url(./imgs/bg.png);
+  position: relative;
+}
+
+.map > .food {
+  width: 20px;
+  height: 20px;
+  background: url(./imgs/food.png);
+  position: absolute;
+}
+
+.map > .head {
+  width: 20px;
+  height: 20px;
+  background: url(./imgs/head.png);
+  position: absolute;
+}
+
+.map > .body {
+  width: 20px;
+  height: 20px;
+  background: url(./imgs/body.png);
+  position: absolute;
+}

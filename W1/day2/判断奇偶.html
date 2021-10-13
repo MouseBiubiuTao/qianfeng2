@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input {
+            margin-bottom: 20px;
+            width: 200px;
+            height: 50px;
+            outline: none;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            font-size: 30px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" placeholder="请输入一个数" id="ip">
+    <button id="btn">查询奇偶</button>
+
+    <script>
+        function fn1() {
+            btn.onclick = function () {
+                var shu, zhi;
+                shu = ip.value;
+                zhi = shu % 2;
+
+                if (zhi == 0) {
+                    alert("这是一个整数")
+                }else if (zhi != 0) {
+                    alert("不是一个整数")
+                }
+            }
+        }
+        fn1()
+    </script>
+
+</body>
+
+</html>

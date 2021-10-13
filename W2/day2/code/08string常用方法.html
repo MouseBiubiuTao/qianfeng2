@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // charAt() 方法从一个字符串中返回指定的字符。 str.charAt(index)
+        // character 字符 缩写为char
+        // console.log("abc".charAt(0))
+        // console.log("abc".charAt(1))
+        // console.log("abc".charAt(2))
+
+        /* 
+        charCodeAt() 取index位字符的码点
+        str.charCodeAt(index)
+        */
+        // const sentence = 'The quick brown fox jumps over the lazy dog.';
+        // const index = 4;
+        // console.log(`The character code ${sentence.charCodeAt(index)} is equal to ${sentence.charAt(index)}`);
+
+        // /* indexOf */
+        // var str = '我是一条狗，你也是一条狗，哈哈哈哈哈哈哈哈';
+        // var searchTerm = '狗';
+        // var indexOfFirst = str.indexOf(searchTerm);
+        // console.log(indexOfFirst);//4
+
+        // indexOfFirst = str.indexOf(searchTerm,5);
+        // console.log(indexOfFirst);//11
+
+        // indexOfFirst = str.indexOf(searchTerm,-6);//fromIndex写为负数等同于0
+        // console.log(indexOfFirst);
+
+
+        /* lastIndexOf */
+        // var str = '我是一条狗狗，你也是一条狗狗，哈哈哈';
+        // console.log(str.lastIndexOf("狗狗"));//12
+
+
+        /* 
+        // str.substring(indexStart[, indexEnd])
+        // indexEnd 不被包含 
+        // 序号为负数被视为0
+        // substring() 方法返回一个字符串在开始索引到结束索引之间的一个子集, 或从开始索引直到字符串的末尾的一个子集。
+        */
+        // var str = '我是一条狗狗，你也是一条狗狗，哈哈哈';
+        // console.log(str.substring(7,-2));//我是一条狗狗，
+        // console.log(str.substring(7,0));//我是一条狗狗，
+        // console.log(str.substring(0,7));//我是一条狗狗，
+        // console.log(str.substring(7, 13));//你也是一条狗
+
+        /* 
+        str.slice(beginIndex[, endIndex])
+        slice() 方法提取某个字符串的一部分，并返回一个新的字符串，且不会改动原字符串。
+        序号如果是负数 则被视为倒数第n个字符
+        */
+        // var str = 'The quick brown fox jumps over the lazy dog.';
+        // // console.log(str.slice(4,9));//含头不含尾
+        // // console.log(str.slice(-4))//从倒数第4个字符直接截取到末尾
+        // console.log(str.slice(-9, -5));//lazy 截取   [倒数第9个字符,倒数第5个字符)
+
+
+        /* toLowerCase() 会将调用该方法的字符串值转为小写形式，并返回。 */
+        // console.log("YourSister".toLowerCase());//yoursister
+        // console.log("YourSister".toUpperCase());//YOURSISTER
+
+
+        /* 
+        replace
+        replaceAll 
+        const newStr = str.replaceAll(substr, newSubstr|function)
+        */
+        // var str = '我是一条狗狗，你也是一条狗狗，哈哈哈';
+        // var ret = str.replace("狗狗","猪头")
+        // console.log(ret);//我是一条猪头，你也是一条狗狗，哈哈哈
+        // console.log(str);//我是一条狗狗，你也是一条狗狗，哈哈哈
+
+        // ret = str.replaceAll("狗狗","猪头")
+        // console.log(ret);//我是一条猪头，你也是一条猪头，哈哈哈
+        // console.log(str);//我是一条狗狗，你也是一条狗狗，哈哈哈
+        
+
+        // 将前两次狗狗换成猪头 最后一次狗狗换成你妹
+        // var str = '我是一条狗狗，你也是一条狗狗，狗狗：哈哈哈';
+        // var count = 0
+        // ret = str.replaceAll(
+        //     "狗狗",
+        //     function(replacement){
+        //         console.log(replacement);
+        //         count ++
+
+        //         /* 前两个“狗狗”替换成“猪头” */
+        //         if(count <= 2){
+        //             return "猪头"
+        //         }
+                
+        //         // 后续全部替换为“你妹”
+        //         else{
+        //             return "你妹"
+        //         } 
+        //     }
+        // )
+        // console.log(ret)
+
+
+        /* 
+        str.split([separator[, limit]])
+        limit 定义炸碎以后保留几个元素
+        */
+        var str = '我是一条狗狗，你也是一条狗狗，狗狗：哈哈哈';
+        var arr = str.split("，");
+        console.log(arr);
+
+        str = "我是一条狗狗"
+        console.log( str.split("") );//用空字符串炸相当于直接分割字符
+        console.log( str.split("",3) );//炸碎的结果 只取前3段
+        
+        /* 
+        str.startsWith(searchString[, position]) startsWith() 方法用来判断当前字符串是否以另外一个给定的子字符串开头，并根据判断结果返回 true 或 false。
+        str.endsWith(searchString[, length]) endsWith()方法用来判断当前字符串是否是以另外一个给定的子字符串“结尾”的，根据判断结果返回 true 或 false。
+        */
+        // var str = '我是一条狗狗，你也是一条狗狗，狗狗：哈哈哈';
+        // console.log(str.startsWith("狗狗"));//false
+        // console.log(str.endsWith("狗狗"));//false
+
+        // // // 自定义字符串的开头和结尾
+        // console.log(str.startsWith("狗狗",4));//true
+        // console.log(str.endsWith("狗狗",6));//true
+
+        /* 
+        str.includes(searchString[, position])
+        includes() 方法用于判断一个字符串是否包含在另一个字符串中，根据情况返回 true 或 false。
+        */
+        // var str = '我是一条狗狗，你也是一条狗狗，狗狗：哈哈哈';
+        // console.log(str.includes("狗狗"));//true
+        // console.log(str.includes("狗狗",17));//false
+
+
+        /* 
+        str.trim()
+        trim() 方法会从一个字符串的两端删除空白字符
+        返回：一个代表调用字符串两端去掉空白的新字符串
+        */
+        var str = ' 我是一条 狗狗  '
+        // console.log(str.trim());
+        // console.log(str.trimStart());
+        // console.log(str.trimEnd());
+
+    </script>
+</body>
+
+</html>

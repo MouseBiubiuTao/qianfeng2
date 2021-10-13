@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>严格模式</title>
+</head>
+
+<body>
+    <script>
+        // 开启严格模式
+        // "use strict";
+        // // 声明变量必须有var关键字
+        // age = 123;//Uncaught ReferenceError: age is not defined
+        // console.log(age);
+
+        // 开启严格模式
+        // "use strict";
+        // // // Uncaught SyntaxError: Duplicate parameter name not allowed in this context
+        // // // 未捕获的 语法错误：重复的 参数名 不被允许 在当前上下文中
+        // function fn(a, a) {
+        //     console.log(a,a);
+        // }
+        // fn(1,2)
+
+        /* 严格模式下不允许删除成员（变量、对象、函数） */
+        // "use strict";
+        // var age = 123;
+        // var obj = {};
+        // var fn = function (params) {};
+        // //Uncaught SyntaxError: Delete of an unqualified identifier in strict mode.
+        // delete age;
+        // delete obj;
+        // delete fn;
+        // console.log(age,obj,fn);
+
+        // Uncaught SyntaxError: Octal literals are not allowed in strict mode.
+        // 未捕获的 语法错误: 八进制 语言 不被允许 在严格模式下
+        // "use strict";
+        // var age = 017;
+        // console.log(age);
+
+        /* 禁止this指向全局对象window，使用this时返回undefined */
+        // "use strict";
+        // function fn(params) {
+        //     console.log(this);//undefined
+        // }
+        // fn();
+
+        // // 在函数中使用this的场景主要在构造函数中
+        // function Car(name, wheels) {
+        //     console.log(this);
+        //     this.name = name
+        //     this.wheels = wheels
+        // }
+
+        // // // 严格模式强迫你使用new关键字来创建新对象
+        // let car = new Car("宝驴", 4)
+        // console.log(car);
+
+        // /* ES5中 变量能穿透大括号 */
+        // if(true){
+        //     var a = 100
+        // }
+        // console.log(a);
+    </script>
+</body>
+
+</html>

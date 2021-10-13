@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>定时器</title>
+</head>
+
+<body>
+
+    <p id="pTimer"></p>
+    <p id="pBomb">预感好像有好事情即将发生...</p>
+    <button id="btnRemove">拆除炸弹</button>
+
+    <!-- <script>
+        // 每秒引爆一颗定时炸弹
+        var count = 0
+        var timerId = setInterval(function () {
+            pBomb.innerText = "BOOM!!!!" + ++count
+        }, 1000)
+
+        btnRemove.onclick = function(){
+            clearInterval(timerId)
+            pBomb.innerText = "炸弹已拆除"
+        }
+    </script> -->
+
+    <!-- 10秒后 炸弹爆炸 -->
+    <script>
+        // 开始10秒倒计时
+        var seconds = 10
+        var timerId1 = setInterval(function () {
+            pTimer.innerText = `距离炸弹爆炸还有${--seconds}秒`
+        }, 1000)
+
+        // 10秒后执行定义的任务 
+        // 返回值为定时器id
+        var timerId2 = setTimeout(function () {
+            pBomb.innerText = "BOOOOM!!!"
+
+            // 清除周期定时器
+            clearInterval(timerId1)
+            pTimer.innerText = `00:00`
+        }, 10 * 1000)
+
+        btnRemove.onclick = function () {
+            // 清除周期定时器
+            clearInterval(timerId1)
+            pTimer.innerText = `00:00`
+
+            // 清除延时定时器
+            clearTimeout(timerId2)
+            pBomb.innerText = "炸弹已拆除"
+        }
+    </script>
+</body>
+
+</html>

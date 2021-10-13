@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+
+  <script>
+
+    /* 构造函数：爹：给实例个性 */
+    function Person() { 
+      function H5(){}
+      function JAVA(){}
+
+      Person.prototype.eat = function(){}
+    }
+
+    /* 
+    原型：妈：给实例共性
+    原型方法：哪个实例调用，方法中的this就指向哪个实例 
+    */
+    Person.prototype.sayHi = function () { console.log("hi from mommy"); }
+
+    /* 
+    创建对象 得到构造函数的实例：孩儿：从爹那得到个性 从妈得到共性
+    */
+    const p1 = new Person()
+
+    // 找他爹
+    console.log(p1.constructor);
+
+    // 找他妈（妈有的他就有）
+    console.log(p1.__proto__);
+
+    // 找他外婆（{好几吨属性和方法}）（外婆有的他就有）
+    console.log(p1.__proto__.__proto__);
+
+    // 找他祖宗（外婆的妈 null 他外婆就是夏娃）
+    console.log(p1.__proto__.__proto__.__proto__);//null
+
+    // 自己没有的从原型链中就近继承 否则用自己有的
+    console.log("hasOwnProperty?",p1.hasOwnProperty("sayHi"));
+    p1.sayHi()//hi from mommy
+
+    p1.sayHi = function () { console.log("hi from self"); }
+    console.log("hasOwnProperty?",p1.hasOwnProperty("sayHi"));
+    p1.sayHi()
+
+  </script>
+</body>
+
+</html>

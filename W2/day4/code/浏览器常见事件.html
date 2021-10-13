@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        window.onload = function () {
+            console.log(box);
+        }
+    </script>
+    <style>
+        body {
+            height: 2000px;
+            width: 2000px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">监狱</div>
+
+    <script>
+        window.onscroll = function () {
+            console.log(`有个吊毛在动滚动条`);
+
+            console.log(window.scrollX, window.scrollY);
+            console.log(document.documentElement.scrollLeft, document.documentElement.scrollTop);
+
+        }
+
+        window.onresize = function () {
+            console.log("有个吊毛在缩放页面");
+            console.log(window.innerWidth, window.innerHeight)
+        }
+    </script>
+
+</body>
+
+</html>

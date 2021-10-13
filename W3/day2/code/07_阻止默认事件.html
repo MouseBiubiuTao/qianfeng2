@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>07_阻止默认事件</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        ul {
+            width: 200px;
+            position: absolute;
+            display: none;
+        }
+
+        li {
+            width: 100%;
+            height: 40px;
+            /* 宽度包含border 设置为content-box则宽度不包含border */
+            box-sizing: border-box;
+            border: 2px solid #333;
+        }
+
+        li.active {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="https://www.baidu.com" id="aBaidu">百度一下</a>
+
+    <ul id="myMenu">
+        <li>修身</li>
+        <li>齐家</li>
+        <li>治国</li>
+        <li>撩妹</li>
+    </ul>
+
+    <!-- prevent预防 default默认的 -->
+    <script>
+        // ·阻止a标签的自动跳转，改为执行自定义逻辑
+        aBaidu.addEventListener(
+            "click",
+            function (e) {
+                e = e || window.event
+                console.log("您将要访问一个很黄很暴力的网站，请注意节操！");
+
+                // 阻止当前事件的默认行为 prevent预防 default默认的
+                // e.preventDefault()
+
+                // 在绑定型事件监听器中无法实现阻止默认事件
+                // return false
+            }
+        )
+
+        // aBaidu.onclick = function (e) {
+        //     e = e || window.event
+        //     console.log("您将要访问一个很黄很暴力的网站，请报备！");
+
+        //     // 阻止当前事件的默认行为 prevent预防 default默认的
+        //     // e.preventDefault()
+
+        //     // 注册型事件监听器中也可以使用
+        //     return false
+        // }
+
+        // · 阻止右键菜单，改为显示自定义的列表菜单
+        // （思路提示：监听单击或右键事件，阻止系统默认行为（a的跳转,右键弹出菜单）（e.preventDefault或return false）,并插入自定义的处理逻辑）
+        document.addEventListener(
+            "contextmenu",
+            function (e) {
+                // 阻止默认事件
+                e.preventDefault()
+
+                // 在点击位置（e.pageX,e.pageY）出现myMenu
+                myMenu.style.left = e.pageX + "px"
+                myMenu.style.top = e.pageY + "px"
+                myMenu.style.display = "block"
+            }
+        )
+
+        /* 在页面任意位置点击左键 自定义菜单消失 */
+        document.addEventListener(
+            "click",
+            function (e) {
+                myMenu.style.display = "none"
+            }
+        )
+
+        /* 点击自定义菜单项 log菜单项的文本 */
+        var menuItems = document.querySelectorAll("#myMenu>li")
+        menuItems.forEach(
+            function (item, index) {
+                item.onclick = function (e) {
+                    console.log(this.innerText);
+
+                    // 点击事件继续冒泡给document=>自定义菜单消失
+                }
+
+                // 鼠标移入谁 谁高亮
+                item.addEventListener(
+                    "mouseenter",
+                    function (e) {
+                        this.classList.add("active")
+                    }
+                )
+
+                // 鼠标移出谁 谁取消高亮
+                item.addEventListener(
+                    "mouseleave",
+                    function (e) {
+                        this.classList.remove("active")
+                    }
+                )
+            }
+        )
+    </script>
+</body>
+
+</html>
