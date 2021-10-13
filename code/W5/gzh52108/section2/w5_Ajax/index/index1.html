@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ajax练习</title>
+    <link rel="stylesheet" href="./comm.css">
+</head>
+
+<body>
+    <h1>商品列表</h1>
+    <select></select>
+    <div id="commodity"></div>
+    <script src="./封装.js"></script>
+    <script>
+        const commodity = document.querySelector("#commodity");
+        const select = document.querySelector("select");
+
+        const goodslistHandle = function (data) {
+            const lis = data.result.map((item) => {
+                return `<li class="goods" data-id="${item._id}">
+                    <a href="nimade.html?id=${item._id}"> 
+                    <img src="http://120.76.247.5:2003${item.img_url}"></a>
+                    <h4>${item.goods_name}</h4>
+                    <dd>分类:${item.category}</dd>
+                    <p><del>${item.price}</del><span>${item.sales_price}</span></p>
+                    </li>`;
+            });
+
+            commodity.innerHTML = lis.join("");
+        };
+
+        //渲染商品
+        request("/goods?category=女士表", goodslistHandle);
+
+        //列出分类信息
+        request("/category", (data) => {
+            select.innerHTML = data.result.map((item) => {
+                return `<option>${item.text}</option>`;
+            });
+        });
+
+        // 根据分类显示相应的数据
+        select.onchange = function () {
+            const cat = this.value;
+            request("/goods?category=" + cat, goodslistHandle);
+        };
+    </script>
+</body>
+
+</html>

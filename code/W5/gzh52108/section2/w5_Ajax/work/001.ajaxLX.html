@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax练习</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        h1 {
+            margin: 20px;
+            font-size: 52px;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        #commodity {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #commodity li {
+            width: 200px;
+            height: 400px;
+            margin: 10px;
+            position: relative;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        dd {
+            position: absolute;
+            left: 0px;
+            bottom: 40px;
+        }
+
+        p {
+            color: rgb(165, 159, 159);
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+        }
+
+        span {
+            margin-left: 10px;
+            color: red;
+            font-weight: 600;
+        }
+
+        del::before,
+        span::before {
+            content: '￥';
+        }
+    </style>
+</head>
+
+<body>
+    <h1>商品列表</h1>
+    <select></select>
+    <div id="commodity"></div>
+    <script>
+        const commodity = document.querySelector('#commodity')
+        const select = document.querySelector('select')
+
+        const temp = new XMLHttpRequest();
+
+        temp.onload = function () {
+            const {
+                data
+            } = JSON.parse(temp.responseText)
+
+            const lis = data.result.map(item => {
+                return `<li>
+                    <img src="http://120.76.247.5:2003${item.img_url}">
+                    <h4>${item.goods_name}</h4>
+                    <dd>分类:${item.category}</dd>
+                    <p><del>${item.price}</del><span>${item.sales_price}</span></p>
+                    </li>`
+            })
+            commodity.innerHTML = lis.join('')
+        }
+
+        temp.open("get", `http://120.76.247.5:2003/api/goods?category=男士表`, true);
+        temp.send()
+
+        const category = new XMLHttpRequest();
+
+        category.onload = function () {
+            const {
+                data
+            } = JSON.parse(category.responseText);
+            select.innerHTML = data.result.map(item => {
+                return `<option>${item.text}</option>`
+            }).join('')
+        }
+
+        category.open('get', 'http://120.76.247.5:2003/api/category', true);
+        category.send();
+
+        select.onchange = function () {
+            const cat = this.value;
+            temp.open('get', 'http://120.76.247.5:2003/api/goods?category=' + cat, true)
+            temp.send();
+        }
+    </script>
+</body>
+
+</html>

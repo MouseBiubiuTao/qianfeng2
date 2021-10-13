@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品列表</title>
+    <style>
+        li {
+            list-style: none;
+            width: 300px;
+            height: 500px;
+            float: left;
+            margin: 20px;
+            text-align: center;
+        }
+
+        li>img {
+            width: 100%;
+        }
+
+
+        .price del {
+            color: #000;
+            margin-right: 10px;
+        }
+
+        .price span {
+            color: red;
+        }
+
+        .price del::before,
+        .price span::before {
+            content: '￥';
+        }
+    </style>
+</head>
+
+<body>
+    <h1>商品列表</h1>
+    <div id="goodslist">
+
+    </div>
+    <script>
+        const goodslist = document.getElementById("goodslist");
+
+        const xhr = new XMLHttpRequest();
+
+        xhr.open('get', 'http://120.76.247.5:2003/api/goods?category=男士表', true)
+
+        xhr.send();
+
+        console.log(xhr);
+
+
+        xhr.onload = function () {
+            // console.log('xhr=', xhr.responseText);
+            const {
+                data
+            } = JSON.parse(xhr.responseText)
+            console.log(data);
+
+            const lis = data.result.map(item => {
+                return `<li>
+                <img src="http://120.76.247.5:2003${item.img_url}"/>
+                <h4>${item.goods_name}</h4>
+                <p>类别:${item.category}</p>
+                <p class="price"><del>${item.price}</del><span>${item.sales_price}</span></p>
+                </li>`
+            })
+
+            goodslist.innerHTML = lis.join("")
+        }
+    </script>
+</body>
+
+</html>

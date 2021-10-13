@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./common.css">
+    <script src="./lunzi.js"></script>
+</head>
+
+<body>
+    <h1>商品列表</h1>
+    <select></select>
+    <div id="div"></div>
+
+    <script>
+        const sele = document.querySelector("select");
+        const div = document.querySelector("div");
+
+        const goods = function (data) {
+            const lis = data.result.map(item => {
+                return `
+                <li>
+                    <a href="./liebiao.html?id=${item._id}">
+                    <img src="http://120.76.247.5:2003${item.img_url}"/></a>
+                    <h4>${item.goods_name}</h4>
+                    <dd>分类:${item.category}</dd>
+                    <p><del>${item.price}</del><span>${item.sales_price}</span></p>
+                </li> `
+            })
+
+            div.innerHTML = lis.join("")
+        }
+
+        //渲染商品
+        request('/goods?category=男士表', goods)
+
+        //分类信息
+        request('/category', data => {
+            sele.innerHTML = data.result.map(item => {
+                return `<option>${item.text}</option>`
+            })
+        })
+
+        //改变下拉菜单时重新渲染
+        sele.onchange = function () {
+            const zhi = this.value;
+
+            request('/goods?category=' + zhi, goods)
+        }
+    </script>
+
+</body>
+
+</html>

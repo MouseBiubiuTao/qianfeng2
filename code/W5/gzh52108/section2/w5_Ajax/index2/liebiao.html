@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品详情</title>
+    <link rel="stylesheet" href="./common.css">
+    <script src="./lunzi.js"></script>
+</head>
+
+<body>
+    <h1>商品详情</h1>
+    <div id="div"></div>
+    <button>加入购物车</button>
+    <button>立即购买</button>
+
+    <script>
+        const div = document.getElementById("div");
+
+        const params = new URLSearchParams(location.search);
+        const id = params.get("id")
+
+        console.log(id);
+        // request('/goods/' + id, data => {
+        //     div.innerHTML = `
+        //          <img src="http://120.76.247.5:2003${data.img_url}"/>
+        //          <h3>${data.goods_name}</h3>
+        //          <p>${data.category}</p>
+        //          <p class="price"><del>${data.price}</del><span>${data.sales_price}</span></p>
+        //     `
+        // })
+
+        const promise = ajax('/goods/' + id)
+        promise.then(data => {
+            div.innerHTML = `
+            <img src="http://120.76.247.5:2003${data.img_url}"/>
+                <h3>${data.goods_name}</h3>
+                <p>${data.category}</p>
+                <p class="price"><del>${data.price}</del><span>${data.sales_price}</span></p>
+            `
+        })
+    </script>
+</body>
+
+</html>

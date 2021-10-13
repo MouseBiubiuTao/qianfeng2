@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>处理返回数据</title>
+</head>
+
+<body>
+    <h1>处理返回数据</h1>
+    用户名<input type="text" id="username">
+
+    <script>
+        const username = document.querySelector("#username")
+
+        username.onchange = function () {
+            const name = username.value;
+            const xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function () {
+                console.log('readyState',xhr.readyState);
+
+                if (xhr.readyState===1) {
+                    console.log('加载中');
+                }else if (xhr.readyState===4) {
+                    console.log('加载完毕');
+                    console.log(xhr.responseText);
+                }
+            }
+
+            xhr.onload = function(){
+                console.log('onload',xhr.responseText);
+            }
+
+            xhr.open("get", 'http://120.76.247.5:2003/api/user/check?username' + name, true);
+
+            xhr.send()
+        }
+    </script>
+
+</body>
+
+</html>
