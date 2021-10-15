@@ -1323,3 +1323,185 @@
         * git status    查看仓库状态
     * git过滤清单
         > .gitignore
+
+## day7-3
+
+### 面试题
+* 你们的团队时如何管理git分支
+
+### 复习
+* Sass语法
+* Git
+    * 作用
+        * 版本管理
+        * 团队协作
+    * 三大区
+        * 工作区
+        * 暂存区
+        * 版本库
+    * 使用步骤
+        1. 仓库初始化：git init
+            > 本地仓库
+        2. 修改文件
+        3. git add
+        4. git commit 
+
+### 知识点
+* git 版本管理工具
+* 代码托管服务器
+    * github
+    * gitlap
+    * gitee
+* 本地仓库与远程仓库
+    * 本地仓库：保存在自己电脑中的git仓库（通过git init创建的仓库）
+    * 远程仓库：
+        1. 创建远程仓库： github
+        2. 关联：关联本地仓库与远程仓库
+            * git remote add <远程仓库名> <远程仓库地址>
+                ```bash
+                    # https: 速度较慢，每次都需要登录才能推送
+                    git remote add h52108 https://github.com/aaron-xie/h52108.git
+
+                    # ssh: 速度快，但需要配置公钥才可使用（虽然比较麻烦，但推荐这种方式）
+                    git remote add origin git@github.com:aaron-xie/h52108.git
+
+                    # 查看远程仓库
+                    git remote -v
+                ```
+        3. 推送：把本地仓库代码推送到远程仓库
+            > git push <远程仓库名> <分支名>
+            ```bash
+                git push h52108 master
+            ```
+        4. 拉取：把远程仓库的代码拉去到本地仓库
+            > git pull <远程仓库名> <分支名>
+            > git pull = git fetch（拉取） + git merge（合并）
+            ```bash
+                git pull h52108 master
+            ```
+
+    * 克隆仓库
+        > git clone <远程仓库地址>
+        * 克隆仓库 = 创建+关联
+
+* 开源
+* git 常用命令
+    * git add 
+    * git commit 
+    * git push 
+    * git pull
+    * git status
+
+* 版本管理
+    > 每一次的`git commit`都是一个版本，可以通过`git log`命令查看所有的提交版本
+    * 版本回退：
+        > 命令：`git reset`
+        * 参数
+            * --hard:工作区、暂存区、版本库的文件同时回退
+            * --mixed（默认）：暂存区、版本库的文件回退
+            * --soft：仅仅回退版本库中的文件
+       
+    * 常用命令
+        * 查看提交日志（版本记录）: `git log`
+
+        * 查看命令历史: `git reflog`  
+        * 文件对比：`git diff <文件>`
+            > 对比工作区与版本库的代码差异
+    * 应用
+         * 撤销工作区文件：`git reset HEAD --hard`
+         * 撤销（删除）暂存区文件：
+            * `git reset HEAD <file>`：撤销暂存区的修改
+            * `git rm --cache <file>`：撤销暂存区的修改
+
+* 分支
+    * 主分支（默认分支）：master/main
+        > 创建仓库时自动创建
+    * 创建分支：`git branch <分支名>`
+    * 查看分支：`git branch`
+    * 切换分支：`git checkout <分支名>`
+
+* 代码冲突
+    > 多人修改同一文件，合并时可能出现冲突
+    * 必须**解决冲突**并**提交**才能完成合并操作
+
+
+### 练习
+* 熟悉git命令
+* 找一个网站，为下周项目做准备
+
+## day7-4
+
+### 复习
+* 为什么使用git
+    * 团队协作
+    * 版本管理
+* 版本回退：git reset
+    * git三大区
+* 解决代码冲突
+    * 什么情况下会出现代码冲突
+        * git merge
+        * git pull = git fetch + git merge
+    * 如何解决冲突
+* 远程仓库
+* 分支操作
+    * 合并分支：git merge <分支名>
+
+
+### 知识点
+* 如何开始一个项目
+    * 前期准备工作
+        * 创建目录与文件
+        * 安装依赖
+        * 初始化git仓库与过滤清单
+
+* 跨域解决方案
+    > http://localhost:8080 -> http://localhost:2108
+    * **同域策略**
+        > 由于安全方面原因，ajax请求有一个限制，要求当前服务器与目标服务器**同域**，如不同域则为**跨域**
+            > 同域: 协议、域名（主机）、端口三者必须一致
+    * CORS（Cross Origin Resource Sharing）跨域资源共享
+        > 后端设置一个响应头`Access-Control-Allow-Origin`，可以为一下值
+        * `*` : 允许所有域名跨域访问
+        * 设置一个域名：只允许该域名跨域访问
+    * 服务器代理
+        > 原理：利用后端没有跨域限制的特点，从后端向目标服务器发起请求
+        * http-proxy-middleware
+
+    总结：
+        * 如果是自己的服务器，可以直接使用CORS
+        * 如果是别人的服务器
+            * 有接口：服务器代理
+            * 没有接口：爬
+        
+* 数据来源
+    * 手动录入
+    * 代理（数据只读）
+    * 爬
+
+## day7-5
+
+### 复习
+* 跨域解决方案
+    * 什么是跨域，为什么会有跨域限制
+    * JSONP
+    * CORS
+    * 服务器代理
+        > 只能获取数据，不能修改数据
+    * 爬虫
+
+### 知识点
+* 爬虫
+    * 分析请求
+    * 分析页面结构
+    * 利用工具
+        * superagent    用于发起请求
+        * cheerio       用户处理html结构
+* 爬取页面内容
+    * 有接口
+        1. 在后端请求接口数据，返回json数据
+        2. 处理数据并写入数据库
+    * 无接口
+        1. 分析html结构，找到需要爬取数据的html部分
+        2. 发起请求，返回html结构
+        3. 筛选html结构，提取所需数据
+        4. 把数据写入数据库
